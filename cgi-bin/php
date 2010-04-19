@@ -1,0 +1,8 @@
+#!/bin/sh
+PHPRC=/etc/php5/php.ini
+export PHPRC
+PHP_FCGI_CHILDREN=1
+export PHP_FCGI_CHILDREN
+PHP_FCGI_MAX_REQUESTS=1000
+export PHP_FCGI_MAX_REQUESTS
+exec /usr/lib/cgi-bin/php5

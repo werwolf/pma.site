@@ -1,0 +1,30 @@
+README
+======
+
+Developers
+-----------
+Programmer      :       
+Programmer      :       Golphamid Nazar N.
+Programmer      :       Chernyavskiy Anton S.
+
+
+Project site
+------------
+http://pma.h1.ukindex.com
+
+
+Description
+------------
+pma.test - site of Dept. of Applied Mathematic
+NTUU "KPI" (c) 2010
+
+
+Documentation
+-------------
+
+
+Config on local server
+-----------------------
+1. Install php5, mysql, apache2 and configured it to use virtual host.
+2. Import base 'pma.sql'.
+3. Create and config file '/config/config.php'.

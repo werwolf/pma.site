@@ -1,0 +1,220 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	font: 12px/18px Arial, Tahoma, Verdana, sans-serif;
+}
+a {
+	color: white;
+	outline: none;
+	text-decoration: underline;
+}
+a:hover {
+	text-decoration: none;
+}
+p {margin: 0 0 18px}
+img {
+	border: none;
+}
+input {vertical-align: middle}
+#wrapper {
+	width: 100%;
+	min-width: 1000px;
+}
+
+
+/* Header
+-----------------------------------------------------------------------------*/
+#header {
+	height: 60px;
+	background: #bcbcbc;
+}
+
+#header a {
+        font-size: 20px;
+        display: block;
+        padding-top: 5px;
+        padding-left: 5px;
+}
+
+#header h1 {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        font-family: sans-serif;
+        color: blue;
+}
+
+
+/* Middle
+-----------------------------------------------------------------------------*/
+#middle {
+	border-left: 240px solid #bcbecb;
+	/*height: 1%;*/
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 40px;
+}
+#middle:after {
+	content: '.';
+	display: block;
+	clear: both;
+	visibility: hidden;
+	height: 0;
+}
+#container {
+	width: 100%;
+	float: left;
+	overflow: hidden;
+	margin-right: -100%;
+}
+#content {
+	padding: 10px 20px 10px 10px;
+	/*height: 515px;*/
+        height: 480px;
+	overflow: auto;
+}
+
+/* Sidebar Left
+-----------------------------------------------------------------------------*/
+.sl {
+	float: left;
+	width: 230px;
+	padding: 0 5px;
+	position: relative;
+	background: #bcbecb;/*B5E3FF*/
+	left: -240px;
+	/*height: 535px;*/
+        height: 100%;
+	background-image: url(../img/linii_bottom_2.png);
+        background-repeat: no-repeat;
+}
+
+
+/* Footer
+-----------------------------------------------------------------------------*/
+#footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 35px;
+	background: #ACACAC;
+	color: blue;
+	font-size: 16px;
+	font-family: sans;
+	text-align: center;
+	padding-top: 5px;
+}
+
+/************************** Main Menu (left sidebar) **************************/
+#left_main_menu  ul li { 
+	position: relative; 
+	width: 230px;
+	padding:0;
+	margin:0;
+}
+ 
+#left_main_menu  li ul { 
+	position: absolute; 
+	left: 230px; 
+	top: 0; 
+	display: none; 
+}
+ /* submenu (float) */
+#left_main_menu  ul li a { 
+	display: block;
+	text-decoration: none; 
+	color: #777; 
+	background: #fff; 
+	padding: 5px; 
+	border: 1px solid #ccc; 
+	border-bottom: 0;
+	height: 20px;
+}
+
+#left_main_menu ul { 
+	list-style: none; 
+	margin: 0; 
+	padding: 0; 
+	list-style: none; 
+	width: 230px; 
+	border-bottom: 1px solid #ccc; 
+}
+ 
+#left_main_menu  li:hover ul {
+	display: block; 
+}
+
+#left_main_menu  a:hover {
+	/*background: #faf3d2;*/
+        background: #bcbecb;
+ 	/*border: 1px solid #634f36;*/
+        border: 1px solid #b2b2b2;
+        color: #ffffff;
+}
+
+/********************* Content style (right sidebar) **************************/
+#content {
+	color: #4F6EA1;
+	font-size: 16px;
+}
+
+#content a {
+	color:#4F6EA1;
+	font-size:0.9em;
+	text-decoration:underline;
+}
+
+#content p {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#content ul {
+	margin: 10px 30px 10px 30px;
+	list-style-position: outside;
+	list-style-type: square;
+}
+
+#content h1 {
+	font-size: 22px;
+}
+#content h2 {
+	font-size: 20px;
+}
+#content h3 {
+	font-size: 18px;
+}
+
+#content em {
+	font-size: 14px;
+	font-style: italic;
+}
+
+#content q {
+	display: block;
+	display: inline-block !important;	
+	border: dotted #666 1px;
+	border-left: solid #4372a3 5px;
+	margin: 10px 40px;
+	padding: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	color: #4F6FA0;
+	font-style: italic;
+	font-size: 14px;
+	background: #eaeaea;
+	quotes: none;
+}
+
+#content q:first-letter {
+	margin-left: 20px;
+}
+
+#content p:first-letter {
+	margin-left: 20px;
+}
