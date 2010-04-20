@@ -36,7 +36,7 @@
             rownumbers: true,
             rownumWidth: 15,
             cellEdit: true,
-            cellsubmit: 'clientArray',
+            cellsubmit: 'clientArray'
 
             //onCellSelect: function( rowid, iCol, cellcontent, e) {
             //    jQuery("#celltbl").jqGrid('setLabel','id','haha');

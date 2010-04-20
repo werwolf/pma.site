@@ -1,0 +1,24 @@
+
+.lable {
+    float: left;
+    margin-right: 5px;
+    color: white;
+    font-size: 20px;
+    width: 200px;
+}
+
+select {
+    height: 22px;
+    width: 150px;
+    float: right;
+}
+
+#colname {
+    width: 145px;
+    float: right;
+}
+
+.button {
+    margin: 0 auto;
+    display: block;
+}

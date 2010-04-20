@@ -61,7 +61,7 @@ $labels = array(
                       ),
 
     'rating' => array (
-                        'bc_title' => 'Рейтынг студентів',
+                        'bc_title' => 'Рейтинг студентів',
                         'rating'=>'Рейтинг',
                         'create_table'=>'Создать таблицу',
                         'view_table'=>'Просмотр таблицы',
