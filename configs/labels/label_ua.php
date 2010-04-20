@@ -57,9 +57,16 @@ $labels = array(
                         'rank' => 'Звання',
                         'student' =>'Студент',
                         'praepostor'=>'Староста',
-                        'trade-union'=>'Профорг',
-                        'rating'=>'Рейтинг'
+                        'trade-union'=>'Профорг'                        
                       ),
+
+    'rating' => array (
+                        'bc_title' => 'Рейтынг студентів',
+                        'rating'=>'Рейтинг',
+                        'create_table'=>'Создать таблицу',
+                        'view_table'=>'Просмотр таблицы',
+                        'edit_table'=>'Редактировать таблицу'
+    ),
     'fileshare' => array(
                         'bc_title' => 'Файловe хранилице',
                         'picture'=>'Зоображення',

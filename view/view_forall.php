@@ -12,14 +12,14 @@
     <? if($module[2]=='profile' && $module[3]=='download'): ?>
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/fileview.css" />
     <? endif;?>
-    <? if($module[2]=='profile' && $module[3]=='rating'): ?>
+    <? if($module[2]=='rating' && $module[3]=='edit'): ?>
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/css/flick/jquery-ui-1.8.custom.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/css/ui.jqgrid.css" />
     <? endif;?>
 
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/jquery.js"></script>
 
-    <? if($module[2]=='profile' && $module[3]=='rating'): ?>
+    <? if($module[2]=='rating' && $module[3]=='edit'): ?>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/i18n/grid.locale-ru.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/jquery.jqGrid.min.js"></script>
     <? endif;?>

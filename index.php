@@ -69,6 +69,9 @@ switch($module[2])
     case 'profile':$View->module = "profile";
                 require_once("controllers/profile/controller_profile.php");
                 require_once("view/view_forall.php");
+    case 'rating':$View->module = "rating";
+                require_once("controllers/rating/controller_rating.php");
+                require_once("view/view_forall.php");
     break;
     case 'ajax':require_once("controllers/ajax/controller_ajax.php");
     break;
