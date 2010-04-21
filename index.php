@@ -22,8 +22,7 @@ switch($us_temp['State'])
     break;
 
     case STUDENT:$user = new Student($db,$us_temp['ID']);$user->getUserInformation();break;
-    case PROFFESOR:$user = new Professor($db,$us_temp['ID']);$user->getUserInformation();
-    break;
+    case PROFFESOR:$user = new Professor($db,$us_temp['ID']);$user->getUserInformation();break;
 }
 config::init($db);
 config::loadConfig();

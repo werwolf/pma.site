@@ -22,12 +22,13 @@ else
     pages::getLeftMenu(pages::getAllPages(), $parent, &$menu, 0);    
     
     $menu = str_replace("<ul></ul>","", $menu);
-
+    
     $f = fopen("static/templates/left_menu/".md5("left_menu".$parent.config::getDefaultLanguage()),"w");
     fwrite($f, $menu);
     fclose($f);
-
+    
     $View->left_menu_content = $menu;
+
 }
 
 if((int)$module[3] == 0 || (int)$module[3] ==1)

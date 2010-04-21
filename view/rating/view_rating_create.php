@@ -41,9 +41,11 @@
     
 
     <script type="text/javascript">
-        $(document).ready(function(){ $("#groupes").hide(); $("#max_bal").hide(); $("#add_button").hide();});
-        $(document).ready(function(){ $("#subject").change( function(){ $("#groupes").show("slow"); }) ;});
-        $(document).ready(function(){ $("#groupes").change( function(){ $("#max_bal").show("slow"); $("#add_button").show("slow");}) ;});
+        $(document).ready(function(){
+            $("#groupes").hide(); $("#max_bal").hide(); $("#add_button").hide();
+            $("#subject").change( function(){ $("#groupes").show("slow"); }),
+            $("#groupes").change( function(){ $("#max_bal").show("slow"); $("#add_button").show("slow"); })
+        });
     </script>
     
 </div>

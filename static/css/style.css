@@ -83,7 +83,8 @@ input {vertical-align: middle}
 	z-index: 1;
 }*/
 
-#left_main_menu {
+/* #left_main_menu class */
+.left_content_menu {
 	position: relative;
 	width: 235px;
 	background: #e2dedf;

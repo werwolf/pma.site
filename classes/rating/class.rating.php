@@ -1,22 +1,56 @@
 <?php
 class user
 {
-    protected  $db;
+    protected $db;
 //    protected  static $is_login = false;
 //    protected  $user_info;
 //    protected  static $secret = "bdbdes1./";
-    protected  $id = 0;
+//    protected $id = 0;
+    private $tablename;
+    private $date_create;
+    private $max_rating;
+    private $professor_id;
 
-    public function  __construct($db,$id)
+    public function  __construct($db,$subject,$groupe,$professor_id)
     {
         $this->db = $db;
+        $this->$tablename = $subject + '_' + $groupe;
+        $this->$professor_id = $professor_id;
 //        $this->id = $id;
+    }
+
+    public function getProfessorSubjects($professor_id)
+    {
+        $sql = "select `Title`,`ID` from `Subjects` order by `Title`";
+        //$db->query($sql);
+        return self::$db->assocAll();
     }
 
     public function getRatingTable()
     {
 
 
+
+    }
+
+    public function setRatingTable()
+    {
+
+
+
+    }
+
+    public function getRatingRecord()
+    {
+
+
+
+    }
+    
+    public function setRatingRecord()
+    {
+
+        
 
     }
 
