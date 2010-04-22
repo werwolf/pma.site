@@ -9,19 +9,22 @@
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/style.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/login.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/datepicker.css" />
-    <? if($module[2]=='profile' && $module[3]=='download'): ?>
+<!-- -->
+    <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/rating.css" />
+
+    <? if($module[3]=='download'): ?>
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/fileview.css" />
     <? endif;?>
-    <? if($module[2]=='profile' && $module[3]=='rating'): ?>
+    <? if($module[3]=='edit'): ?>
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/css/flick/jquery-ui-1.8.custom.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/css/ui.jqgrid.css" />
     <? endif;?>
-
+<!-- -->
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/jquery.js"></script>
 
-    <? if($module[2]=='profile' && $module[3]=='rating'): ?>
+    <? if($module[3]=='edit'): ?>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/i18n/grid.locale-ru.js"></script>
-    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/jquery.jqGrid.min.js"></script>
+    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/my.jquery.jqGrid.min.js"></script>
     <? endif;?>
     
     <? if(!user::isLoged()): ?>
@@ -140,9 +143,14 @@
         </div>
 
         <div id="sidebar">
-            <div id="left_main_menu"><? require_once("view/".$View->left_menu."/view_".$View->left_menu."_template.php"); ?>
-                <!--<div style="padding: 10px 25px 0 25px;"><script type="text/javascript" src="http://www.ubuntu.com/files/countdown/display2.js"></script></div>-->
-            </div>
+            <?if($module[2]!='page' || ($module[3]!='60' && $module[3]!='4')):?>
+                <div id="left_main_menu" class="left_content_menu"><? require_once("view/".$View->left_menu."/view_".$View->left_menu."_template.php"); ?></div>
+            <?else:?>
+                <div id="ubuntu_10.4" class="left_content_menu">
+                    <div style="padding-left: 25px;"><script type="text/javascript" src="http://www.ubuntu.com/files/countdown/display2.js"></script></div>
+                </div>
+            <?endif;?>
+            
             <!--<div id="left_main_menu_bakground"></div>-->
         </div><!-- #sidebar -->
 

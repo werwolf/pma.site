@@ -12,7 +12,14 @@
     </li>
 
     <li>
-        <a href="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/profile/rating"><?=$labels['profile']['rating'];?></a>
+        <a href="javascript:void(0)"><?=$labels['rating']['rating'];?></a>
+        <ul>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/rating/create"><?=$labels['rating']['create_table'];?></a></li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/rating/view"><?=$labels['rating']['view_table'];?></a></li>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/rating/edit"><?=$labels['rating']['edit_table'];?></a></li>
+        </ul>
+
+
     </li>
     <? endif;?>
 </ul>
