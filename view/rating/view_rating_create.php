@@ -1,4 +1,10 @@
 <? if (!defined("entrypoint"))die;?>
+
+<?
+    $View->subjects_id = $user->getProfessorSubjectsIds();
+    $View->subjects = $user->getProfessorSubjects();
+?>
+
 <div id="profile">
 
     <h3 align="center">Create rating table</h3>
@@ -10,9 +16,9 @@
                 <div class="lable">Предмет</div>
 
                 <select name="subject" id="subject">
-                    <? for($i=1; $i<13; $i++):?>
-                        <option><?=$i;?></option>
-                    <?endfor;?>
+                    <? for($i=0;$i<count($View->subjects_id);$i++): ?>
+                        <option value="<?=$View->subjects_id[$i];?>"><?=$View->subjects[$i]['Title'];?></option>
+                    <? endfor;?>
                 </select>
             </div>
 
@@ -45,7 +51,35 @@
             $("#groupes").hide(); $("#max_bal").hide(); $("#add_button").hide();
             $("#subject").change( function(){ $("#groupes").show("slow"); }),
             $("#groupes").change( function(){ $("#max_bal").show("slow"); $("#add_button").show("slow"); })
+
+            $("#max_bal").keypress(function (e)
+            {
+                if( e.which!=8 && e.which!=13 && e.which!=0 && (e.which<48 || e.which>57))
+                {
+                    //$("#errmsg").html("Только цифры").show().fadeOut("slow");
+                    return false;
+                }
+            });
+
         });
+
+//        $.ajax({
+//            type:"POST",
+//            url:'http://<?//=$_SERVER['HTTP_HOST'];?>/<?//=config::getDefaultLanguage();?>/ajax/create_table/',
+//            cache:false,
+//            data:"filename="+$("#file").val()+"&cover="+$("#cover").val(),
+//            success:function(data)
+//            {
+//                if(data == 'true')
+//                {
+//                    $("#upload_file").submit();
+//                }
+//                else
+//                {
+//                    alert("Error.");
+//                }
+//            }
+//        });
     </script>
     
 </div>

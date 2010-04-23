@@ -36,15 +36,15 @@
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/check_file.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/datepicker.js"></script>
 
+    <!--[if IE 7]>
+    <style type="text/css">
+        #left_main_menu ul li { float: left; }
+        #left_main_menu ul li a { height: 1%; }
+    </style>
+    <![endif]-->
 </head>
 
 <body>
-<!--[if IE 7]>
-<style type="text/css">
-    #left_main_menu ul li { float: left; }
-    #left_main_menu ul li a { height: 1%; }
-</style>
-<![endif]-->
 <div id="wrapper">
     <div id="header">
         <div id="header_top">
