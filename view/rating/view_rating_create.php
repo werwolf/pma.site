@@ -16,6 +16,7 @@
                 <div class="lable">Предмет</div>
 
                 <select name="subject" id="subject">
+                    <option>...</option>
                     <? for($i=0;$i<count($View->subjects_id);$i++): ?>
                         <option value="<?=$View->subjects_id[$i];?>"><?=$View->subjects[$i]['Title'];?></option>
                     <? endfor;?>
