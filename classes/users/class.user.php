@@ -2,11 +2,12 @@
 class user
 {
     protected  $db;
-    protected  static $is_login = false;
     protected  $user_info;
-    protected  static $secret = "bdbdes1./";
     protected  $id = 0;
-
+    protected  $isAdmin = false;
+    protected  static $is_login = false;
+    protected  static $secret = "bdbdes1./";
+    
     public function  __construct($db,$id)
     {
         $this->db = $db;
@@ -30,6 +31,16 @@ class user
         self::$is_login = true;
 
         return $res;
+    }
+    public function isAdminCheck()
+    {
+        $sql = "select `id` from `Admins` where `User_ID` = ".$this->getUserId();        
+        $this->db->query($sql);
+
+        if($this->db->numRows() > 0)        
+            $this->isAdmin = true;
+
+        return $this->isAdmin;
     }
     public static function authentification($login,$pass,$db)
     {
@@ -131,6 +142,10 @@ class user
     public function getUserId()
     {
         return $this->user_info["ID"];
+    }
+    public function isAdmin()
+    {
+        return $this->isAdmin;
     }
 }
 

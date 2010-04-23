@@ -1,0 +1,17 @@
+#pages_tree li{
+    list-style:none;
+    font-weight:bold;
+}
+#pages_tree .links{
+    float:left;
+    margin-right:20px;    
+}
+#pages_tree img{
+    margin-left:10px;
+}
+.block_page{
+    height:30px;
+    border:1px solid #CCC;
+    padding-top:10px;
+    padding-left:10px;
+}
