@@ -75,7 +75,8 @@ $labels = array(
                         'error_file_to_big'=>'File to big',
                         'error_upload_cover'=>'Cant upload picture',
                         'error_cover_to_big'=>'Picture to big',
-                        'uploader' =>'Uploader'
+                        'uploader' =>'Uploader',
+                    	'filesize'=>'Filesize'
     )
 );
 ?>

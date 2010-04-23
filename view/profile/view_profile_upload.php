@@ -24,11 +24,11 @@
         <table class="user_data">
             <tr>
                 <td><?=$labels['fileshare']['picture'];?></td>
-                <td><input type="file" name="cover" id="cover"/></td>
+                <td align="left"><input type="file" name="cover" id="cover" onchange="checkCover('http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/ajax/check_file')"/><b id="cover_accept"></b></td>
             </tr>
             <tr>
                 <td><?=$labels['fileshare']['file'];?></td>
-                <td><input type="file" name="file" id="file"/></td>
+                <td><input type="file" name="file" id="file" onchange="checkFile('http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/ajax/check_file')"/><b id="file_success"></b></td>
             </tr>
             <tr>
                 <td><?=$labels['fileshare']['subject'];?></td>
@@ -48,7 +48,7 @@
             </tr>
             <tr>
                 <td><?=$labels['fileshare']['title'];?></td>
-                <td><input type="text" name="title"/></td>
+                <td><input type="text" name="title" id="title_file"/></td>
             </tr>
 
             <tr>
@@ -60,6 +60,6 @@
         <input type="hidden" name="user_secret" value="<?=$user->getUserSecret();?>"/>
     </form>
     <div style="margin-top:30px;text-align:right;margin-right:18px">
-        <button onclick="check_file('http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/ajax/check_file/')"><?=$labels['fileshare']['upload'];?></button>
+        <button onclick="check_file()"><?=$labels['fileshare']['upload'];?></button>
     </div>
 </div>
