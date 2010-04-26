@@ -1,9 +1,9 @@
 <? if (!defined("entrypoint"))die;?>
 <div id="profile">
 
-<!---------------------------->
-<!-- remember to sync el_id -->
-<!---------------------------->
+<!-- - - - - - - - - - - - - -->
+<!-- remember to sync el_id  -->
+<!-- - - - - - - - - - - - - -->
 
 <div style="display:none"><table id="et"></table></div>
 <div id="collabels"></div>
@@ -11,7 +11,7 @@
 <div id="tcontainer">
 	<table id="desttable" border=1></table>
 </div>
-<br>
+<br/>
 
 <INPUT TYPE="button" ID="edittable" VALUE="edit cols" ONCLICK="myswitch(1)" />
 
@@ -21,12 +21,12 @@
 		<!--select id="delnum"></select-->
 		<INPUT ID="delb" TYPE="button" VALUE="delete" ONCLICK="if (myselect.options.length) delCol(myselect.options[myselect.selectedIndex].value)" />
 	</div>
-	<br>
+	<br/>
 	<INPUT ID="rest" TYPE="button" VALUE="restore" ONCLICK="restore()" disabled />
 	<INPUT TYPE="button" ID="savetable" VALUE="save changes" ONCLICK="myswitch(0)" />
 </div>
-<br>
-<br>
+<br/>
+<br/>
 
 
 <script type="text/javascript">
@@ -79,7 +79,7 @@
 					},
 					editCaption: "Зміна '"+jQuery("#"+el_id["desttable"]).jqGrid('getColProp',index).label+"'",
 					bSubmit: "Зберегти",
-					bCancel: "Відміна",
+					bCancel: "Відміна"
 				});
 			};
 		}
