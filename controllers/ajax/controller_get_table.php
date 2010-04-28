@@ -22,8 +22,8 @@ for($i=1; $i<$col_number; $i++) {
 
 for($i=0; $i < $data_number; $i++) {
     $data["data"][$i]['stud_name']="Vasya".$i;
-    for($j = 1; $j < $col_number; $j++){
-        $data["data"][$i]['col'.$j] = "data".$i;
+    for($j = 1; $j <= $col_number; $j++){
+        $data["data"][$i]['col'.$j] = $i * 13;
     }
 }
 

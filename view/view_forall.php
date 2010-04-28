@@ -32,7 +32,7 @@
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/showLogin.js"></script>
     <? endif;?>
     
-    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/setHeight.js"></script>    
+    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/setHeight.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/check_file.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/datepicker.js"></script>
 
