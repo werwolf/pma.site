@@ -37,6 +37,10 @@ class config
         }        
     }
 
+    public static function getAvailableLanguages()
+    {
+        return self::$available_langs;
+    }
     public static function getDefaultLanguage()
     {
         return self::$default_lang;
