@@ -321,7 +321,7 @@
             colmod=clone(r_colmod);
             mydata=clone(r_mydata);
 
-            document.getElementById(el_id["rest"]).setAttribute('disabled',"");
+            document.getElementById(el_id["rest"]).disabled="disabled";
             document.getElementById(el_id["delb"]).removeAttribute('disabled');
             togrid();
         }
