@@ -196,10 +196,10 @@ class Student extends user
 {
     public function getUserInformation()
     {
-        $sql = "select `Students`.`ID`,`Students`.`Rank`,`Groups`.`Title`,`Groups`.`Course`,`Groups`.`Sheduler_Path`,`Groups`.`Extranumeral`,".
+        $sql = "select `Students`.`ID` as `Stud_ID`,`Students`.`Rank`,`Groups`.`Title`,`Groups`.`Course`,`Groups`.`Sheduler_Path`,`Groups`.`Extranumeral`,".
                "`Groups`.`ID` as `GroupeID`,`Users`.* from `Users`,`Students`,`Groups` where `Users`.`ID` = $this->id and `Students`.`User_ID` = `Users`.`ID` and".
                " `Groups`.`ID` = `Students`.`Groupe_ID`";
-               
+             
         $this->db->query($sql);
         $this->user_info = $this->db->assoc();
     }

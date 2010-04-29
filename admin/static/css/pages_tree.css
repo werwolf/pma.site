@@ -1,6 +1,9 @@
 #pages_tree li{
     list-style:none;
-    font-weight:bold;
+    font-weight:bold;    
+}
+#pages_tree li ul li{
+    padding-left:40px;
 }
 #pages_tree .links{
     float:left;
@@ -11,7 +14,39 @@
 }
 .block_page{
     height:30px;
-    border:1px solid #CCC;
     padding-top:10px;
     padding-left:10px;
+    border:1px solid #CCC;
+}
+.link_work_page{
+    text-decoration:none;
+}
+.link_work_page img{
+    border:0;
+}
+#edit_page td{
+   padding:5px; 
+}
+#edit_page .edit_inputs{
+    width:300px;
+}
+#edit_page .hrr{
+    border-bottom:1px solid #4F6EA1;
+}
+#news{
+    border-collapse: collapse;
+    width:100%;
+    margin-top:20px;
+}
+#news th{
+    color:#000;
+    border-bottom:1px solid #4F6EA1;
+    border-right:1px solid #4F6EA1;
+    padding:5px;
+}
+#news td{
+    border-bottom:1px solid #4F6EA1;
+    border-right:1px solid #4F6EA1;
+    padding:5px;
+    font-size:14px;
 }
