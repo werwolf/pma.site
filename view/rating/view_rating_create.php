@@ -15,7 +15,7 @@ $View->subjects = $user->getProfessorSubjects();
             <div>
                 <div class="lable">Предмет</div>
 
-                <select name="subject" id="subject">
+                <select name="subject" id="subject" class="create">
                     <option>...</option>
                     <? for($i=0;$i<count($View->subjects_id);$i++): ?>
                     <option value="<?=$View->subjects_id[$i];?>"><?=$View->subjects[$i]['Title'];?></option>
@@ -26,7 +26,7 @@ $View->subjects = $user->getProfessorSubjects();
             <div id="groupes" style="clear: left;">
                 <div class="lable">Группа</div>
 
-                <select name="groupes">
+                <select name="groupes" class="create">
                     <!--<?//for($i=1; $i<13; $i++):?>
                         </option>KM-<?//=$i;?></option>
                     <?//endfor;?>-->

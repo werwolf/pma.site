@@ -11,22 +11,25 @@ if (!defined("entrypoint"))die;
 
 $tablename = Root::POSTString("tablename");
 
-$col_number = 6;
-$data_number = 10-2;
+$col_number = 6+1;
+$data_number = 10;
 
-$data["title"]['stud_name']="FIO";
+$data["caption"]="Група: KM-72 (ООП)";
+
+$data["title"][0]="ПІБ";
 for($i=1; $i<$col_number; $i++) {
-    $data["title"]['col'.$i] = "title".$i;
+    $data["title"][$i] = "робота".$i;
 }
 
 
 for($i=0; $i < $data_number; $i++) {
-    $data["data"][$i]['stud_name']="Vasya".$i;
+    $data["data"][$i]['stud_name']="Вася".($i+1);
     for($j = 1; $j <= $col_number; $j++){
         $data["data"][$i]['col'.$j] = $i * 13;
     }
 }
 
+$data["rating"]['stud_name']="Макс. бал";
 for($i=1; $i<$col_number; $i++) {
     $data["rating"]['col'.$i] = $i * 10;
 }

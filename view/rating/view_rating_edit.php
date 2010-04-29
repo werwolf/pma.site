@@ -1,38 +1,38 @@
 <? if (!defined("entrypoint"))die;?>
 <div id="profile">
 
-    <!-- - - - - - - - - - - - - t-->
+    <!-- - - - - - - - - - - - - -->
     <!-- remember to sync el_id  -->
     <!-- - - - - - - - - - - - - -->
-    <a href="javascript:void(0);" onclick="get_table()">clic me</a>
+    <a href="javascript:void(0);" onclick="get_table()">click me</a>
 
     <div style="display:none"><table id="et"></table></div>
-    <div id="thtmlcontainer" style="display:none"><table id="htmltable"></table></div>
-    <div id="collabels"></div>
 
-    <div id="tcontainer">
+    <div id="tcontainer" style="display:none">
         <table id="desttable" border=1></table>
     </div>
     <br/>
 
-    <INPUT TYPE="button" ID="edittable" VALUE="edit cols" ONCLICK="myswitch(1)" />
+    <input type="button" id="edittable" value="редагувати" onclick="myswitch(true)" style="display:none" />
 
     <div id="editbar" style="display:none">
-        <INPUT TYPE="text" SIZE=40 ID="labeledit" VALUE="" MAXLENGTH=200 ONKEYDOWN="return processkey(event)" /> <input id="addb" type="button" value="add" onclick="addCol(newlabel.value)" />
+        <input type="text" size=40 id="labeledit" value="" maxlength=200 onkeydown="return processkey(event)" />
+        <input type="text" size=40 id="fooedit" value="максимальний бал" maxlength=200 onfocus="if(fooedit.value=='максимальний бал'){fooedit.value='';newfoo.select()}" onkeydown="return processkey(event)" />
+        <input id="addb" type="button" value="додати" onclick="addCol(newlabel.value, newfoo.value)" />
         <div id="scontainer">
             <!--select id="delnum"></select-->
-            <INPUT ID="delb" TYPE="button" VALUE="delete" ONCLICK="if (myselect.options.length) delCol(myselect.options[myselect.selectedIndex].value)" />
+            <input id="delb" type="button" value="видалити" onclick="if (myselect.options.length) delCol(myselect.options[myselect.selectedIndex].value)" />
         </div>
         <br/>
-        <INPUT ID="rest" TYPE="button" VALUE="restore" ONCLICK="restore()" disabled />
-        <INPUT TYPE="button" ID="savetable" VALUE="save changes" ONCLICK="myswitch(0)" />
+        <input id="rest" type="button" value="відновити" onclick="restore()" disabled />
+        <input type="button" id="savetable" value="зберегти" onclick="myswitch(false)" />
     </div>
     <br/>
     <br/>
 
 
     <script type="text/javascript">
-        var el_id={et:"et", collabels:"collabels", tcontainer:"tcontainer", thtmlcontainer:"thtmlcontainer", desttable:"desttable", htmltable:"htmltable", edittable:"edittable", editbar:"editbar", labeledit:"labeledit", addb:"addb", scontainer:"scontainer", delb:"delb", rest:"rest", savetable:"savetable", delnum:"delnum"};	// don't change 'delnum'
+        var el_id={et:"et", tcontainer:"tcontainer", desttable:"desttable", edittable:"edittable", editbar:"editbar", labeledit:"labeledit", fooedit:"fooedit", addb:"addb", scontainer:"scontainer", delb:"delb", rest:"rest", savetable:"savetable", delnum:"delnum"};	// 'delnum' is reserved!
         var colmod=[
             {name:"stud_name",index:"stud_name", width:150},
             {name:"col1",index:"col1", width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}},
@@ -43,18 +43,10 @@
             {name:"col6",index:"col6", width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}}
         ];
         var mydata = new Array;
-//        var mydata=[
-//            {stud_name:"Тоха",col1:"2",col2:"1",col3:"2"},
-//            {stud_name:"Верес",col1:"1",col2:"2",col3:"3"},
-//            {stud_name:"Голубов",col1:"1",col2:"3",col3:"3"},
-//            {stud_name:"Зелінський",col1:"1",col2:"4",col3:"3"},
-//            {stud_name:"Корнічук",col1:"1",col2:"5",col3:"3"},
-//            {stud_name:"Парфьонов",col1:"1",col2:"6",col3:"3"},
-//        ];
+        var foodata = new Array;
+
         var opts={
-            caption: "Група: KM-72",
             height: "100%",
-            //width: "650",
             autowidth: true,
             cellEdit: true,
             cellsubmit: "clientArray",
@@ -63,6 +55,8 @@
             rownumWidth: 15,
             shrinkToFit: false,
             datatype: "local",
+            footerrow: true,
+            userDataOnFooter: true,
 
             onSortCol: function( index, colindex, sortorder) {
                 if(jQuery("#"+el_id["desttable"]).jqGrid('getColProp',index).sorttype=="none") {
@@ -83,11 +77,11 @@
                             newstr=jQuery("#"+el_id["et"]).jqGrid('getCell',1,'ec');
                             newstr=newstr.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
                             if (newstr!="") {
+                                document.getElementById("jqgh_"+index).setAttribute("title",newstr);
                                 jQuery("#"+el_id["desttable"]).jqGrid('setLabel',jQuery("#"+el_id["desttable"]).jqGrid('getColProp',index).name,newstr);
-                                colmod[colindex].label=newstr;
+                                colmod[colindex-1].label=newstr;
                                 totable();
                                 document.getElementById(el_id["rest"]).removeAttribute('disabled');
-
                             }
                         },
                         editCaption: "Зміна '"+jQuery("#"+el_id["desttable"]).jqGrid('getColProp',index).label+"'",
@@ -113,17 +107,12 @@
         };
 
         var mytable = document.getElementById(el_id["desttable"]);
-        var myhtmltable = document.getElementById(el_id["htmltable"]);
         var myselect = document.getElementById(el_id["delnum"]);
         var newlabel = document.getElementById(el_id["labeledit"]);
+        var newfoo = document.getElementById(el_id["fooedit"]);
         var mycontainer = document.getElementById(el_id["tcontainer"]);
-        var myhtmlcontainer = document.getElementById(el_id["thtmlcontainer"]);
-        var editing, r_table, r_select, r_colmod, r_mydata, temp_space, i;
+        var editing, r_select, r_colmod, r_mydata, temp_space, i;
 
-
-        //jQuery(document).ready(function(){
-            //initialize grid & set data
-            
 
         function get_table(){
             $.ajax({
@@ -134,29 +123,26 @@
                 success:function(data)
                 {
                     var table = eval("(" + data + ")");
-                    alert(table['data'][5]['col6']);
+
+                    $.extend(opts,{caption:table["caption"]});
 
                     for(i=0; i<table["title"].length; i++)
-                        $.extend(colmod[i],{ label:table["title"][colmod[i].name] });
+                        $.extend(colmod[i],{ label:table["title"][i] });
 
                     for(i=0; i<table["data"].length; i++)
                         mydata[i]=clone(table["data"][i]);
 
+                    foodata=clone(table["rating"]);
+
                     InitTable();
-                    setHeight(); // from ./static/js/setHeigyt.js made height of sidebar as height of content
+                    setHeight(); // from ./static/js/setHeight.js made height of sidebar as height of content
                 }
             });
-          };
+        }
 
         function InitTable(){
-            jQuery("#"+el_id["desttable"]).jqGrid($.extend(opts,{colModel:colmod}));
-            for (i=0;i<mydata.length;i++)
-                jQuery("#"+el_id["desttable"]).jqGrid('addRowData',i+1,mydata[i]);
-
-            //$("#"+el_id["desttable"]).jqGrid('setGridParam',{height:"500"});
-//            alert($("#destable").jqGrid('getGridParam',"height"));
-//            $("#profile").height($("#destable").jqGrid('getGridParam',"height"));
-//            alert($("#destable").jqGrid('getGridParam',"height"));
+            show(el_id["tcontainer"]);
+            togrid();
 
             //grid for input
             jQuery("#"+el_id["et"]).jqGrid({
@@ -168,6 +154,7 @@
 
             r_colmod=clone(colmod);
             r_mydata=clone(mydata);
+            show(el_id["edittable"]);
             editing=0;
         }
 
@@ -179,9 +166,6 @@
             for (i = 0; i < sText.length && IsNumber == true; i++)
             {Char = sText.charAt(i);if (ValidChars.indexOf(Char) == -1){IsNumber = false;}}
             return IsNumber;
-        }
-        function getcolnum() {
-            return myhtmltable.getElementsByTagName("td") / myhtmltable.getElementsByTagName("tr");
         }
         function processkey(e) {
             if (null == e)
@@ -237,13 +221,11 @@
         //--------------------------------------------------END support
 
         //--------------------------------------------------BEGIN cols edit
-        function addCol(newl) {
+        function addCol(newl, newf) {
             newl=newl.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+            newf=newf.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+            if(newf=="" || !IsNumeric(newf)) {newfoo.focus(); newfoo.select(); return;}
             if(newl=="") return;
-
-            var trArr = myhtmltable.rows;
-            for (i = 0; i < trArr.length; i++)
-                trArr[i].insertCell(-1).innerHTML='0';
 
             var elOptNew = document.createElement('option');
             var len=myselect.options.length;
@@ -264,6 +246,8 @@
             //add to data
             for (i = 0; i < mydata.length; i++)
                 mydata[i][s]="0";
+            //add to foodata
+            foodata["col"+len]=newf;
 
             document.getElementById(el_id["rest"]).removeAttribute('disabled');
             document.getElementById(el_id["delb"]).removeAttribute('disabled');
@@ -275,10 +259,6 @@
             if (!IsNumeric(deli)) {alert('<bad request>');return;}
             if (deli=='1') {alert('Нельзя удалить первый столбец!');return;}
 
-            if (deli==getcolnum()) {deli=-1;}
-            var trArr = myhtmltable.rows;
-            for (i = 0; i < trArr.length; i++)
-                trArr[i].deleteCell(deli-1);
             myselect.remove(deli-2);
             //correct indexes
             for (i = deli-2; i < myselect.options.length; i++) {
@@ -310,10 +290,6 @@
         }
 
         function restore() {
-            myhtmltable.parentNode.removeChild(myhtmltable);
-            myhtmltable=r_table.cloneNode(true);
-            myhtmlcontainer.appendChild(myhtmltable);
-
             myselect.parentNode.removeChild(myselect);
             myselect=r_select.cloneNode(true);
             var temp=document.createTextNode(' ');
@@ -333,38 +309,21 @@
 
         //--------------------------------------------------BEGIN convert
         function togrid() {
-            myhtmlcontainer.removeChild(myhtmltable);
             jQuery("#"+el_id["desttable"]).jqGrid('GridUnload',"#"+el_id["desttable"]);
             mytable=document.createElement('TABLE');
             mytable.setAttribute('id',el_id["desttable"]);
             mycontainer.appendChild(mytable);
 
             jQuery("#"+el_id["desttable"]).jqGrid($.extend(opts,{colModel:colmod}));
-//            if(jQuery("#"+el_id["desttable"]).jqGrid('getGridParam',"width")>600){
-//                jQuery("#"+el_id["desttable"]).jqGrid('setGridWidth',650);
-//            }
             for (i=0;i<mydata.length;i++)
                 jQuery("#"+el_id["desttable"]).jqGrid('addRowData',i+1,mydata[i]);
+            jQuery("#"+el_id["desttable"]).jqGrid('footerData',"set",foodata);
             totable();
         }
 
         function totable() {
             //store data
             mydata=jQuery("#"+el_id["desttable"]).jqGrid('getRowData');
-
-            myhtmltable=document.createElement('TABLE');
-            myhtmltable.setAttribute('border','1');
-            myhtmltable.setAttribute('id',"#"+el_id["htmltable"]);
-            //table data
-            var tbody=myhtmltable.appendChild(document.createElement('TBODY'));
-            for (i = 0; i < mydata.length; i++) {
-                var newRow=tbody.insertRow(-1);
-                for (var j = 0; j < colmod.length; j++)
-                    if (j==0) {newRow.insertCell(-1).innerHTML='<b>'+mydata[i][colmod[0].name]+'<\/b>';}
-                else {newRow.insertCell(-1).innerHTML=mydata[i][colmod[j].name];}
-            }
-            myhtmlcontainer.appendChild(myhtmltable);
-            if (!r_table) {r_table=myhtmltable.cloneNode(true);}
 
             var cont_node=document.getElementById(el_id["scontainer"]);
             if (myselect) {

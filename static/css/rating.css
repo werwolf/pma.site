@@ -7,7 +7,7 @@
     width: 200px;
 }
 
-select {
+select.create {
     height: 22px;
     width: 150px;
     float: right;
