@@ -14,10 +14,9 @@ function setHeight() {
 		b1.style.height = (h2) + 'px';
 		//b2.style.height = (h2) + 'px';
 		//b3.style.height = (h2 - h1 + 20) + 'px';
-	}else if (h1 > h2) {
-		b2.style.height = (h1 - 20) + 'px';
-		//b1.style.height = (h1) + 'px';
-	}
+	}//else if (h1 > h2) {
+//		b2.style.height = (h1 - 20) + 'px';
+//	}
 }
 
 window.onload = setHeight;
