@@ -7,7 +7,7 @@
     width: 200px;
 }
 
-select {
+.m_select {
     height: 22px;
     width: 150px;
     float: right;
@@ -21,4 +21,9 @@ select {
 .button {
     margin: 0 auto;
     display: block;
+}
+
+.focus {
+   border: 2px solid #aa88ff;
+   background-color: #ffeeac;
 }

@@ -1,10 +1,41 @@
 <? if (!defined("entrypoint"))die;?>
 <div id="profile">
 
-    <!-- - - - - - - - - - - - - t-->
+    <!-- - - - - - - - - - - - - -->
     <!-- remember to sync el_id  -->
     <!-- - - - - - - - - - - - - -->
-    <a href="javascript:void(0);" onclick="get_table()">clic me</a>
+
+    <div style="width: 100%; background-color: #CFCFCF; padding: 5px 0; margin-bottom: 5px;">
+        <div style="color: blue; float: left; margin-right: 10px; margin-left: 5px;">Выберите таблицу</div>
+        <select name="tablename" style="width: 150px;" id="table_select">
+            <option>...</option>
+            <option>OS : KM-71</option>
+            <option>OS : KM-72</option>
+            <option>OS : KM-73</option>
+        </select>
+    </div>
+<!-- -->
+    <div style="width: 330px; background-color: #CFCFCF; padding: 5px; margin-top: 5px; display: none;">
+        <div>
+            <div style="color: blue; float: left; margin-right: 10px; width: 110px;">Имя колонки</div>
+            <INPUT type="text" value="" maxlength="40" style="width: 145px; float: left; margin-right: 5px;"/>
+            <input type="button" value="add" style="width: 50px;"/>
+        </div>
+
+        <div style="padding: 5px 0;">
+            <div style="color: blue; float: left; margin-right: 10px; width: 110px;">Имя колонки</div>
+            <select name="tablename" style="width: 150px; float: left; margin-right: 5px;"> 
+                <option>...</option>
+            </select>
+            <input type="button" value="del" style="width: 50px;"/>
+        </div>
+
+        <div style="margin-top: 5px;">
+            <input type="button" value="restore" style="float: left; width: 80px; margin-right: 10px; margin-left: 80px;"/>
+            <input type="button" value="save" style="width: 80px;"/>
+        </div>
+    </div>
+<!-- -->
 
     <div style="display:none"><table id="et"></table></div>
     <div id="thtmlcontainer" style="display:none"><table id="htmltable"></table></div>
@@ -13,7 +44,6 @@
     <div id="tcontainer">
         <table id="desttable" border=1></table>
     </div>
-    <br/>
 
     <INPUT TYPE="button" ID="edittable" VALUE="edit cols" ONCLICK="myswitch(1)" />
 
@@ -27,9 +57,6 @@
         <INPUT ID="rest" TYPE="button" VALUE="restore" ONCLICK="restore()" disabled />
         <INPUT TYPE="button" ID="savetable" VALUE="save changes" ONCLICK="myswitch(0)" />
     </div>
-    <br/>
-    <br/>
-
 
     <script type="text/javascript">
         var el_id={et:"et", collabels:"collabels", tcontainer:"tcontainer", thtmlcontainer:"thtmlcontainer", desttable:"desttable", htmltable:"htmltable", edittable:"edittable", editbar:"editbar", labeledit:"labeledit", addb:"addb", scontainer:"scontainer", delb:"delb", rest:"rest", savetable:"savetable", delnum:"delnum"};	// don't change 'delnum'
@@ -121,8 +148,12 @@
         var editing, r_table, r_select, r_colmod, r_mydata, temp_space, i;
 
 
-        //jQuery(document).ready(function(){
-            //initialize grid & set data
+        jQuery(document).ready(function(){
+            $('#table_select').change(function(){
+                if($('#table_select').val() == '...') {} // if table not empty then delete & hide table
+                else get_table();
+            });
+        });
             
 
         function get_table(){
@@ -130,11 +161,10 @@
                 type:"POST",
                 url:'http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/ajax/get_table/',
                 cache:false,
-                data:"subject=2_2",
+                data:"subject=" + $('table_select').val(),
                 success:function(data)
                 {
                     var table = eval("(" + data + ")");
-                    alert(table['data'][5]['col6']);
 
                     for(i=0; i<table["title"].length; i++)
                         $.extend(colmod[i],{ label:table["title"][colmod[i].name] });

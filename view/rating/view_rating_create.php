@@ -15,7 +15,7 @@ $View->subjects = $user->getProfessorSubjects();
             <div>
                 <div class="lable">Предмет</div>
 
-                <select name="subject" id="subject">
+                <select name="subject" id="subject" class="m_select">
                     <option>...</option>
                     <? for($i=0;$i<count($View->subjects_id);$i++): ?>
                     <option value="<?=$View->subjects_id[$i];?>"><?=$View->subjects[$i]['Title'];?></option>
@@ -26,7 +26,7 @@ $View->subjects = $user->getProfessorSubjects();
             <div id="groupes" style="clear: left;">
                 <div class="lable">Группа</div>
 
-                <select name="groupes">
+                <select name="groupes" class="m_select">
                     <!--<?//for($i=1; $i<13; $i++):?>
                         </option>KM-<?//=$i;?></option>
                     <?//endfor;?>-->
@@ -59,12 +59,18 @@ $View->subjects = $user->getProfessorSubjects();
                 }
             });
 
-            $("#max_bal").keypress(function (e) {
+            $('#max_bal > input[type="text"]').keypress(function (e) {
                 if( e.which!=8 && e.which!=13 && e.which!=0 && (e.which<48 || e.which>57)) {
+	            $(this).addClass("focus");
                     return false;
+                } else {
+                    $(this).removeClass("focus");
                 }
             });
 
+            $('#max_bal > input[type="text"]').blur(function() {
+                $(this).removeClass("focus");
+	    });
 
             $("#subject").change(function(){
                 $("#groupes").hide();$("#max_bal").hide(); $("#add_button").hide();
@@ -78,12 +84,12 @@ $View->subjects = $user->getProfessorSubjects();
                         {
                             var groupes = eval("(" + data + ")");
 
-                            var html='<option>...</option>';
+                            var html='<option>...<\/option>';
                             var i = 0, key;
 
                             for (key in groupes) {
                                 if (groupes.hasOwnProperty(key)) 
-                                    html += '<option>KM-'+groupes[i++]+'</option>';
+                                    html += '<option>KM-'+groupes[i++]+'<\/option>';
                             }
                             $("#groupes > select").html(html);
                             $("#groupes").show("slow");
