@@ -13,7 +13,7 @@
     </div>
     <br/>
 
-    <input type="button" id="edittable" value="редагувати" onclick="myswitch(true)" style="display:none" />
+    <input type="button" id="editb" value="редагувати" onclick="myswitch(true)" style="display:none" />
 
     <div id="editbar" style="display:none">
         <input type="text" size=40 id="labeledit" value="" maxlength=200 onkeydown="return processkey(event)" />
@@ -32,7 +32,7 @@
 
 
     <script type="text/javascript">
-        var el_id={et:"et", tcontainer:"tcontainer", desttable:"desttable", edittable:"edittable", editbar:"editbar", labeledit:"labeledit", fooedit:"fooedit", addb:"addb", scontainer:"scontainer", delb:"delb", rest:"rest", savetable:"savetable", delnum:"delnum"};	// 'delnum' is reserved!
+        var el_id={et:"et", tcontainer:"tcontainer", desttable:"desttable", editb:"editb", editbar:"editbar", labeledit:"labeledit", fooedit:"fooedit", addb:"addb", scontainer:"scontainer", delb:"delb", rest:"rest", savetable:"savetable", delnum:"delnum"};	// 'delnum' is reserved!
         var colmod=[
             {name:"stud_name",index:"stud_name", width:150},
             {name:"col1",index:"col1", width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}},
@@ -91,10 +91,10 @@
                 };
             },
             beforeEditCell: function(rowid,celname,value,iRow,iCol) {
-                hide(el_id["edittable"]);
+                hide(el_id["editb"]);
             },
             beforeSaveCell: function(rowid,celname,value,iRow,iCol) {
-                if (!editing) {show(el_id["edittable"]);}
+                if (!editing) {show(el_id["editb"]);}
             },
             afterSaveCell: function(rowid,celname,value,iRow,iCol) {
                 mydata=jQuery("#"+el_id["desttable"]).jqGrid('getRowData');
@@ -102,7 +102,7 @@
                 document.getElementById(el_id["rest"]).removeAttribute('disabled');
             },
             afterRestoreCell: function(iRow,iCol) {
-                if (!editing) {show(el_id["edittable"]);}
+                if (!editing) {show(el_id["editb"]);}
             }
         };
 
@@ -142,7 +142,7 @@
 
         function InitTable(){
             show(el_id["tcontainer"]);
-            togrid();
+            myswitch(false);
 
             //grid for input
             jQuery("#"+el_id["et"]).jqGrid({
@@ -154,8 +154,6 @@
 
             r_colmod=clone(colmod);
             r_mydata=clone(mydata);
-            show(el_id["edittable"]);
-            editing=0;
         }
 
         //--------------------------------------------------BEGIN support
@@ -175,11 +173,31 @@
                 return false;
             }
         }
-        function show(objid) {
-            document.getElementById(objid).removeAttribute("style");
+        function hide(id) {
+            if (document.getElementById) {
+                document.getElementById(id).style.display = 'none';
+            }
+            else {
+                if (document.layers) {
+                    document.id.display = 'none';
+                }
+                else {
+                    document.all.id.style.display = 'none';
+                }
+            }
         }
-        function hide(objid) {
-            document.getElementById(objid).setAttribute("style","display:none");
+        function show(id) {
+            if (document.getElementById) {
+                document.getElementById(id).style.display = 'block';
+            }
+            else {
+                if (document.layers) {
+                    document.id.display = 'block';
+                }
+                else {
+                    document.all.id.style.display = 'block';
+                }
+            }
         }
         function clone(o) {
             if(!o || 'object' !== typeof o)  {
@@ -203,17 +221,17 @@
         function myswitch(ch) {
             if (ch) {
                 show(el_id["editbar"]);
-                hide(el_id["edittable"]);
+                hide(el_id["editb"]);
                 totable();
-                document.getElementById(el_id["edittable"]).setAttribute('disabled',"");
+                document.getElementById(el_id["editb"]).setAttribute('disabled',"");
             }
             else {
                 hide(el_id["editbar"]);
-                show(el_id["edittable"]);
+                show(el_id["editb"]);
                 togrid();
                 r_colmod=clone(colmod);
                 r_mydata=clone(mydata);
-                document.getElementById(el_id["edittable"]).removeAttribute('disabled');
+                document.getElementById(el_id["editb"]).removeAttribute('disabled');
                 document.getElementById(el_id["rest"]).setAttribute('disabled',"");
             }
             editing=ch;
@@ -301,7 +319,7 @@
             colmod=clone(r_colmod);
             mydata=clone(r_mydata);
 
-            document.getElementById(el_id["rest"]).setAttribute('disabled',"");
+            document.getElementById(el_id["rest"]).disabled="disabled";
             document.getElementById(el_id["delb"]).removeAttribute('disabled');
             togrid();
         }
