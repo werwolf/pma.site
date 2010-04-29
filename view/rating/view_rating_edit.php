@@ -142,7 +142,7 @@
 
         function InitTable(){
             show(el_id["tcontainer"]);
-            togrid();
+            myswitch(false);
 
             //grid for input
             jQuery("#"+el_id["et"]).jqGrid({
@@ -154,8 +154,6 @@
 
             r_colmod=clone(colmod);
             r_mydata=clone(mydata);
-            show(el_id["editb"]);
-            editing=0;
         }
 
         //--------------------------------------------------BEGIN support
