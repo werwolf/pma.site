@@ -33,7 +33,7 @@ $View->subjects = $user->getProfessorSubjects();
 
         <div style="clear: left;" id="max_bal">
             <div class="lable">Максимальный бал</div>
-            <input type="text" name="bal" size="15" maxlength="10" value="" id="bal"/>
+            <input type="text" name="bal" size="15" maxlength="5" value="" id="bal"/>
         </div>
 
         <div style="clear: left;">

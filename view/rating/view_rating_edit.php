@@ -25,8 +25,8 @@
     <div id="editbar">
         <div>
             <div class="editbar_lable">Добавить колонку</div>
-            <input id="labeledit" type="text" value="Титл" maxlength="40" class="editbar_input" />
-            <input id="fooedit" type="text" value="Бал" maxlength="10" class="editbar_input" />
+            <input id="labeledit" type="text" value="Титл" maxlength="20" class="editbar_input" />
+            <input id="fooedit" type="text" value="Бал" maxlength="5" class="editbar_input" />
             <input id="addb" type="button" value="add" />
         </div>
 
@@ -175,6 +175,7 @@
            }
         }
 
+        //--------------------------------------------------BEGIN AJAX
         function get_table(){
             $.ajax({
                 type:"POST",
@@ -251,12 +252,10 @@
         function hide(id) {
             if (document.getElementById) {
                 document.getElementById(id).style.display = 'none';
-            }
-            else {
+            } else {
                 if (document.layers) {
                     document.id.display = 'none';
-                }
-                else {
+                } else {
                     document.all.id.style.display = 'none';
                 }
             }
@@ -268,8 +267,7 @@
             else {
                 if (document.layers) {
                     document.id.display = 'block';
-                }
-                else {
+                } else {
                     document.all.id.style.display = 'block';
                 }
             }
@@ -285,8 +283,7 @@
                     v = o[p];
                     if(v && 'object' === typeof v) {
                         c[p] = clone(v);
-                    }
-                    else {
+                    } else {
                         c[p] = v;
                     }
                 }
@@ -299,8 +296,8 @@
                 hide(el_id["editb"]);
                 totable();
                 document.getElementById(el_id["editb"]).setAttribute('disabled',"");
-            }
-            else {
+                setHeight();
+            } else {
                 hide(el_id["editbar"]);
                 show(el_id["editb"]);
                 togrid();
@@ -308,6 +305,7 @@
                 r_mydata=clone(mydata);
                 document.getElementById(el_id["editb"]).removeAttribute('disabled');
                 document.getElementById(el_id["rest"]).setAttribute('disabled',"");
+                setMenuHeight(); setHeight();
             }
             editing=ch;
         }
@@ -365,8 +363,7 @@
             if (myselect.options.length!=1){
                 if (deli-2!=myselect.options.length) {
                     myselect.selectedIndex=deli-2;
-                }
-                else {
+                } else {
                     myselect.selectedIndex=deli-3;
                 }
             }
