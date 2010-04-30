@@ -7,7 +7,6 @@
     <meta name="keywords" content="НТУУ-КП  И, КПИ, Кафедра прикладной математики" />
     <meta name="description" content="Сайт кафедры прикладной математики ФПМ НТУУ-КПИ" />
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/style.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/login.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/datepicker.css" />
 <!-- -->
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/rating.css" />
@@ -15,6 +14,7 @@
     <? if($module[3]=='download'): ?>
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/fileview.css" />
     <? endif;?>
+    <? if($module[3]=='upload'):?><base href="http://<?=$_SERVER['HTTP_HOST'];?>/"></base?<?endif;?>
     <? if($module[3]=='edit'): ?>
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/css/flick/jquery-ui-1.8.custom.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/css/ui.jqgrid.css" />
@@ -30,6 +30,7 @@
     <? if(!user::isLoged()): ?>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/jquery.blockUI.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/showLogin.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/login.css" />
     <? endif;?>
     
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/setHeight.js"></script>

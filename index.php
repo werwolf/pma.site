@@ -1,6 +1,14 @@
 <?php
 session_start();
 
+$module = explode("/",preg_replace("/\?.*$/","",$_SERVER['REQUEST_URI']));
+
+if($module[1] == 'admin')
+{
+    require_once("admin/index.php");
+}
+else
+{
 $begin = microtime(1);
 define ("entrypoint",true);
 
@@ -30,7 +38,6 @@ config::loadConfig();
 Root::Init();   
 $View = ViewSingleton::getInstance();
 
-$module = explode("/",preg_replace("/\?.*$/","",$_SERVER['REQUEST_URI']));                
         
 if(config::isInAvailableLang($module[1]))
 {
@@ -84,8 +91,11 @@ switch($module[2])
                     Root::Redirect("/".config::getDefaultLanguage());
                   }
     break;
+    case 'admin':
+    break;
 }             
 Root::POSTKillAll();
 //$end = microtime(1);
 //print $end - $begin." ";
+}
 ?>

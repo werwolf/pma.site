@@ -4,44 +4,62 @@
     <!-- - - - - - - - - - - - - -->
     <!-- remember to sync el_id  -->
     <!-- - - - - - - - - - - - - -->
-    <a href="javascript:void(0);" onclick="get_table()">click me</a>
-
-    <div style="display:none"><table id="et"></table></div>
-
-    <div id="tcontainer" style="display:none">
-        <table id="desttable" border=1></table>
+    <div style="width: 100%; background-color: #CFCFCF; padding: 5px 0; margin-bottom: 5px;">
+        <div style="color: blue; float: left; margin-right: 10px; margin-left: 5px;">Выберите таблицу</div>
+        <select name="tablename" style="width: 150px;" id="table_select">
+            <option>...</option>
+            <option>OS : KM-71</option>
+            <option>OS : KM-72</option>
+            <option>OS : KM-73</option>
+        </select>
     </div>
-    <br/>
 
-    <input type="button" id="editb" value="редагувати" onclick="myswitch(true)" style="display:none" />
+    <table id="desttable"></table>
+    <div style="display:none;"><table id="et"></table></div>
 
-    <div id="editbar" style="display:none">
+    <input type="button" id="editb" value="Редагувати колонки" style="display:none; margin-top: 5px;" />
+    
+<!-- -->
+    <div id="editbar" style="width: 360px; background-color: #CFCFCF; padding: 5px; margin-top: 5px; display: none;">
+        <div>
+            <div style="color: blue; float: left; margin-right: 10px; width: 140px;">Добавить колонку</div>
+            <input id="labeledit" type="text" value="" maxlength="40" style="width: 70px; float: left; margin-right: 5px;" onkeydown="return processkey(event)"/>
+            <input id="fooedit" type="text" value="" maxlength="40" style="width: 70px; float: left; margin-right: 5px;" />
+            <input id="addb" type="button" value="add" style="width: 50px;" onclick="addCol(newlabel.value, newfoo.value)"/>
+        </div>
+
+        <div style="padding: 5px 0;">
+            <div style="color: blue; float: left; margin-right: 10px; width: 140px;">Удалить колонку</div>
+            <select id="delnum" name="tablename" style="width: 153px; float: left; margin-right: 5px;">
+                <option>...</option>
+            </select>
+            <input id="delb" type="button" value="del" style="width: 50px;"/>
+        </div>
+
+        <div style="margin-top: 5px;">
+            <input id="rest" type="button" value="restore" style="float: left; width: 80px; margin-right: 10px; margin-left: 100px;" disabled />
+            <input id="savetable" type="button" value="save" style="width: 80px;" />
+        </div>
+    </div>
+<!-- -->
+
+<!--    <div  style="display:none">
         <input type="text" size=40 id="labeledit" value="" maxlength=200 onkeydown="return processkey(event)" />
         <input type="text" size=40 id="fooedit" value="максимальний бал" maxlength=200 onfocus="if(fooedit.value=='максимальний бал'){fooedit.value='';newfoo.select()}" onkeydown="return processkey(event)" />
         <input id="addb" type="button" value="додати" onclick="addCol(newlabel.value, newfoo.value)" />
         <div id="scontainer">
-            <!--select id="delnum"></select-->
+            <select id="delnum"></select>
             <input id="delb" type="button" value="видалити" onclick="if (myselect.options.length) delCol(myselect.options[myselect.selectedIndex].value)" />
         </div>
         <br/>
         <input id="rest" type="button" value="відновити" onclick="restore()" disabled />
         <input type="button" id="savetable" value="зберегти" onclick="myswitch(false)" />
     </div>
-    <br/>
-    <br/>
-
+-->
 
     <script type="text/javascript">
-        var el_id={et:"et", tcontainer:"tcontainer", desttable:"desttable", editb:"editb", editbar:"editbar", labeledit:"labeledit", fooedit:"fooedit", addb:"addb", scontainer:"scontainer", delb:"delb", rest:"rest", savetable:"savetable", delnum:"delnum"};	// 'delnum' is reserved!
-        var colmod=[
-            {name:"stud_name",index:"stud_name", width:150},
-            {name:"col1",index:"col1", width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}},
-            {name:"col2",index:"col2", width:60, align:"right",sorttype:"number", editable:true, editrules:{number:true}},
-            {name:"col3",index:"col3", width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}},
-            {name:"col4",index:"col4", width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}},
-            {name:"col5",index:"col5", width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}},
-            {name:"col6",index:"col6", width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}}
-        ];
+        var el_id={et:"et", desttable:"desttable", editb:"editb", editbar:"editbar", labeledit:"labeledit", fooedit:"fooedit", addb:"addb", scontainer:"scontainer", delb:"delb", rest:"rest", savetable:"savetable", delnum:"delnum"};	// 'delnum' is reserved!
+        var colmod= new Array;
         var mydata = new Array;
         var foodata = new Array;
 
@@ -110,24 +128,45 @@
         var myselect = document.getElementById(el_id["delnum"]);
         var newlabel = document.getElementById(el_id["labeledit"]);
         var newfoo = document.getElementById(el_id["fooedit"]);
-        var mycontainer = document.getElementById(el_id["tcontainer"]);
         var editing, r_select, r_colmod, r_mydata, temp_space, i;
 
+
+        jQuery(document).ready(function(){
+            $('#table_select').change(function(){
+                if($('#table_select').val() == '...') {
+                    jQuery("#"+el_id["desttable"]).jqGrid('GridUnload',"#"+el_id["desttable"]);
+                    hide(el_id["editbar"]);
+                    hide(el_id["editb"]);
+                    //setMenuHeight();
+                    //setHeight();
+                }
+                else get_table();
+
+                //setHeight();
+            });
+
+            $('#editb').click(function(){ myswitch(true); });
+            $('#rest').click(function(){ restore(); });
+            $('#savetable').click(function(){ myswitch(false); });
+        });
 
         function get_table(){
             $.ajax({
                 type:"POST",
                 url:'http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/ajax/get_table/',
                 cache:false,
-                data:"subject=2_2",
+                data:"tablename="+$('#table_select').val(),
                 success:function(data)
                 {
                     var table = eval("(" + data + ")");
 
                     $.extend(opts,{caption:table["caption"]});
 
-                    for(i=0; i<table["title"].length; i++)
-                        $.extend(colmod[i],{ label:table["title"][i] });
+                    for(i=0; i<colmod.length; i++) delete colmod[i];
+
+                    colmod[0]={label:table["title"][0], name:"stud_name",index:"stud_name", width:150, sortable:false};
+                    for(i=1; i<table["title"].length; i++)
+                        colmod[i]={label:table["title"][i], name:"col"+i,index:"col"+i, width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}};
 
                     for(i=0; i<table["data"].length; i++)
                         mydata[i]=clone(table["data"][i]);
@@ -141,7 +180,7 @@
         }
 
         function InitTable(){
-            show(el_id["tcontainer"]);
+            //show(el_id["tcontainer"]);
             myswitch(false);
 
             //grid for input
@@ -328,9 +367,9 @@
         //--------------------------------------------------BEGIN convert
         function togrid() {
             jQuery("#"+el_id["desttable"]).jqGrid('GridUnload',"#"+el_id["desttable"]);
-            mytable=document.createElement('TABLE');
-            mytable.setAttribute('id',el_id["desttable"]);
-            mycontainer.appendChild(mytable);
+//            mytable=document.createElement('TABLE');
+//            mytable.setAttribute('id',el_id["desttable"]);
+//            mycontainer.appendChild(mytable);
 
             jQuery("#"+el_id["desttable"]).jqGrid($.extend(opts,{colModel:colmod}));
             for (i=0;i<mydata.length;i++)
