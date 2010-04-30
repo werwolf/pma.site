@@ -11,22 +11,31 @@ if (!defined("entrypoint"))die;
 
 $tablename = Root::POSTString("tablename");
 
-$col_number = 6;
-$data_number = 10-2;
+$col_number = 6+1;
+$data_number = 10;
 
-$data["title"]['stud_name']="FIO";
+switch ($tablename) {
+    case 'OS : KM-71' : $data["caption"]="Група: KM-71 (ОС)"; $col_number+=2;break;
+    case 'OS : KM-72' : $data["caption"]="Група: KM-72 (ОС)"; break;
+    case 'OS : KM-73' : $data["caption"]="Група: KM-73 (ОС)"; break;
+    default: $data["caption"]="Група &&&&&&&&"; break;
+}
+//$data["caption"]="Група: KM-72 (ООП)";
+
+$data["title"][0]="ПІБ";
 for($i=1; $i<$col_number; $i++) {
-    $data["title"]['col'.$i] = "колонка".$i;
+    $data["title"][$i] = "робота".$i;
 }
 
 
 for($i=0; $i < $data_number; $i++) {
-    $data["data"][$i]['stud_name']="Вася".$i;
+    $data["data"][$i]['stud_name']="Вася".($i+1);
     for($j = 1; $j <= $col_number; $j++){
         $data["data"][$i]['col'.$j] = $i * 13;
     }
 }
 
+$data["rating"]['stud_name']="Макс. бал";
 for($i=1; $i<$col_number; $i++) {
     $data["rating"]['col'.$i] = $i * 10;
 }
