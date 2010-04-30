@@ -27,3 +27,82 @@
    border: 2px solid #aa88ff;
    background-color: #ffeeac;
 }
+
+/******* view_rating_edit.php *******/
+.top_container {
+    width: 100%;
+    background-color: #CFCFCF;
+    padding: 5px 0;
+    margin-bottom: 5px;
+}
+.top_container_lable {
+    color: blue;
+    float: left;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+#table_select{
+    width: 150px;
+}
+
+#ajax_loader img{
+    repeat: none;
+    clear: left;
+    height: 30px;
+    width: 30px;
+    display: none;
+    position: absolute;
+    left: 320px;
+    top: 10px;
+}
+
+#editb {
+    display:none;
+    margin-top: 5px;
+}
+
+#editbar{
+    width: 360px;
+    background-color: #CFCFCF;
+    padding: 5px;
+    margin-top: 5px;
+    display: none;
+}
+
+#labeledit, #fooedit {
+    color: gray;
+    font-size: 14px;
+    font-family: 'Courier New',Courier,monospace;
+}
+
+.editbar_lable {
+    color: blue;
+    float: left;
+    margin-right: 10px;
+    width: 140px;
+}
+.editbar_input {
+    width: 70px;
+    float: left;
+    margin-right: 5px;
+}
+
+#delnum {
+    width: 153px;
+    float: left;
+    margin-right: 5px;
+}
+#delb, #addb {
+    width: 50px;
+}
+
+#rest {
+    float: left;
+    width: 80px;
+    margin-right: 10px;
+    margin-left: 100px;
+}
+#savetable {
+    width: 80px;
+}
+/************************************/

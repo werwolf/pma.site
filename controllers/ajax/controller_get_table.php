@@ -40,6 +40,7 @@ for($i=1; $i<$col_number; $i++) {
     $data["rating"]['col'.$i] = $i * 10;
 }
 
+sleep(1);
 print json_encode($data);
 
 ///////////////////////////////////////////////////////////

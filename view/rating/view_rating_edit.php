@@ -4,61 +4,64 @@
     <!-- - - - - - - - - - - - - -->
     <!-- remember to sync el_id  -->
     <!-- - - - - - - - - - - - - -->
-    <div style="width: 100%; background-color: #CFCFCF; padding: 5px 0; margin-bottom: 5px;">
-        <div style="color: blue; float: left; margin-right: 10px; margin-left: 5px;">Выберите таблицу</div>
-        <select name="tablename" style="width: 150px;" id="table_select">
+    
+    <div class="top_container">
+        <div class="top_container_lable">Выберите таблицу</div>
+        <select name="tablename" id="table_select">
             <option>...</option>
             <option>OS : KM-71</option>
             <option>OS : KM-72</option>
             <option>OS : KM-73</option>
         </select>
+        <div id="ajax_loader"><img alt="" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/basic/ajax_loader_Tedit.gif"/></div>
     </div>
 
     <table id="desttable"></table>
     <div style="display:none;"><table id="et"></table></div>
 
-    <input type="button" id="editb" value="Редагувати колонки" style="display:none; margin-top: 5px;" />
-    
+    <input type="button" id="editb" value="Редагувати колонки" />
+
 <!-- -->
-    <div id="editbar" style="width: 360px; background-color: #CFCFCF; padding: 5px; margin-top: 5px; display: none;">
+    <div id="editbar">
         <div>
-            <div style="color: blue; float: left; margin-right: 10px; width: 140px;">Добавить колонку</div>
-            <input id="labeledit" type="text" value="" maxlength="40" style="width: 70px; float: left; margin-right: 5px;" onkeydown="return processkey(event)"/>
-            <input id="fooedit" type="text" value="" maxlength="40" style="width: 70px; float: left; margin-right: 5px;" />
-            <input id="addb" type="button" value="add" style="width: 50px;" onclick="addCol(newlabel.value, newfoo.value)"/>
+            <div class="editbar_lable">Добавить колонку</div>
+            <input id="labeledit" type="text" value="Титл" maxlength="40" class="editbar_input" />
+            <input id="fooedit" type="text" value="Бал" maxlength="10" class="editbar_input" />
+            <input id="addb" type="button" value="add" />
         </div>
 
         <div style="padding: 5px 0;">
-            <div style="color: blue; float: left; margin-right: 10px; width: 140px;">Удалить колонку</div>
-            <select id="delnum" name="tablename" style="width: 153px; float: left; margin-right: 5px;">
-                <option>...</option>
-            </select>
-            <input id="delb" type="button" value="del" style="width: 50px;"/>
+            <div class="editbar_lable">Удалить колонку</div>
+            <div id="scontainer">
+                <select id="delnum" name="tablename">
+                    <option>...</option>
+                </select>
+            </div>
+            <input id="delb" type="button" value="del" />
         </div>
 
         <div style="margin-top: 5px;">
-            <input id="rest" type="button" value="restore" style="float: left; width: 80px; margin-right: 10px; margin-left: 100px;" disabled />
-            <input id="savetable" type="button" value="save" style="width: 80px;" />
+            <input id="rest" type="button" value="restore" disabled />
+            <input id="savetable" type="button" value="save" />
         </div>
     </div>
 <!-- -->
 
-<!--    <div  style="display:none">
-        <input type="text" size=40 id="labeledit" value="" maxlength=200 onkeydown="return processkey(event)" />
-        <input type="text" size=40 id="fooedit" value="максимальний бал" maxlength=200 onfocus="if(fooedit.value=='максимальний бал'){fooedit.value='';newfoo.select()}" onkeydown="return processkey(event)" />
-        <input id="addb" type="button" value="додати" onclick="addCol(newlabel.value, newfoo.value)" />
-        <div id="scontainer">
-            <select id="delnum"></select>
-            <input id="delb" type="button" value="видалити" onclick="if (myselect.options.length) delCol(myselect.options[myselect.selectedIndex].value)" />
-        </div>
-        <br/>
-        <input id="rest" type="button" value="відновити" onclick="restore()" disabled />
-        <input type="button" id="savetable" value="зберегти" onclick="myswitch(false)" />
-    </div>
--->
-
     <script type="text/javascript">
-        var el_id={et:"et", desttable:"desttable", editb:"editb", editbar:"editbar", labeledit:"labeledit", fooedit:"fooedit", addb:"addb", scontainer:"scontainer", delb:"delb", rest:"rest", savetable:"savetable", delnum:"delnum"};	// 'delnum' is reserved!
+        var el_id={
+                    et:"et",
+                    desttable:"desttable",
+                    editb:"editb",
+                    editbar:"editbar",
+                    labeledit:"labeledit",
+                    fooedit:"fooedit",
+                    addb:"addb",
+                    scontainer:"scontainer",
+                    delb:"delb",
+                    rest:"rest",
+                    savetable:"savetable",
+                    delnum:"delnum"             // 'delnum' is reserved!
+                };
         var colmod= new Array;
         var mydata = new Array;
         var foodata = new Array;
@@ -128,27 +131,49 @@
         var myselect = document.getElementById(el_id["delnum"]);
         var newlabel = document.getElementById(el_id["labeledit"]);
         var newfoo = document.getElementById(el_id["fooedit"]);
-        var editing, r_select, r_colmod, r_mydata, temp_space, i;
+        var editing, r_select, r_colmod, r_mydata, i;
 
 
         jQuery(document).ready(function(){
             $('#table_select').change(function(){
                 if($('#table_select').val() == '...') {
                     jQuery("#"+el_id["desttable"]).jqGrid('GridUnload',"#"+el_id["desttable"]);
+                    colmod.splice(0,colmod.length);
+                    mydata.splice(0,mydata.length);
                     hide(el_id["editbar"]);
                     hide(el_id["editb"]);
-                    //setMenuHeight();
-                    //setHeight();
+                    setMenuHeight();
                 }
                 else get_table();
-
-                //setHeight();
             });
 
-            $('#editb').click(function(){ myswitch(true); });
-            $('#rest').click(function(){ restore(); });
-            $('#savetable').click(function(){ myswitch(false); });
+            $("#"+el_id["editb"]).click(function(){ myswitch(true); });
+            $("#"+el_id["rest"]).click(function(){ restore(); });
+            $("#"+el_id["savetable"]).click(function(){ myswitch(false); });
+            $("#"+el_id["labeledit"]).click(function(){ return processkey(event); });
+            $("#"+el_id["addb"]).click(function(){ addCol(newlabel.value, newfoo.value); });
+            $("#"+el_id["delb"]).click(function(){ if (myselect.options.length) delCol(myselect.options[myselect.selectedIndex].value); });
+
+            $('#labeledit').blur(function(){ inp_def_val(this,'Титл','blur'); });
+            $('#labeledit').focus(function(){ inp_def_val(this,'Титл','click'); });
+
+            $('#fooedit').blur(function(){ inp_def_val(this,'Бал','blur'); });
+            $('#fooedit').focus(function(){ inp_def_val(this,'Бал','click'); });
         });
+
+        function inp_def_val(inp, def_val, mode) {
+           if (mode == "click") {
+              if ($(inp).val() == def_val) {
+                 $(inp).val("");
+                 $(inp).css('color', 'black');
+              }
+           } else if (mode == "blur") {
+              if ($(inp).val() == "") {
+                 $(inp).val(def_val);
+                 $(inp).css('color', 'gray');
+              }
+           }
+        }
 
         function get_table(){
             $.ajax({
@@ -162,7 +187,8 @@
 
                     $.extend(opts,{caption:table["caption"]});
 
-                    for(i=0; i<colmod.length; i++) delete colmod[i];
+                    //for(i=0; i<colmod.length; i++) delete colmod[i];
+                    colmod.splice(0, colmod.length);
 
                     colmod[0]={label:table["title"][0], name:"stud_name",index:"stud_name", width:150, sortable:false};
                     for(i=1; i<table["title"].length; i++)
@@ -175,12 +201,22 @@
 
                     InitTable();
                     setHeight(); // from ./static/js/setHeight.js made height of sidebar as height of content
+                },
+
+                error: function(){
+                    alert('Error!');
+                },
+
+                beforeSend: function(){
+                    $('#ajax_loader > img').show();
+                },
+                complete: function(){
+                    $('#ajax_loader > img').hide();
                 }
             });
         }
 
         function InitTable(){
-            //show(el_id["tcontainer"]);
             myswitch(false);
 
             //grid for input
@@ -349,11 +385,8 @@
         function restore() {
             myselect.parentNode.removeChild(myselect);
             myselect=r_select.cloneNode(true);
-            var temp=document.createTextNode(' ');
-            var cont_node=document.getElementById(el_id["scontainer"]);
             var delb_node=document.getElementById(el_id["delb"]);
-            cont_node.insertBefore(temp,delb_node);
-            cont_node.insertBefore(myselect,temp);
+            delb_node.parentNode.insertBefore(myselect,delb_node);
 
             colmod=clone(r_colmod);
             mydata=clone(r_mydata);
@@ -367,9 +400,6 @@
         //--------------------------------------------------BEGIN convert
         function togrid() {
             jQuery("#"+el_id["desttable"]).jqGrid('GridUnload',"#"+el_id["desttable"]);
-//            mytable=document.createElement('TABLE');
-//            mytable.setAttribute('id',el_id["desttable"]);
-//            mycontainer.appendChild(mytable);
 
             jQuery("#"+el_id["desttable"]).jqGrid($.extend(opts,{colModel:colmod}));
             for (i=0;i<mydata.length;i++)
@@ -379,13 +409,12 @@
         }
 
         function totable() {
+	      if (colmod.length==0) return;
             //store data
             mydata=jQuery("#"+el_id["desttable"]).jqGrid('getRowData');
 
-            var cont_node=document.getElementById(el_id["scontainer"]);
             if (myselect) {
-                cont_node.removeChild(myselect);
-                cont_node.removeChild(temp_space);
+                myselect.parentNode.removeChild(myselect);
             }
             myselect=document.createElement('SELECT');
             myselect.setAttribute('id',el_id["delnum"]);
@@ -402,10 +431,8 @@
                     myselect.add(elOptNew); // IE only
                 }
             }
-            var text_node=document.createTextNode(' ');
             var delb_node=document.getElementById(el_id["delb"]);
-            temp_space=cont_node.insertBefore(text_node,delb_node);
-            cont_node.insertBefore(myselect,temp_space);
+            delb_node.parentNode.insertBefore(myselect,delb_node);
             if (!r_select) {r_select=myselect.cloneNode(true);}
 
             try {
