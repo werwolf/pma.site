@@ -158,7 +158,7 @@
     </div><!-- #middle -->
 
     <div id="footer">
-        Copyrights (C) PMA - NTUU - KPI&nbsp;&nbsp;&nbsp;
+        &copy; PMA - NTUU - KPI&nbsp;&nbsp;&nbsp;
         <?$end = microtime(1); print $end - $begin." ";?>
    </div><!-- #footer -->
 

@@ -63,7 +63,7 @@
 
         </div><!-- #middle-->
 
-        <div id="footer">Cpyright PMA &copy; 2010</div><!-- #footer -->
+        <div id="footer">&copy; PMA <? echo(date("Y")); ?></div><!-- #footer -->
 
     </div><!-- #wrapper -->
 
