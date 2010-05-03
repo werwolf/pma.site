@@ -1,56 +1,111 @@
-<? if (!defined("entrypoint"))die;?>
-<div id="profile">
-  <form action="" method="post">
-    <input type="hidden" name="param" value="edit"/>
-    <h2><?=$labels['profile']['user_profile'];?></h2>
-    <table class="user_data">
+<? if(!defined("entrypoint"))die;?>
+<div id="profile">      
+    <table id="user_data_anketa">
         <tr>
-            <td colspan="2">
-                <img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/uploaded/user_photo/<?=$user->getUserPhoto();?>"/>
+            <td valign="top">
+                <img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/uploaded/user_photo/<?=$user->getUserPhoto();?>" class="user_photo"/><br/>
+                <label class="labels">
+                    <? if(get_class($user) == "Student"): ?><?=$labels['profile']['student'];?><? else:?><?=$labels['profile']['teacher'];?><?endif;?>:
+                </label><br/>
+                <label class="name">
+                    <?=$user->getUserSurname();?>
+                </label><br/>
+                <label class="name">
+                    <?=$user->getUserName();?>&nbsp;<?=$user->getUserPatronymic();?>
+                </label><br/><br/>
+                <label class="labels">
+                    <?=$labels['profile']['email'];?>:
+                </label><br/>
+                <label class="name">
+                    <?=$user->getUserEmail();?>
+                </label>
+            </td>
+            <td valign="top" style="padding-top:20px" align="left">
+                <? if(get_class($user) == "Student"): ?>
+                    <label class="labels_right">
+                        <?=$labels['profile']['group'];?>:
+                    </label><br/>
+                    <label class="other_info">
+                        <?=$user->getUserGroupName();?>
+                    </label><br/><br/>
+                    <label class="labels_right">
+                        <?=$labels['profile']['student_state'];?>:
+                    </label><br/>
+                    <label class="other_info">
+                        <? if($user->getUserRank() == "trade-union"): ?>
+                            <?=$labels['profile']['trade-union'];?>
+                        <? elseif($user->getUserRank() == 'praepostor'):?>
+                            <?=$labels['profile']['praepostor'];?>
+                        <? else: ?>
+                            <?=$labels['profile']['student'];?>
+                        <?endif;?>
+                    </label><br/><br/>
+                    <label class="labels_right">
+                        <?=$labels['profile']['phone'];?>:
+                    </label><br/>
+                    <label class="other_info">
+                        <?=$user->getUserPhone();?>
+                    </label><br/><br/>
+                <? endif;?>
+                <? if(get_class($user) == "Professor"): ?>
+                    <label class="labels_right">
+                        <?=$labels['profile']['univer_finish'];?>:
+                    </label><br/>
+                    <label class="other_info">
+                        <?=$user->getUserUniversity();?>&nbsp;,&nbsp;<?=$user->getUserYearFinish();?>
+                    </label><br/><br/>
+                    <label class="labels_right">
+                        <?=$labels['profile']['stepen'];?>:
+                    </label><br/>
+                    <label class="other_info">
+                        <?=$user->getUserStepen();?>
+                    </label><br/><br/>
+                    <label class="labels_right">
+                        <?=$labels['profile']['consultacii'];?>:
+                    </label><br/>
+                    <label class="other_info">
+                        <?=$user->getUserConsultacii();?>
+                    </label><br/><br/>
+                    <label class="labels_right">
+                        <?=$labels['profile']['interests'];?>:
+                    </label><br/>
+                    <label class="other_info">
+                        <?=$user->getUserScienseInterest();?>
+                    </label><br/><br/>
+                    <label class="labels_right">
+                        <?=$labels['profile']['work'];?>:
+                    </label><br/>
+                    <label class="other_info">
+                        <?=$user->getUserWork();?>
+                    </label><br/><br/>
+                <?endif;?>
+                <label class="labels_right">
+                      <?=$labels['profile']['birthday'];?>:
+                </label><br/>
+                <label class="other_info">
+                      <?=$user->getDate($user->getUserBirthday());?>
+                </label><br/><br/>
+                <? if(get_class($user) == "Professor"): ?>
+                    <label class="labels_right">
+                          <?=$labels['profile']['family'];?>:
+                    </label><br/>
+                    <label class="other_info">
+                        <?=$user->getUserFamily();?>
+                    </label><br/><br/>
+                          <label class="labels_right">
+                          <?=$labels['profile']['hoby'];?>:
+                    </label><br/>
+                    <label class="other_info">
+                        <?=$user->getUserHoby();?>
+                    </label><br/><br/>
+                    <label class="labels_right">
+                          <?=$labels['profile']['animal'];?>:
+                    </label><br/>
+                    <label class="other_info">
+                        <?=$user->getUserAnimal();?>
+                    </label><br/><br/>
+                <?endif;?>
             </td>
         </tr>
-        <tr>
-            <td colspan="2"><hr style="margin-top:10px;margin-bottom:10px"/></td>
-        </tr>
-        <tr>
-            <td><?=$labels['profile']['surname'];?></td>
-            <td><input type="text" style="width:200px" name="surname" value="<?=$user->getUserSurname();?>"/></td>
-        </tr>
-        <tr>
-            <td><?=$labels['profile']['name'];?></td>
-            <td><input type="text" style="width:200px" name="name" value="<?=$user->getUserName();?>"/></td>
-        </tr>
-        <tr>
-            <td><?=$labels['profile']['patronymik'];?></td>
-            <td><input type="text" style="width:200px" name="name" value="<?=$user->getUserPatronymic();?>"/></td>
-        </tr>
-        <tr>
-            <td><?=$labels['profile']['status'];?></td>
-            <td><input type="text" style="width:200px" name="name" value="<? if($user->getUserState() == "S"): ?><?=$labels['profile']['student'];?><? else:?><?=$labels['profile']['teacher'];?><?endif;?>" readonly/></td>
-        </tr>
-        <tr><td colspan="2"></td></tr>
-        <tr>
-            <td><?=$labels['profile']['sex'];?></td>
-            <td><input type="text" style="width:200px" name="name" value="<? if($user->getUserSex() == "M"): ?><?=$labels['profile']['male'];?><? else:?><?=$labels['profile']['female'];?><?endif;?>"/></td>
-        </tr>
-        <tr>
-            <td><?=$labels['profile']['birthday'];?></td>
-            <td><input name='birthday' id='birthday' value="<?=$user->getDate($user->getUserBirthday());?>"/><input type="button" style="background: url('http://<?=$_SERVER['HTTP_HOST'];?>/static/img/datepicker.jpg') no-repeat; width: 30px; border: 0px;" onclick="displayDatePicker('birthday', false, 'dmy', '.')" readonly/></td>
-        </tr>
-        <tr><td colspan="2"></td></tr>
-        <? if(get_class($user) == "Student"): ?>
-            <tr>
-                <td><?=$labels['profile']['group'];?></td>
-                <td><input name='group' id='group' value='<?=$user->getUserGroupName();?>' style="width:200px"/></td>
-            </tr>
-            <tr>
-                <td><?=$labels['profile']['rank'];?></td>
-                <td><input name='group' id='group' value='<?=$labels['profile'][$user->getUserRank()];?>' style="width:200px"/></td>
-            </tr>
-        <? endif;?>
-        <tr>
-            <td colspan="2"><input type="submit" value="<?=$labels['profile']['save'];?>" class="save_profile"/></td>
-        </tr>
-    </table>
-  </form>
+    </table>  
 </div>

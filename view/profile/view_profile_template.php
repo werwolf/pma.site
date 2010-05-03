@@ -2,6 +2,9 @@
 <ul>
     <li>
         <a href="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/profile"><?=$labels['profile']['profile_user'];?></a>
+        <ul>
+            <li><a href="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/profile/edit"><?=$labels['profile']['edit'];?></a><li>
+        </ul>
     </li>
     <li>
         <a href="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/profile/download"><?=$labels['profile']['download'];?></a>

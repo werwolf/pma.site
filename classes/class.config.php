@@ -6,6 +6,7 @@ class config
     private static $available_langs = array();
     private static $message_per_page = 0;
     private static $count_of_new_news = 0;
+    private static $quotes_count = 0;
 
     public static function init($db)
     {
@@ -32,6 +33,9 @@ class config
                 break;
                 case 'new_news':
                         self::$count_of_new_news = $row['value'];
+                break;
+                case 'quotes_count':
+                        self::$quotes_count = $row['value'];
                 break;
             }
         }        
@@ -89,6 +93,10 @@ class config
         }
 
         return $return;
+    }
+    public static function getQoutesCount()
+    {
+        return self::$quotes_count;
     }
 }
 ?>

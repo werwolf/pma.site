@@ -14,6 +14,7 @@ define ("entrypoint",true);
 
 require_once("configs/config.php");
 require_once("classes/db/class.database.php");
+require_once("classes/misc/class.misc.php");
 require_once("classes/class.root.php");
 require_once("classes/class.config.php");
 require_once("classes/users/class.user.php");
@@ -91,7 +92,9 @@ switch($module[2])
                     Root::Redirect("/".config::getDefaultLanguage());
                   }
     break;
-    case 'admin':
+    case 'site_map':$View->module = "sitemap";
+                    require_once("controllers/sitemap/controller_sitemap.php");
+                    require_once("view/view_forall.php");
     break;
 }             
 Root::POSTKillAll();

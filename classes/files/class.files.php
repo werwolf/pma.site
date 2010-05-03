@@ -46,7 +46,7 @@ class files
     {  
         if(strlen($pict) != 0)
         {
-            $pict_exten = strtolower(self::getExtension($pict));
+            $pict_exten = strtolower(self::getExtension(trim($pict)));
            
             foreach($extens as $ext)
             {
@@ -146,6 +146,14 @@ class files
 
         self::$db->query($sql);
         return self::$db->assoc();
+    }
+    public static function deleteFile($file)
+    {
+        unlink(self::$uploaded_dir.$file);
+    }
+    public static function getUserPhoto($file)
+    {
+        return end(explode("/",$file));
     }
 }
 ?>

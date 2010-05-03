@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title><?=$View->title;?></title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="НТУУ-КП  И, КПИ, Кафедра прикладной математики" />
     <meta name="description" content="Сайт кафедры прикладной математики ФПМ НТУУ-КПИ" />
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/style.css" />
@@ -14,7 +14,7 @@
     <? if($module[3]=='download'): ?>
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/fileview.css" />
     <? endif;?>
-    <? if($module[3]=='upload'):?><base href="http://<?=$_SERVER['HTTP_HOST'];?>/"></base?<?endif;?>
+    <? if($module[3]=='upload' || $module[3] == "edit"):?><base href="http://<?=$_SERVER['HTTP_HOST'];?>/"></base><?endif;?>
     <? if($module[3]=='edit'): ?>
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/css/flick/jquery-ui-1.8.custom.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/css/ui.jqgrid.css" />
@@ -22,11 +22,16 @@
 <!-- -->
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/jquery.js"></script>
 
+    <? if($module[2] == "profile"):?>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/profile_anketa.css" />
+    <?endif;?>
     <? if($module[3]=='edit'): ?>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/i18n/grid.locale-ru.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/my.jquery.jqGrid.min.js"></script>
     <? endif;?>
-    
+    <? if($module[2]=="site_map"):?>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/sitemap.css" />
+    <?endif;?>
     <? if(!user::isLoged()): ?>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/jquery.blockUI.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/showLogin.js"></script>
@@ -50,14 +55,24 @@
     <div id="header">
         <div id="header_top">
             <div id="logo">
-                <a href="#"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/tower.png" alt="Сайт кафедры прикладной математики НТУУ-КПИ" /></a>
+                <a href="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/tower.png" alt="Сайт кафедры прикладной математики НТУУ-КПИ" /></a>
             </div> <!-- #logo -->
-
-            <div id="title">
-                <h1><?=$labels['common']['header_ntuu'];?><br /></h1>
-                <h2><?=$labels['common']['header_fpm'];?><br /></h2>
-                <h2><?=$labels['common']['header_pma'];?><br /></h2>
-            </div><!-- #title -->
+            <? if(!$View->show_quote): ?>
+                <div id="title">
+                        <h1><?=$labels['common']['header_ntuu'];?><br /></h1>
+                        <h2><?=$labels['common']['header_fpm'];?><br /></h2>
+                        <h2><?=$labels['common']['header_pma'];?><br /></h2>
+                </div>
+            <? else: ?>
+                <div id="left_title">
+                    <h2><?=$labels['common']['label_pma'];?></h2>
+                </div>
+                <div id="right_title">
+                    <div class="quote"><?=$View->quote['quote_'.config::getDefaultLanguage()];?></div>
+                    <div class="auther"><?=$View->quote["auther_".config::getDefaultLanguage()];?></div>
+                </div>
+            <?endif;?>
+            <!-- #title -->
 
             <div id="flags">
                 <? foreach ($View->languages as $key=>$langs): ?>
@@ -71,7 +86,8 @@
 
         <div id="header_middle">
             <div id="left_menu">
-                <ul><? print $View->top_menu['left'];?></ul>
+                <!--<ul><? print $View->top_menu['left'];?></ul>-->
+                <ul><? require_once("static/templates/top_menu/".$View->top_left_menu."/left_".config::getDefaultLanguage()."_".$View->top_left_menu.".php");?></ul>
             </div> <!-- #left_menu -->
 
             <div id="header_img_1"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/image1.png" alt="НТУУ-КПИ" /> </div> <!-- #header_img_1 -->
@@ -81,7 +97,7 @@
         <div id="header_img_3"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/kod.png" alt="НТУУ-КПИ" /></div> <!-- #header_img_3 -->
 
         <div id="right_menu">
-            <ul><? print $View->top_menu['right']; ?></ul>
+           <ul><? require_once("static/templates/top_menu/".$View->top_right_menu."/right_".config::getDefaultLanguage()."_".$View->top_right_menu.".php");?></ul>
         </div>	<!-- #right_menu -->
 
         <div id="pic_1"></div>
@@ -122,8 +138,8 @@
 <!-- ************************************************************************************************************************************** -->
             <form method="post" action="#" id="search_form">
                 <div>
-                    <input type="text" name="q" size="30" maxlength="200" value="" id="sbi" />
-                    <input type="submit" name="sa" value="<?=$labels['common']['search'];?>" id="sbb" />
+                    <input type="text" name="q" size="30" maxlength="200" value="" id="sbi" />                    
+                    <input class="button_download" style="width:80px;height:18px;float:left" type="submit" name="sa" value="<?=$labels['common']['search'];?>" />
                 </div>
             </form>
 
@@ -159,7 +175,7 @@
 
     <div id="footer">
         Copyrights (C) PMA - NTUU - KPI&nbsp;&nbsp;&nbsp;
-        <?$end = microtime(1); print $end - $begin." ";?>
+        
    </div><!-- #footer -->
 
 </div><!-- #wrapper -->

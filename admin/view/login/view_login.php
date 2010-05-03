@@ -12,7 +12,10 @@
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/css/login.css" />
 </head>
     <body>
-        <div id="login_label"><a id="login_a" class="login">Вход</a></div>
+        <div id="login_label" style="text-align:center;margin:0;padding:0">
+            <h1>PMA Admin Panel</h1>
+            <a id="login_a" class="login">Вход</a>
+        </div>
         <div id="modal_dialog" style="display:none; cursor: default" class="dialog">
             <div class="dialog_title_bar">
                 <div class="dialog_caption">Вход в админ панель</div>

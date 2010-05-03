@@ -8,5 +8,7 @@ switch($module[3])
     case 'get_file_data':require_once("classes/files/class.files.php");
                          require_once("controllers/ajax/controller_get_file_data.php");
     break;
+    case 'get_user_info':
+    break;
 }
 ?>

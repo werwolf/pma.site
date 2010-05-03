@@ -2,6 +2,7 @@
 if (!defined("entrypoint"))die;
 require_once("classes/news/class.news.php");
 
+
 if(user::isLoged())
         $int = 'n';
 else 

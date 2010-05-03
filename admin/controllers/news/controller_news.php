@@ -18,8 +18,8 @@ switch($module[3])
                     if(!$error)
                     {
                         $sql = "insert into `obj_news` (`id_user`,`title_ru`,`title_ua`,`title_en`,`text_ru`,`text_ua`,`text_en`,
-                           `internal`,`active`,`comments`,`date`) values (".$user->getUserId().",'".$news_data['title_ru']."','".$news_data['title_ua'].
-                            "','".$news_data['title_en']."','".$news_data['text_ru']."','".$news_data['text_ua']."','".$news_data['text_en']."','".$news_data['internal'].
+                           `internal`,`active`,`comments`,`date`) values (".$user->getUserId().",'".$db->escape($news_data['title_ru'])."','".$db->escape($news_data['title_ua']).
+                            "','".$db->escape($news_data['title_en'])."','".$db->escape($news_data['text_ru'])."','".$db->escape($news_data['text_ua'])."','".$db->escape($news_data['text_en'])."','".$news_data['internal'].
                             "','".$news_data['active']."','".$news_data['comments']."',now())";
 
                         $db->query($sql);
@@ -83,6 +83,7 @@ switch($module[3])
                 $flag = explode("=",$module[3]);
                 if((int)$module[3] == 0 || $flag[0] == 'page')
                 {
+                    require_once("admin/classes/static_pages/class.static_pages.php");
                     $View->view_type = 1;
 
                     if(empty($flag[1]))

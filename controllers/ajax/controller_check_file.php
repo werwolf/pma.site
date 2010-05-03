@@ -3,12 +3,20 @@ if (!defined("entrypoint"))die;
 
 files::init($db, $viewextensions,MAX_FILE_SIZE);
 
-if(files::checkExtension(Root::POSTString("filename")) && files::checkPicture($pictures,Root::POSTString("cover")))
+if(Root::POSTExists("filename"))
 {
-    print 'true';
+       if(files::checkExtension(Root::POSTString("filename")))
+            print 'true';
+        else
+            print 'false';
 }
-else
+
+if(Root::POSTExists("cover"))
 {
-    print 'false';
+    if(files::checkPicture($pictures,Root::POSTString("cover")))
+        print 'true';
+    else
+        print 'false';
 }
+
 ?>

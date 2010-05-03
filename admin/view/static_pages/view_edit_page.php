@@ -18,7 +18,7 @@
           <!-- <td valign="top"></td>-->
            <td colspan="2">
                <span>Текст на <?=$languages[$View->langs[$i]];?> мові</span>
-               <textarea id="editor_<?=$View->langs[$i];?>" name="text_<?=$View->langs[$i];?>"><? if($module[3] == 'edit' || $View->keyExists("error")): ?><?=$View->page_info['text_'.$View->langs[$i]];?><?endif;?></textarea>
+               <textarea id="editor_<?=$View->langs[$i];?>" name="text_<?=$View->langs[$i];?>"><? if($module[3] == 'edit' || $View->keyExists("error")): ?><?=static_pages::unhtmlentities($View->page_info['text_'.$View->langs[$i]]);?><?endif;?></textarea>
            </td>
         </tr>
         <?endfor;?>
@@ -51,7 +51,7 @@
 				toolbar  : 'maxi',				
                                 fmOpen: function(callback) {
 					$('<div id="myelfinder" />').elfinder({
-						url : 'http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/elfinder/connectors/php/connector.php',
+						url : 'http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/connectors/php/connector.php',
 						lang : 'ru',
 						dialog : { width : 800, modal : true, title : 'Files' },
 						closeOnEditorCallback : true,

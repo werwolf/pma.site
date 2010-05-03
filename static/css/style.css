@@ -412,7 +412,7 @@ input {vertical-align: middle}
 	/*#left_main_menu ul li { float: left; }
 	#left_main_menu ul li a { height: 1%; }*/
 /* End */
-
+#left_main_menu ul li a { height: 1%; }
 #left_main_menu ul {
 	list-style: none;
 	margin: 0;
@@ -562,10 +562,14 @@ input {vertical-align: middle}
 #profile .user_data td{
     font-size:18px;
     padding-top:10px;
+    text-align:left;
 }
 #profile .user_data img{
     border:1px solid #ccc;
     width:200px;
+}
+#profile .user_data select{
+    text-align:left;
 }
 .save_profile{
     width:120px;
@@ -625,4 +629,72 @@ input {vertical-align: middle}
 	background-image:url(../img/active_menu.png);
 	background-repeat:no-repeat;
 	list-style:none;
+}
+#left_title{
+    width:300px;
+    text-align:left;
+    padding-left:10px;
+    padding-top:20px;
+    float:left;
+    height: 120px;
+    display:inline-table;
+}
+#left_title h2 {
+	font-size: 22px;
+        color:#fff;
+        font-weight: normal;
+}
+#right_title{
+    width:498px;
+    text-align:right;
+    float:left;
+    display:inline-table;
+    position:relative;
+    top:15px;
+    left:70px;
+}
+#right_title .quote{
+    color:#646061;
+    font-weight:normal;    
+}
+#right_title .auther{
+    color:#fff;
+    font-weight:normal;
+    padding-right:5px;
+}
+
+.button_download{
+    position: relative;    
+    margin:0;
+    padding:0;
+    font-size: 12px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color:#6e728e;
+    background-color:#e2dedf;
+    border:1px solid #cdcdcd;
+    
+    margin-left: 10px;
+}
+ .button_download:hover{
+    background-color:#9aa1cb;
+    color:#fff;
+    cursor:pointer;
+}
+.hidden_input{
+      opacity:0;
+      filter:alpha(opacity:0);
+      font-size:199px;
+      cursor:pointer;
+      padding:0px;
+      margin:0px;
+      border:none;
+      margin-left:-450px;
+
+}
+.hidden_div{
+    text-align:center;
+    width:80px;
+    height:20px;
+    overflow:hidden;
+    cursor:pointer;
 }

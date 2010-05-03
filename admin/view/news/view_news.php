@@ -13,7 +13,7 @@
         <tr>
             <td><?=($i+1);?></td>
             <td><a href="http://<?=$_SERVER['HTTP_HOST'];?>/admin/news/edit/<?=$View->news_page[$i]['id'];?>"><?=$View->news_page[$i]['title'];?></a></td>
-            <td><?=$View->news_page[$i]['text'];?></td>
+            <td><?=static_pages::unhtmlentities($View->news_page[$i]['text']);?></td>
             <td><?=news::getDate($View->news_page[$i]['date']);?></td>
             <td>
                 <a href="http://<?=$_SERVER['HTTP_HOST'];?>/admin/news/edit/<?=$View->news_page[$i]['id'];?>" style="text-decoration:none">

@@ -12,18 +12,17 @@
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/js/setHeight2.js"></script>
     <? if($module[3] == 'edit' || $module[3] == 'add'): ?>
     <script src="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/js/check.js" type="text/javascript" charsert="utf-8"></script>
-    <script src="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/elfinder/js/jquery-1.4.1.min.js" type="text/javascript" charset="utf-8"></script>    
+    <script src="http://<?=$_SERVER['HTTP_HOST'];?>/static/elfinder/jquery-1.4.1.min.js" type="text/javascript" charset="utf-8"></script>    
     <script src="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/elrte/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/elrte/js/ui-themes/base/ui.all.css" type="text/css" media="screen" charset="utf-8"/>
     <script src="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/elrte/js/elrte.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/elrte/js/i18n/elrte.ru.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/elrte/css/elrte.full.css" type="text/css" media="screen" title="elRTE" charset="utf-8"/>
 
-
-    <script src="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/elfinder/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/elfinder/js/elfinder.min.js" type="text/javascript" charset="utf-8"></script>
-    <link rel="stylesheet" href="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/elfinder/js/ui-themes/base/ui.all.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
-    <link rel="stylesheet" href="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/elfinder/css/elfinder.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+    <script src="http://<?=$_SERVER['HTTP_HOST'];?>/static/elfinder/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://<?=$_SERVER['HTTP_HOST'];?>/static/elfinder/elfinder.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/elfinder/ui-themes/base/ui.all.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+    <link rel="stylesheet" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/elfinder.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
 
     <? endif; ?>
 

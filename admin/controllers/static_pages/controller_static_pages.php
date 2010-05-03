@@ -25,9 +25,10 @@ switch($module[3])
 
                     if(!$error)
                     {
-                        $sql = "update `obj_staticpages` set `title_ru` = '".$page_data['title_ru']."',`title_en` = '".$page_data['title_en']."',`title_ua` = '".$page_data['title_ua']."',".
-                           "`text_ua` = '".$page_data['text_ua']."',`text_en` = '".$page_data['text_en']."',`text_ru`='".$page_data['text_ru']."',`active` = '".$page_data['active']."',`position` = ".$page_data['position'].
+                        $sql = "update `obj_staticpages` set `title_ru` = '".$db->escape($page_data['title_ru'])."',`title_en` = '".$db->escape($page_data['title_en'])."',`title_ua` = '".$db->escape($page_data['title_ua'])."',".
+                           "`text_ua` = '".$db->escape($page_data['text_ua'])."',`text_en` = '".$db->escape($page_data['text_en'])."',`text_ru`='".$db->escape($page_data['text_ru'])."',`active` = '".$page_data['active']."',`position` = ".$page_data['position'].
                            " where `id` = ".Root::POSTInt("ID");
+                       
                         $db->query($sql);
                     }
                 }

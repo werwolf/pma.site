@@ -2,7 +2,7 @@
 <div  id="news_news">
     <? foreach($View->news_page as $new): ?>
     <div class="links"><a href="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/news/<?=$new['id'];?>/<?=urlencode($new['title']);?>.html"><?=$new['title'];?></a></div>
-    <div class="message"><?=$new['text'];?></div>
+    <div class="message"><?=pages::unhtmlentities($new['text']);?></div>
     <div class="date_comment"><?=news::getDate($new['date']);?>&nbsp;<? if($new['comments'] == 'y'): ?>,&nbsp;<?=$labels['news']['comments'];?>:&nbsp;<?=$new['comments_count'];?><?endif;?></div>
     <? endforeach; ?>
     <? if(news::getPagesCount() > 1): ?><div class="news_foot"><?=$labels['news']['page'];?>&nbsp;<?=$View->paging;?></div><?endif;?>
@@ -12,7 +12,7 @@
 <? if($View->view_type == 2): ?>
 <div id="newscontent">
     <b><?=$View->new['title'];?></b><br/><br/>
-    <div class="message"><?=$View->new['text'];?></div><br/><br/>
+    <div class="message"><?=pages::unhtmlentities($View->new['text']);?></div><br/><br/>
     <? if(news::isComment()): ?>
     <?=$labels['news']['comment'];?><hr style="margin-top:10px;width: 640px;"/>
         <? foreach($View->comments as $comment): ?>
@@ -37,11 +37,11 @@
                 <?=$labels['news']['add_comment'];?><br/><br/>
                 <form action="" method="post">
                         <textarea style="width:640px;height:100px;overflow: auto;" name="comment"></textarea><br/>
-                        <input type="submit" value="<?=$labels['news']['add_comment'];?>" style="background:#EEE;padding:2px"/>
+                        <input type="submit" value="<?=$labels['news']['add_comment'];?>" class="button_download" style="width:100px;height:20px;margin-left:0;margin-top:10px"/>
                         <input type="hidden" name="user_id" value="<?=$user->getUserId();?>" />
                         <input type="hidden" name="new_id" value="<?=$View->new['id'];?>"/>
                         <input type="hidden" name="user_secret" value="<?=$user->getUserSecret();?>"/>
-                        <input type="hidden" name="action" value="add_comment"/>
+                        <input type="hidden" name="action" value="add_comment" />
                 </form>
         <? endif;?>
     <? endif; ?>

@@ -26,6 +26,7 @@ class news
                " (now(),'".self::$db->escape($text)."','$new','$user')";
         
         self::$db->query($sql);
+        self::$db->query("update `obj_news` set `comments_count` = `comments_count`+1 where `id` = ".$new);
     }
     public static function getOneNew($new)
     {
@@ -187,7 +188,12 @@ class news
     }
     public static function deleteComment($comment)
     {
+        self::$db->query("select `id_post` from `obj_comments` where `id` = $comment");
+        $res = self::$db->assoc();
+
+        self::$db->query("update `obj_news` set `comments_count` = `comments_count`-1 where `id` = ".$res['id_post']);
         self::$db->query("delete from `obj_comments` where `id` = $comment");
+        
     }
     public static function getAllNews()
     {
