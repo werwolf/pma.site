@@ -2,11 +2,12 @@
 class user
 {
     protected  $db;
-    protected  static $is_login = false;
     protected  $user_info;
-    protected  static $secret = "bdbdes1./";
     protected  $id = 0;
-
+    protected  $isAdmin = false;
+    protected  static $is_login = false;
+    protected  static $secret = "bdbdes1./";
+    
     public function  __construct($db,$id)
     {
         $this->db = $db;
@@ -30,6 +31,16 @@ class user
         self::$is_login = true;
 
         return $res;
+    }
+    public function isAdminCheck()
+    {
+        $sql = "select `id` from `Admins` where `User_ID` = ".$this->getUserId();        
+        $this->db->query($sql);
+
+        if($this->db->numRows() > 0)        
+            $this->isAdmin = true;
+
+        return $this->isAdmin;
     }
     public static function authentification($login,$pass,$db)
     {
@@ -132,6 +143,10 @@ class user
     {
         return $this->user_info["ID"];
     }
+    public function isAdmin()
+    {
+        return $this->isAdmin;
+    }
 }
 
 class Professor extends user
@@ -181,10 +196,10 @@ class Student extends user
 {
     public function getUserInformation()
     {
-        $sql = "select `Students`.`ID`,`Students`.`Rank`,`Groups`.`Title`,`Groups`.`Course`,`Groups`.`Sheduler_Path`,`Groups`.`Extranumeral`,".
-               "`Groups`.`ID` as `GroupeID`,`Users`.* from `Users`,`Students`,`Groups` where `Users`.`ID` = $this->id and `Students`.`User_ID` = `Users`.`ID` and".
-               " `Groups`.`ID` = `Students`.`Groupe_ID`";
-               
+        $sql = "select `Students`.`ID` as `Stud_ID`,`Students`.`Rank`,`Groups`.`Title`,`Groups`.`Course`,`Groups`.`Sheduler_Path`,`Groups`.`Extranumeral`,".
+               "`Groups`.`ID` as `GroupID`,`Users`.* from `Users`,`Students`,`Groups` where `Users`.`ID` = $this->id and `Students`.`User_ID` = `Users`.`ID` and".
+               " `Groups`.`ID` = `Students`.`Group_ID`";
+             
         $this->db->query($sql);
         $this->user_info = $this->db->assoc();
     }
@@ -214,7 +229,7 @@ class Student extends user
 
     public function getUserGroupId()
     {
-        return $this->user_info['GroupeID'];
+        return $this->user_info['GroupID'];
     }
 }
 ?>

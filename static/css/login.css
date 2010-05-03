@@ -56,12 +56,12 @@
     cursor: pointer;
 }
 
-.dialog .text_lable {
+.dialog .text_label {
 	margin-bottom: 10px;
 	/*float: left;*/
 }
 
-.dialog .dialog_login_lable {
+.dialog .dialog_login_label {
 	float: left;
 	text-align: right;
 	width: 75px;

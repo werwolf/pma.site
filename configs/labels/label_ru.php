@@ -3,7 +3,7 @@ if (!defined("entrypoint"))die;
 $labels = array(
     'common' => array(
                       'bc_title' => 'Кафедра Прикладной Математики',
-                      'header_ntuu' => 'НТУУ "Киевский Политехнический Институт"',
+                      'header_ntuu' => 'НТУУ «Киевский Политехнический Институт»',
                       'header_pma' => 'Кафедра Прикладной Математики',
                       'header_fpm' => 'Факультет Прикладной Математики',
                       'search' => 'Поиск',
@@ -59,6 +59,13 @@ $labels = array(
                         'praepostor'=>'Староста',
                         'trade-union'=>'Профорг'
                       ),
+    'rating' => array (
+                        'bc_title' => 'Рейтинг студентів',
+                        'rating'=>'Рейтинг',
+                        'create_table'=>'Создать таблицу',
+                        'view_table'=>'Просмотр таблицы',
+                        'edit_table'=>'Редактировать таблицу'
+                      ),
     'fileshare' => array(
                         'bc_title' => 'Файловое хранилице',
                         'picture'=>'Изображение',
@@ -75,7 +82,8 @@ $labels = array(
                         'error_file_to_big'=>'Размер файла больше максимально допустимого',
                         'error_upload_cover'=>'Не могу загрузить картинку',
                         'error_cover_to_big'=>'Размер картинки больше максимально допустимого',
-                        'uploader' =>'Загрузил'
+                        'uploader' =>'Загрузил',
+                    	'filesize'=>'Размер файла'
     )
 );
 ?>
