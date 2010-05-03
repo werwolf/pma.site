@@ -59,6 +59,13 @@ $labels = array(
                         'praepostor'=>'Староста',
                         'trade-union'=>'Профорг'
                       ),
+    'rating' => array (
+                        'bc_title' => 'Рейтинг студентів',
+                        'rating'=>'Рейтинг',
+                        'create_table'=>'Создать таблицу',
+                        'view_table'=>'Просмотр таблицы',
+                        'edit_table'=>'Редактировать таблицу'
+                      ),
     'fileshare' => array(
                         'bc_title' => 'Файловое хранилице',
                         'picture'=>'Изображение',

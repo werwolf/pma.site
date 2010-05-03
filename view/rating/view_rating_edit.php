@@ -6,7 +6,7 @@
     <!-- - - - - - - - - - - - - -->
     
     <div class="top_container">
-        <div class="top_container_lable">Выберите таблицу</div>
+        <div class="top_container_lable" id="top_label"></div>
         <select name="tablename" id="table_select">
             <option>...</option>
             <option>OS : KM-71</option>
@@ -19,30 +19,30 @@
     <table id="desttable"></table>
     <div style="display:none;"><table id="et"></table></div>
 
-    <input type="button" id="editb" value="Редагувати колонки" />
+    <input type="button" id="editb" />
 
 <!-- -->
     <div id="editbar">
         <div>
-            <div class="editbar_lable">Добавить колонку</div>
-            <input id="labeledit" type="text" value="Титл" maxlength="20" class="editbar_input" />
-            <input id="fooedit" type="text" value="Бал" maxlength="5" class="editbar_input" />
-            <input id="addb" type="button" value="add" />
+            <div class="editbar_lable" id="add_label"></div>
+            <input id="labeledit" type="text" maxlength="20" class="editbar_input" />
+            <input id="fooedit" type="text" maxlength="5" class="editbar_input" />
+            <input id="addb" type="button" />
         </div>
 
         <div style="padding: 5px 0;">
-            <div class="editbar_lable">Удалить колонку</div>
+            <div class="editbar_lable" id="del_label"></div>
             <div id="scontainer">
                 <select id="delnum" name="tablename">
                     <option>...</option>
                 </select>
             </div>
-            <input id="delb" type="button" value="del" />
+            <input id="delb" type="button" />
         </div>
 
         <div style="margin-top: 5px;">
-            <input id="rest" type="button" value="restore" disabled />
-            <input id="savetable" type="button" value="save" />
+            <input id="rest" type="button" disabled />
+            <input id="savetable" type="button" />
         </div>
     </div>
 <!-- -->
@@ -107,9 +107,7 @@
                                 document.getElementById(el_id["rest"]).removeAttribute('disabled');
                             }
                         },
-                        editCaption: "Зміна '"+jQuery("#"+el_id["desttable"]).jqGrid('getColProp',index).label+"'",
-                        bSubmit: "Зберегти",
-                        bCancel: "Відміна"
+                        editCaption: my_labels["editcaption"]+jQuery("#"+el_id["desttable"]).jqGrid('getColProp',index).label+"'"
                     });
                 };
             },
@@ -133,6 +131,7 @@
         var myselect = document.getElementById(el_id["delnum"]);
         var newlabel = document.getElementById(el_id["labeledit"]);
         var newfoo = document.getElementById(el_id["fooedit"]);
+        var my_labels = jQuery.jgrid.my_script;
         var editing, r_select, r_colmod, r_mydata, i;
 
 
@@ -152,15 +151,28 @@
             $("#"+el_id["editb"]).click(function(){ myswitch(true); });
             $("#"+el_id["rest"]).click(function(){ restore(); });
             $("#"+el_id["savetable"]).click(function(){ myswitch(false); });
-            $("#"+el_id["labeledit"]).click(function(){ return processkey(event); });
+            $("#"+el_id["labeledit"]).keydown(function(){ return processkey(event); });
+            $("#"+el_id["fooedit"]).keydown(function(){ return processkey(event); });
             $("#"+el_id["addb"]).click(function(){ addCol(newlabel.value, newfoo.value); });
             $("#"+el_id["delb"]).click(function(){ if (myselect.options.length) delCol(myselect.options[myselect.selectedIndex].value); });
 
-            $("#"+el_id["labeledit"]).blur(function(){ inp_def_val(this,'Титл','blur'); });
-            $("#"+el_id["labeledit"]).focus(function(){ inp_def_val(this,'Титл','click'); });
+            $("#"+el_id["labeledit"]).attr("value",my_labels["title"]);
+            $("#"+el_id["labeledit"]).blur(function(){ inp_def_val(this,my_labels["title"],'blur'); });
+            $("#"+el_id["labeledit"]).focus(function(){ inp_def_val(this,my_labels["title"],'click'); });
 
-            $("#"+el_id["fooedit"]).blur(function(){ inp_def_val(this,'Бал','blur'); });
-            $("#"+el_id["fooedit"]).focus(function(){ inp_def_val(this,'Бал','click'); });
+            $("#"+el_id["fooedit"]).attr("value",my_labels["mark"]);
+            $("#"+el_id["fooedit"]).blur(function(){ inp_def_val(this,my_labels["mark"],'blur'); });
+            $("#"+el_id["fooedit"]).focus(function(){ inp_def_val(this,my_labels["mark"],'click'); });
+
+			var key, obj=jQuery.jgrid.my_html;
+            for (key in obj) {
+            	if (obj.hasOwnProperty(key))
+                	if (key.indexOf("_label")>0) {
+                		jQuery("#"+key).text(obj[key]);
+                	} else {
+						jQuery("#"+key).attr("value", obj[key]);
+            		}
+            }
         });
 
         function inp_def_val(inp, def_val, mode) {
@@ -191,7 +203,7 @@
                     $.extend(opts,{caption:table["caption"]});
 
                     colmod.splice(0, colmod.length);
-                    colmod[0]={label:table["title"][0], name:"stud_name",index:"stud_name", width:150, sortable:false};
+                    colmod[0]={label:my_labels["title_0"], name:"stud_name",index:"stud_name", width:150, sortable:false};
                     for(i=1; i<table["title"].length; i++)
                         colmod[i]={label:table["title"][i], name:"col"+i,index:"col"+i, width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}};
 
@@ -201,7 +213,6 @@
                     foodata=clone(table["rating"]);
 
                     InitTable();
-                    //setHeight(); // from ./static/js/setHeight.js made height of sidebar as height of content
                 },
 
                 error: function(){
@@ -223,8 +234,7 @@
             //grid for input
             jQuery("#"+el_id["et"]).jqGrid({
                 datatype: "local",
-                colNames:['Нова назва:'],
-                colModel:[{name:'ec',index:'ec', width:90,editable:true,editoptions:{size:25}}]
+                colModel:[{label:my_labels["et"],name:'ec',index:'ec', width:90,editable:true,editoptions:{size:25}}]
             });
             jQuery("#"+el_id["et"]).jqGrid('addRowData',1,{ec:""});
 
@@ -296,7 +306,6 @@
                 hide(el_id["editb"]);
                 totable();
                 document.getElementById(el_id["editb"]).setAttribute('disabled',"");
-                setHeight();
             } else {
                 hide(el_id["editbar"]);
                 show(el_id["editb"]);
@@ -305,8 +314,9 @@
                 r_mydata=clone(mydata);
                 document.getElementById(el_id["editb"]).removeAttribute('disabled');
                 document.getElementById(el_id["rest"]).setAttribute('disabled',"");
-                setMenuHeight(); setHeight();
+                setMenuHeight();
             }
+            setHeight();
             editing=ch;
         }
         //--------------------------------------------------END support

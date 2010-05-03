@@ -24,11 +24,11 @@ $labels = array(
 
     'login' =>  array(
                       'logout_wrd' => 'Logout',
-                      'login_in' => 'Login',
+                      'login_in' => 'Submit',
                       'password_wrd' => 'Password',
-                      'error_login' => 'Error login or password',
-                      'enter_site' => 'Enter site',
-                      'login_wrd' => "Login"
+                      'error_login' => 'Wrong combination of login & password',
+                      'enter_site' => 'Login',
+                      'login_wrd' => "User"
                      ),
    'profile' => array (
                         'bc_title' => 'Private office',
@@ -50,7 +50,7 @@ $labels = array(
                         'male' => 'Male',
                         'female'=>"Female",
                         'save'=>'Save',
-                        'group'=>'Groupe',
+                        'group'=>'Group',
                         'profile_user'=>'User profile',
                         'download'=>'Download files',
                         'upgrade'=>'Update files',
@@ -58,6 +58,13 @@ $labels = array(
                         'student' =>'Student',
                         'praepostor'=>'Praepostor',
                         'trade-union'=>'Trade-union'
+                      ),
+    'rating' => array (
+                        'bc_title' => 'Ratings',
+                        'rating'=>'Ratings',
+                        'create_table'=>'Create table',
+                        'view_table'=>'View table',
+                        'edit_table'=>'Edit table'
                       ),
     'fileshare' => array(
                         'bc_title' => 'Store of files',

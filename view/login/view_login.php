@@ -4,7 +4,7 @@
 			<table cellspacing="0" cellpadding="3" align="center">
 				<tr>
 					<td align="right">
-						<?= $labels['login']['login_wrd']; ?>
+						<?= $labels['login']['login_wrd']; ?>&nbsp;
 					</td>
 					<td align="left">
 						<input type="text" name="login" value="" class="login_input" />
@@ -12,7 +12,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						<?= $labels['login']['password_wrd']; ?>
+						<?= $labels['login']['password_wrd']; ?>&nbsp;
 					</td>
 					<td align="left">
 						<input type="password" name="password" value="" class="login_input" />

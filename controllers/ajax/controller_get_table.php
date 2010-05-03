@@ -18,11 +18,10 @@ switch ($tablename) {
     case 'OS : KM-71' : $data["caption"]="Група: KM-71 (ОС)"; $col_number+=2;break;
     case 'OS : KM-72' : $data["caption"]="Група: KM-72 (ОС)"; break;
     case 'OS : KM-73' : $data["caption"]="Група: KM-73 (ОС)"; break;
-    default: $data["caption"]="Група &&&&&&&&"; break;
+    default: $data["caption"]="Група неопределена"; break;
 }
-//$data["caption"]="Група: KM-72 (ООП)";
 
-$data["title"][0]="ПІБ";
+$data["title"][0] = "Name";
 for($i=1; $i<$col_number; $i++) {
     $data["title"][$i] = "робота".$i;
 }

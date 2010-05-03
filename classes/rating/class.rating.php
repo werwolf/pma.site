@@ -12,24 +12,24 @@ class ratings extends Professor
     private $table = array();
     private $names;
 
-//    public function  __construct($db,$subject,$groupe,$professor_id)
+//    public function  __construct($db,$subject,$group,$professor_id)
 //    {
 //        $this->db = $db;
-//        $this->$tablename = $subject + '_' + $groupe;
+//        $this->$tablename = $subject + '_' + $group;
 //        $this->$professor_id = $professor_id;
 //        $this->id = $id;
 //    }
 
-    public function getStudentsIDs($groupe_id)
+    public function getStudentsIDs($group_id)
     {
-        $sql = "select 'Students'.'Users_ID' from 'Students' where 'Groupe_ID' = $groupe_id";
+        $sql = "select 'Students'.'Users_ID' from 'Students' where 'Group_ID' = $group_id";
         $this->db->query($sql);
         return $this->db->assoc();
     }
 
-    public function getStudentsName($groupe_id)
+    public function getStudentsName($group_id)
     {
-        $this->table['id'] = getStudentsIDs($groupe_id);
+        $this->table['id'] = getStudentsIDs($group_id);
 
         for($i=0;$i<count($subject);$i++)
         {
@@ -48,7 +48,7 @@ class ratings extends Professor
 
     }
 
-    public function setRatingTable($subject_id, $groupe_id, $sub_professor_id)
+    public function setRatingTable($subject_id, $group_id, $sub_professor_id)
     {
         if($sub_professor_id == 0) $sub_professor_id = $this->id;
         //$this->table['users'] =
@@ -90,7 +90,7 @@ class ratings extends Professor
     public function getMyGroups()
     {
         $sql = "select 'Professors` from `Groups` where".
-               " `Groupes`.`ID` = $this->id and `Professors`.`User_ID` = $this->id";
+               " `Groups`.`ID` = $this->id and `Professors`.`User_ID` = $this->id";
 
         $this->db->query($sql);
         $this->user_info = $this->db->assoc();
