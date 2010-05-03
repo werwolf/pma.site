@@ -3,7 +3,7 @@ if (!defined("entrypoint"))die;
 $labels = array(
     'common' => array(
                       'bc_title' => 'Кафедра Прикладной Математики',
-                      'header_ntuu' => 'НТУУ "Киевский Политехнический Институт"',
+                      'header_ntuu' => 'НТУУ «Киевский Политехнический Институт»',
                       'header_pma' => 'Кафедра Прикладной Математики',
                       'header_fpm' => 'Факультет Прикладной Математики',
                       'search' => 'Поиск',
@@ -58,6 +58,24 @@ $labels = array(
                         'student' =>'Студент',
                         'praepostor'=>'Староста',
                         'trade-union'=>'Профорг'
+                      ),
+    'rating' => array (
+                        'bc_title' => 'Рейтинг студентів',
+                        'rating'=>'Рейтинг',
+                        'create_table'=>'Создать таблицу',
+                        'view_table'=>'Просмотр таблицы',
+                        'edit_table'=>'Редактировать таблицу',
+                        /* rating_table_edit*/
+                        'top_label'=>'Выберите таблицу',
+			'editb'=>'Редактировать колонки',
+			'add_label'=>'Добавить колонку',
+			'del_label'=>'Удалить колонку',
+                        'title'=>'Титл',
+			'mark'=>'Балл',
+			'addb'=>'доб.',
+			'delb'=>'удал.',
+			'rest'=>'Сброс',
+			'savetable'=>'Сохранить'
                       ),
     'fileshare' => array(
                         'bc_title' => 'Файловое хранилице',

@@ -14,7 +14,7 @@
     <? if($module[3]=='download'): ?>
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/fileview.css" />
     <? endif;?>
-    <? if($module[3]=='upload'):?><base href="http://<?=$_SERVER['HTTP_HOST'];?>/"></base?<?endif;?>
+    <? if($module[3]=='upload'):?><base href="http://<?=$_SERVER['HTTP_HOST'];?>/"></base><?endif;?>
     <? if($module[3]=='edit'): ?>
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/css/flick/jquery-ui-1.8.custom.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/css/ui.jqgrid.css" />
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/jquery.js"></script>
 
     <? if($module[3]=='edit'): ?>
-    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/i18n/grid.locale-ru.js"></script>
+    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/i18n/grid.locale-<?=config::getDefaultLanguage();?>.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/my.jquery.jqGrid.min.js"></script>
     <? endif;?>
     
@@ -101,17 +101,17 @@
             <div class="dialog_pane">
                 <div style="margin-top: 10px;">
                     <form action="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/login" method="post">
-                        <div class="text_lable">
-                            <div class="dialog_login_lable"><?=$labels['login']['login_wrd'];?></div>
+                        <div class="text_label">
+                            <div class="dialog_login_label"><?=$labels['login']['login_wrd'];?></div>
                             <input type="text" name="login" size="20" maxlength="200" value="" id="login"/>
                         </div>
 
-                        <div class="text_lable">
-                            <div class="dialog_login_lable"><?=$labels['login']['password_wrd'];?></div>
+                        <div class="text_label">
+                            <div class="dialog_login_label"><?=$labels['login']['password_wrd'];?></div>
                             <input type="password" name="password" size="20" maxlength="200" value="" id="password"/>
                         </div>
 
-                        <div class="text_lable">
+                        <div class="text_label">
                             <input type="submit" id="yes" value="<?=$labels['login']['login_in'];?>" class="dialog_button"/>
                         </div>
                     </form>
@@ -158,7 +158,7 @@
     </div><!-- #middle -->
 
     <div id="footer">
-        Copyrights (C) PMA - NTUU - KPI&nbsp;&nbsp;&nbsp;
+        &copy; PMA - NTUU - KPI&nbsp;&nbsp;&nbsp;
         <?$end = microtime(1); print $end - $begin." ";?>
    </div><!-- #footer -->
 

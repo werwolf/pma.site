@@ -22,18 +22,18 @@
             <div class="dialog_pane">
                 <div style="margin-top: 10px;">
                     <form action="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/login" method="post">
-                        <div class="text_lable">
-                            <div class="dialog_login_lable">Логин</div>
+                        <div class="text_label">
+                            <div class="dialog_login_label">Логин</div>
                             <input type="text" name="login" size="20" maxlength="200" value="" id="login"/>
                             <input type="hidden" name="admin" value="admin"/>
                         </div>
 
-                        <div class="text_lable">
-                            <div class="dialog_login_lable">Пароль</div>
+                        <div class="text_label">
+                            <div class="dialog_login_label">Пароль</div>
                             <input type="password" name="password" size="20" maxlength="200" value="" id="password"/>
                         </div>
 
-                        <div class="text_lable">
+                        <div class="text_label">
                             <input type="submit" id="yes" value="Вход" class="dialog_button"/>
                         </div>
                     </form>
