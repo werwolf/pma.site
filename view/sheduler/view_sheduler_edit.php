@@ -143,9 +143,8 @@
                     hide(el_id["editbar"]);
                     hide(el_id["editb"]);
                     setMenuHeight();
-                } else {
-                    get_table();
                 }
+                else get_table();
             });
 
             $("#"+el_id["editb"]).click(function(){ myswitch(true); });
