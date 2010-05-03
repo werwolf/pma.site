@@ -69,7 +69,7 @@
     display: none;
 }
 
-#labeledit, #fooedit {
+#labeledit, #fooedit, #editr {
     color: gray;
     font-size: 14px;
     font-family: 'Courier New',Courier,monospace;

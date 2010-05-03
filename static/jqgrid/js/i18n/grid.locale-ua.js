@@ -142,8 +142,9 @@
 			del_label: "Видалити колонку",
 			addb: "додати",
 			delb: "видал.",
-			rest: "Відновити",
-			savetable: "Зберегти"
+			editrb: "змінити",
+			rest: "відновити",
+			savetable: "зберегти"
 		},
 		my_script: {
 			editcaption: "Зміна '",

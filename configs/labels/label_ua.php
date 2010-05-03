@@ -63,7 +63,7 @@ $labels = array(
                         'bc_title' => 'Рейтинг студентів',
                         'rating'=>'Рейтинг',
                         'create_table'=>'Створити таблицю',
-                        'view_table'=>'Просмотр таблиці',
+                        'view_table'=>'Переглянути таблиці',
                         'edit_table'=>'Редагувати таблицю'
                       ),
     'fileshare' => array(

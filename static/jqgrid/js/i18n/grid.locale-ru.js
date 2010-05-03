@@ -140,10 +140,11 @@
 			editb: "Редактировать колонки",
 			add_label: "Добавить колонку",
 			del_label: "Удалить колонку",
-			addb: "доб.",
+			addb: "добав.",
 			delb: "удал.",
-			rest: "Сброс",
-			savetable: "Сохранить"
+			editrb: "изменить",
+			rest: "сброс",
+			savetable: "сохранить"
 		},
 		my_script: {
 			editcaption: "Изменение '",

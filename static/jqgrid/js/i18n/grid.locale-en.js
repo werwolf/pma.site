@@ -142,13 +142,14 @@
 			del_label: "Delete column",
 			addb: "add",
 			delb: "del",
-			rest: "Restore",
-			savetable: "Save"
+			editrb: "change",
+			rest: "restore",
+			savetable: "save"
 		},
 		my_script: {
 			editcaption: "Editing '",
 			title: "Title",
-			mark: "Max.mark",
+			mark: "Mark",
 			et: "New label:",
 			title_0: "Name"
 		}
