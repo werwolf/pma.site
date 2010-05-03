@@ -1,5 +1,5 @@
 
-.lable {
+.label {
     float: left;
     margin-right: 5px;
     color: white;
@@ -35,7 +35,7 @@
     padding: 5px 0;
     margin-bottom: 5px;
 }
-.top_container_lable {
+.top_container_label {
     color: blue;
     float: left;
     margin-right: 10px;
@@ -75,7 +75,7 @@
     font-family: 'Courier New',Courier,monospace;
 }
 
-.editbar_lable {
+.editbar_label {
     color: blue;
     float: left;
     margin-right: 10px;

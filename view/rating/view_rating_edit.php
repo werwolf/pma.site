@@ -6,7 +6,7 @@
     <!-- - - - - - - - - - - - - -->
     
     <div class="top_container">
-        <div class="top_container_lable" id="top_label"></div>
+        <div class="top_container_label" id="top_label"></div>
         <select name="tablename" id="table_select">
             <option>...</option>
             <option>OS : KM-71</option>
@@ -24,14 +24,14 @@
 <!-- -->
     <div id="editbar">
         <div>
-            <div class="editbar_lable" id="add_label"></div>
+            <div class="editbar_label" id="add_label"></div>
             <input id="labeledit" type="text" maxlength="20" class="editbar_input" />
             <input id="fooedit" type="text" maxlength="5" class="editbar_input" />
             <input id="addb" type="button" />
         </div>
 
         <div style="padding: 5px 0;">
-            <div class="editbar_lable" id="del_label"></div>
+            <div class="editbar_label" id="del_label"></div>
             <div id="scontainer">
                 <select id="delnum" name="tablename">
                     <option>...</option>

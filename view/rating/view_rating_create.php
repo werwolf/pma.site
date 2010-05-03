@@ -11,7 +11,7 @@ $View->subjects = $user->getProfessorSubjects();
 
     <div style="padding: 5px; background-color: silver; margin-top: 5px; margin-left: 140px; margin-right: 140px;">
         <div>
-            <div class="lable">Предмет</div>
+            <div class="label">Предмет</div>
 
             <select name="subject" id="subject" class="m_select">
                 <option>...</option>
@@ -22,7 +22,7 @@ $View->subjects = $user->getProfessorSubjects();
         </div>
 
         <div id="groups" style="clear: left;">
-            <div class="lable">Группа</div>
+            <div class="label">Группа</div>
 
             <select name="groups" class="m_select">
                 <!--<?//for($i=1; $i<13; $i++):?>
@@ -32,7 +32,7 @@ $View->subjects = $user->getProfessorSubjects();
         </div>
 
         <div style="clear: left;" id="max_bal">
-            <div class="lable">Максимальный бал</div>
+            <div class="label">Максимальный бал</div>
             <input type="text" name="bal" size="15" maxlength="5" value="" id="bal"/>
         </div>
 

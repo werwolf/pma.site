@@ -101,17 +101,17 @@
             <div class="dialog_pane">
                 <div style="margin-top: 10px;">
                     <form action="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/login" method="post">
-                        <div class="text_lable">
-                            <div class="dialog_login_lable"><?=$labels['login']['login_wrd'];?></div>
+                        <div class="text_label">
+                            <div class="dialog_login_label"><?=$labels['login']['login_wrd'];?></div>
                             <input type="text" name="login" size="20" maxlength="200" value="" id="login"/>
                         </div>
 
-                        <div class="text_lable">
-                            <div class="dialog_login_lable"><?=$labels['login']['password_wrd'];?></div>
+                        <div class="text_label">
+                            <div class="dialog_login_label"><?=$labels['login']['password_wrd'];?></div>
                             <input type="password" name="password" size="20" maxlength="200" value="" id="password"/>
                         </div>
 
-                        <div class="text_lable">
+                        <div class="text_label">
                             <input type="submit" id="yes" value="<?=$labels['login']['login_in'];?>" class="dialog_button"/>
                         </div>
                     </form>
