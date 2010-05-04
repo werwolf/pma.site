@@ -188,7 +188,7 @@
                 success:function(data)
                 {
                     var table = eval("(" + data + ")");
-
+                    
                     $.extend(opts,{caption:table["caption"]});
 
                     colmod.splice(0, colmod.length);
