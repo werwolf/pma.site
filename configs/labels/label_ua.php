@@ -57,7 +57,7 @@ $labels = array(
                         'rank' => 'Звання',
                         'student' =>'Студент',
                         'praepostor'=>'Староста',
-                        'trade-union'=>'Профорг'                        
+                        'trade-union'=>'Профорг'
                       ),
     'rating' => array (
                         'bc_title' => 'Рейтинг студентів',
@@ -70,6 +70,7 @@ $labels = array(
 			'editb'=>'Редагувати колонки',
 			'add_label'=>'Додати колонку',
 			'del_label'=>'Видалити колонку',
+                        ''=>'',
                         'title'=>'Тітл',
 			'mark'=>'Бал',
 			'addb'=>'додати',

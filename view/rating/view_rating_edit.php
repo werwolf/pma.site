@@ -30,6 +30,16 @@
             <input id="addb" type="button" value="<?=$labels['rating']['addb'];?>"/>
         </div>
 
+        <div style="padding-top: 5px;">
+            <div class="editbar_label"><?=$labels['rating']['del_label'];?></div>
+            <div id="">
+                <select id="delnum" name="tablename">
+                    <option>...</option>
+                </select>
+            </div>
+            <input id="delb" type="button" value="<?=$labels['rating']['delb'];?>" />
+        </div>
+
         <div style="padding: 5px 0;">
             <div class="editbar_label"><?=$labels['rating']['del_label'];?></div>
             <div id="scontainer">
@@ -109,7 +119,7 @@
                         },
                         editCaption: my_labels["editcaption"]+" '"+jQuery("#"+el_id["desttable"]).jqGrid('getColProp',index).label+"'"
                     });
-                };
+                }
             },
             beforeEditCell: function(rowid,celname,value,iRow,iCol) {
                 hide(el_id["editb"]);
@@ -247,6 +257,8 @@
                 document.getElementById(el_id["addb"]).click();
                 return false;
             }
+// !!!!! //
+            return true;
         }
         function hide(id) {
             if (document.getElementById) {
