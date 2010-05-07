@@ -1,4 +1,4 @@
-(function (a) {
+﻿(function (a) {
 	a.jgrid = {
 		defaults: {
 			recordtext: "Просмотр {0} - {1} из {2}",
@@ -135,21 +135,8 @@
 			},
 			idName: "id"
 		},
-		my_html: {
-			top_label: "Выберите таблицу",
-			editb: "Редактировать колонки",
-			add_label: "Добавить колонку",
-			del_label: "Удалить колонку",
-			addb: "добав.",
-			delb: "удал.",
-			editrb: "изменить",
-			rest: "сброс",
-			savetable: "сохранить"
-		},
-		my_script: {
+		view_rating_edit: {
 			editcaption: "Изменение '",
-			title: "Титл",
-			mark: "Балл",
 			et: "Новое назв.:",
 			title_0: "ФИО"
 		}

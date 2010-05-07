@@ -1,4 +1,4 @@
-(function (a) {
+﻿(function (a) {
 	a.jgrid = {
 		defaults: {
 			recordtext: "View {0} - {1} of {2}",
@@ -135,21 +135,8 @@
 			},
 			idName: "id"
 		},
-		my_html: {
-			top_label: "Select table",
-			editb: "Edit columns",
-			add_label: "Add column",
-			del_label: "Delete column",
-			addb: "add",
-			delb: "del",
-			editrb: "change",
-			rest: "restore",
-			savetable: "save"
-		},
-		my_script: {
+		view_rating_edit: {
 			editcaption: "Editing '",
-			title: "Title",
-			mark: "Mark",
 			et: "New label:",
 			title_0: "Name"
 		}

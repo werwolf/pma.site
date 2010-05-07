@@ -52,7 +52,7 @@
     width: 30px;
     display: none;
     position: absolute;
-    left: 320px;
+    left: 330px;
     top: 10px;
 }
 
@@ -62,7 +62,7 @@
 }
 
 #editbar{
-    width: 360px;
+    width: 390px;
     background-color: #CFCFCF;
     padding: 5px;
     margin-top: 5px;
@@ -79,7 +79,7 @@
     color: blue;
     float: left;
     margin-right: 10px;
-    width: 140px;
+    width: 160px;
 }
 .editbar_input {
     width: 70px;
