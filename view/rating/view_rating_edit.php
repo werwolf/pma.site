@@ -13,7 +13,7 @@
             <option>OS : KM-72</option>
             <option>OS : KM-73</option>
         </select>
-        <div id="ajax_loader"><img alt="" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/basic/ajax_loader_Tedit.gif"/></div>
+        <div id="ajax_loader"><img alt="loading..." src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/basic/ajax_loader_Tedit.gif"/></div>
     </div>
 
     <table id="desttable"></table>
@@ -32,22 +32,15 @@
 
         <div style="padding-top: 5px;">
             <div class="editbar_label"><?=$labels['rating']['del_label'];?></div>
-            <div id="">
-                <select id="delnum" name="tablename">
-                    <option>...</option>
-                </select>
-            </div>
+            <select id="delnum" name="tablename"></select>
             <input id="delb" type="button" value="<?=$labels['rating']['delb'];?>" />
         </div>
 
         <div style="padding: 5px 0;">
-            <div class="editbar_label"><?=$labels['rating']['del_label'];?></div>
-            <div id="scontainer">
-                <select id="delnum" name="tablename">
-                    <option>...</option>
-                </select>
-            </div>
-            <input id="delb" type="button" value="<?=$labels['rating']['delb'];?>" />
+            <div class="editbar_label"><?=$labels['rating']['new_bal_label'];?></div>
+            <select id="newrnum" name="tablename"></select>
+            <input id="editr" type="text" maxlength="5" class="editbar_input" value="<?=$labels['rating']['mark'];?>" />
+            <input id="editrb" type="button" value="<?=$labels['rating']['editrb'];?>" />
         </div>
 
         <div style="margin-top: 5px;">
@@ -66,13 +59,16 @@
             labeledit:"labeledit",
             fooedit:"fooedit",
             addb:"addb",
-            scontainer:"scontainer",
+            //scontainer:"scontainer",
             delb:"delb",
+            editr:"editr",
+            editrb:"editrb",
             rest:"rest",
             savetable:"savetable",
             table_select:"table_select",
             ajax_loader:"ajax_loader",
-            delnum:"delnum"             // 'delnum' is reserved!
+            newrnum:"newrnum",          // 'newrnum' &
+            delnum:"delnum"             // 'delnum' are reserved!
         };
         var colmod= new Array;
         var mydata = new Array;
@@ -92,7 +88,7 @@
             userDataOnFooter: true,
 
             onSortCol: function( index, colindex, sortorder) {
-                if(jQuery("#"+el_id["desttable"]).jqGrid('getColProp',index).sorttype=="none") {
+                if (jQuery("#"+el_id["desttable"]).jqGrid('getColProp',index).sorttype=="none") {
                     jQuery("#"+el_id["et"]).jqGrid('setCell',1,'ec',undefined);
                     jQuery("#"+el_id["et"]).jqGrid('editGridRow',1,{
                         reloadAfterSubmit: false,
@@ -117,7 +113,7 @@
                                 document.getElementById(el_id["rest"]).removeAttribute('disabled');
                             }
                         },
-                        editCaption: my_labels["editcaption"]+" '"+jQuery("#"+el_id["desttable"]).jqGrid('getColProp',index).label+"'"
+                        editCaption: js_labels["editcaption"]+" '"+jQuery("#"+el_id["desttable"]).jqGrid('getColProp',index).label+"'"
                     });
                 }
             },
@@ -139,38 +135,47 @@
 
         var mytable = document.getElementById(el_id["desttable"]);
         var myselect = document.getElementById(el_id["delnum"]);
+        var myrselect = document.getElementById(el_id["newrnum"]);
         var newlabel = document.getElementById(el_id["labeledit"]);
         var newfoo = document.getElementById(el_id["fooedit"]);
-        var my_labels = jQuery.jgrid.my_script;
-        var editing, r_select, r_colmod, r_mydata, i;
+        var newr = document.getElementById(el_id["editr"]);
+        var js_labels = jQuery.jgrid.view_rating_edit;
+        var editing, r_select, r_colmod, r_mydata, r_foodata, i;
 
 
         jQuery(document).ready(function(){
             $("#"+el_id["table_select"]).change(function(){
-                if($("#"+el_id["table_select"]).val() == "...") {
+                if ($("#"+el_id["table_select"]).val() == "...") {
                     jQuery("#"+el_id["desttable"]).jqGrid('GridUnload',"#"+el_id["desttable"]);
                     colmod.splice(0,colmod.length);
                     mydata.splice(0,mydata.length);
                     hide(el_id["editbar"]);
                     hide(el_id["editb"]);
                     setMenuHeight();
+                } else {
+                    get_table();
                 }
-                else get_table();
             });
 
             $("#"+el_id["editb"]).click(function(){ myswitch(true); });
-            $("#"+el_id["rest"]).click(function(){ restore(); });
-            $("#"+el_id["savetable"]).click(function(){ myswitch(false); });
-            $("#"+el_id["labeledit"]).keydown(function(){ return processkey(event); });
-            $("#"+el_id["fooedit"]).keydown(function(){ return processkey(event); });
             $("#"+el_id["addb"]).click(function(){ addCol(newlabel.value, newfoo.value); });
             $("#"+el_id["delb"]).click(function(){ if (myselect.options.length) delCol(myselect.options[myselect.selectedIndex].value); });
+            $("#"+el_id["editrb"]).click(function(){ if (myrselect.options.length) editmaxr(myrselect.selectedIndex, newr.value); });
+            $("#"+el_id["rest"]).click(function(){ restore(); });
+            $("#"+el_id["savetable"]).click(function(){ myswitch(false); });
 
-            $("#"+el_id["labeledit"]).blur(function(){ inp_def_val(this,my_labels["title"],'blur'); });
-            $("#"+el_id["labeledit"]).focus(function(){ inp_def_val(this,my_labels["title"],'click'); });
+            $("#"+el_id["labeledit"]).keydown(function(){ return processkey(event,1); });
+            $("#"+el_id["fooedit"]).keydown(function(){ return processkey(event,1); });
+            $("#"+el_id["editr"]).keydown(function(){ return processkey(event,2); });
 
-            $("#"+el_id["fooedit"]).blur(function(){ inp_def_val(this,my_labels["mark"],'blur'); });
-            $("#"+el_id["fooedit"]).focus(function(){ inp_def_val(this,my_labels["mark"],'click'); });
+            $("#"+el_id["labeledit"]).blur(function(){ inp_def_val(this,js_labels["title"],'blur'); });
+            $("#"+el_id["labeledit"]).focus(function(){ inp_def_val(this,js_labels["title"],'click'); });
+
+            $("#"+el_id["fooedit"]).blur(function(){ inp_def_val(this,js_labels["mark"],'blur'); });
+            $("#"+el_id["fooedit"]).focus(function(){ inp_def_val(this,js_labels["mark"],'click'); });
+
+            $("#"+el_id["editr"]).blur(function(){ inp_def_val(this,js_labels["mark"],'blur'); });
+            $("#"+el_id["editr"]).focus(function(){ inp_def_val(this,js_labels["mark"],'click'); });
         });
 
 
@@ -202,12 +207,13 @@
                     $.extend(opts,{caption:table["caption"]});
 
                     colmod.splice(0, colmod.length);
-                    colmod[0]={label:my_labels["title_0"], name:"stud_name",index:"stud_name", width:150, sortable:false};
+                    colmod[0]={label:js_labels["title_0"], name:"stud_name",index:"stud_name", width:150, sortable:false};
+
                     for(i=1; i<table["title"].length; i++)
-                    colmod[i]={label:table["title"][i], name:"col"+i,index:"col"+i, width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}};
+                        colmod[i]={label:table["title"][i], name:"col"+i,index:"col"+i, width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}};
 
                     for(i=0; i<table["data"].length; i++)
-                    mydata[i]=clone(table["data"][i]);
+                        mydata[i]=clone(table["data"][i]);
 
                     foodata=clone(table["rating"]);
 
@@ -233,31 +239,32 @@
             //grid for input
             jQuery("#"+el_id["et"]).jqGrid({
                 datatype: "local",
-                colModel:[{label:my_labels["et"],name:'ec',index:'ec', width:90,editable:true,editoptions:{size:25}}]
+                colModel:[{label:js_labels["et"],name:'ec',index:'ec', width:90,editable:true,editoptions:{size:25}}]
             });
             jQuery("#"+el_id["et"]).jqGrid('addRowData',1,{ec:""});
 
             r_colmod=clone(colmod);
             r_mydata=clone(mydata);
+            r_foodata=clone(foodata);
         }
 
         //--------------------------------------------------BEGIN support
         function IsNumeric(sText) {
-            var ValidChars = "0123456789.";
+            var ValidChars = "0123456789";
             var IsNumber=true;
             var Char;
             for (i = 0; i < sText.length && IsNumber == true; i++)
             {Char = sText.charAt(i);if (ValidChars.indexOf(Char) == -1){IsNumber = false;}}
             return IsNumber;
         }
-        function processkey(e) {
+        function processkey(e,c) {
             if (null == e)
                 e = window.event ;
             if (e.keyCode == 13)  {
-                document.getElementById(el_id["addb"]).click();
+                if (c==1) {document.getElementById(el_id["addb"]).click();}
+                if (c==2) {document.getElementById(el_id["editrb"]).click();}
                 return false;
             }
-// !!!!! //
             return true;
         }
         function hide(id) {
@@ -284,15 +291,15 @@
             }
         }
         function clone(o) {
-            if(!o || 'object' !== typeof o)  {
+            if (!o || 'object' !== typeof o)  {
                 return o;
             }
             var c = 'function' === typeof o.pop ? [] : {};
             var p, v;
             for(p in o) {
-                if(o.hasOwnProperty(p)) {
+                if (o.hasOwnProperty(p)) {
                     v = o[p];
-                    if(v && 'object' === typeof v) {
+                    if (v && 'object' === typeof v) {
                         c[p] = clone(v);
                     } else {
                         c[p] = v;
@@ -303,6 +310,10 @@
         }
         function myswitch(ch) {
             if (ch) {
+ //????????????????????????????????????????????????????????????????
+                newlabel.value="<?=$labels['rating']['title'];?>";
+                newfoo.value="<?=$labels['rating']['mark'];?>";
+                newr.value="<?=$labels['rating']['mark'];?>";
                 show(el_id["editbar"]);
                 hide(el_id["editb"]);
                 totable();
@@ -313,6 +324,7 @@
                 togrid();
                 r_colmod=clone(colmod);
                 r_mydata=clone(mydata);
+                r_foodata=clone(foodata);
                 document.getElementById(el_id["editb"]).removeAttribute('disabled');
                 document.getElementById(el_id["rest"]).setAttribute('disabled',"");
                 setMenuHeight();
@@ -320,14 +332,24 @@
             setHeight();
             editing=ch;
         }
+        function r_update() {
+            if (myrselect) {
+                    myrselect.parentNode.removeChild(myrselect);
+                    myrselect=myselect.cloneNode(true);
+                    var editrb_node=document.getElementById(el_id["editrb"]);
+	            editrb_node.parentNode.insertBefore(myrselect,editrb_node);
+            }
+        }
         //--------------------------------------------------END support
 
         //--------------------------------------------------BEGIN cols edit
         function addCol(newl, newf) {
             newl=newl.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
             newf=newf.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-            if(newf=="" || !IsNumeric(newf)) {newfoo.focus(); newfoo.select(); return;}
-            if(newl=="") return;
+            if (newf=="" || !IsNumeric(newf)) {newfoo.focus(); newfoo.select(); return;}
+            if (newl=="") return;
+            newf=newf.replace(/^[0]+/g,"");
+            if(newf=="") {newf="0";}
 
             var elOptNew = document.createElement('option');
             var len=myselect.options.length;
@@ -341,6 +363,7 @@
             catch(ex) {
                 myselect.add(elOptNew); // IE only
             }
+            r_update();
 
             //add to colmod
             var s='col'+colmod.length;
@@ -378,6 +401,7 @@
                     myselect.selectedIndex=deli-3;
                 }
             }
+            r_update();
 
             //del from data
             for (i = 0; i < mydata.length; i++)
@@ -395,13 +419,25 @@
             myselect=r_select.cloneNode(true);
             var delb_node=document.getElementById(el_id["delb"]);
             delb_node.parentNode.insertBefore(myselect,delb_node);
+            r_update();
 
             colmod=clone(r_colmod);
             mydata=clone(r_mydata);
+            foodata=clone(r_foodata);
 
             document.getElementById(el_id["rest"]).disabled="disabled";
             document.getElementById(el_id["delb"]).removeAttribute('disabled');
             togrid();
+        }
+
+        function editmaxr(index,newf) {
+            newf=newf.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+            if (newf=="" || !IsNumeric(newf)) {newr.focus(); newr.select(); return;}
+            newf=newf.replace(/^[0]+/g,"");
+            if(newf=="") {newf="0";}
+            foodata[colmod[index+1].name]=newf;
+            jQuery("#"+el_id["desttable"]).jqGrid('footerData',"set",foodata);
+            document.getElementById(el_id["rest"]).removeAttribute('disabled');
         }
         //--------------------------------------------------END cols edit
 
@@ -424,8 +460,8 @@
             if (myselect) {
                 myselect.parentNode.removeChild(myselect);
             }
-            myselect=document.createElement('SELECT');
-            myselect.setAttribute('id',el_id["delnum"]);
+            myselect=document.createElement('select');
+            myselect.setAttribute('id',el_id["newrnum"]);
             //select data
             var elOptNew;
             for (i = 1; i < colmod.length; i++) {
@@ -441,10 +477,11 @@
             }
             var delb_node=document.getElementById(el_id["delb"]);
             delb_node.parentNode.insertBefore(myselect,delb_node);
+            r_update();
             if (!r_select) {r_select=myselect.cloneNode(true);}
 
             try {
-                newlabel.focus();newlabel.select();
+                newlabel.focus(); newlabel.select();
             }
             catch(ex) {}
         }

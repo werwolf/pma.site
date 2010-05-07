@@ -145,7 +145,7 @@
 //			rest: "Restore",
 //			savetable: "Save"
 //		},
-		my_script: {
+		view_rating_edit: {
 			editcaption: "Editing",
 			title: "Title",
 			mark: "Max.mark",

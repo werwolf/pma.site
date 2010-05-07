@@ -62,14 +62,15 @@
 }
 
 #editbar{
-    width: 390px;
+    width: 420px;
     background-color: #CFCFCF;
     padding: 5px;
     margin-top: 5px;
     display: none;
+    border: 1px double gray;
 }
 
-#labeledit, #fooedit {
+#labeledit, #fooedit, #editr {
     color: gray;
     font-size: 14px;
     font-family: 'Courier New',Courier,monospace;
@@ -92,17 +93,23 @@
     float: left;
     margin-right: 5px;
 }
-#delb, #addb {
-    width: 50px;
+#delb, #addb, #editrb {
+    width: 80px;
 }
 
 #rest {
     float: left;
-    width: 80px;
-    margin-right: 10px;
-    margin-left: 100px;
+    width: 90px;
+    margin-right: 25px;
+    margin-left: 105px;
 }
 #savetable {
-    width: 80px;
+    width: 90px;
+}
+
+#newrnum {
+    width: 75px;
+    float: left;
+    margin-right: 5px;
 }
 /************************************/

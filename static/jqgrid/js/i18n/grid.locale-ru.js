@@ -145,7 +145,7 @@
 //			rest: "Сброс",
 //			savetable: "Сохранить"
 //		},
-		my_script: {
+		view_rating_edit: {
 			editcaption: "Изменение",
 			title: "Титл",
 			mark: "Балл",

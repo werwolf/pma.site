@@ -145,7 +145,7 @@
 //			rest: "Відновити",
 //			savetable: "Зберегти"
 //		},
-		my_script: {
+		view_rating_edit: {
 			editcaption: "Зміна",
 			title: "Тітл",
 			mark: "Бал",

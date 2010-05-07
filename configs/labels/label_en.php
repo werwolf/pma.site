@@ -70,10 +70,12 @@ $labels = array(
 			'editb'=>'Edit columns',
 			'add_label'=>'Add column',
 			'del_label'=>'Delete column',
+                        'new_bal_label'=>'Change mark',
                         'title'=>'Title',
 			'mark'=>'Max.mark',
 			'addb'=>'add',
 			'delb'=>'del',
+                        'editrb'=>'change',
 			'rest'=>'Restore',
 			'savetable'=>'Save'
                       ),
