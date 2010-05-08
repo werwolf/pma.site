@@ -621,7 +621,7 @@ class MySQLException extends ASException {
 		$this->MYSQL_error_code = $MYSQL_error_code;
 		$this->MYSQL_SQL = $MYSQL_SQL;
 		$this->MYSQL_error = mysql_error();
-		if (!is_object($user)||!$user->getAdmin())
+		if (!is_object($user)||!$user->isAdmin())
 		{
 			$MYSQL_SQL = $message = '';
 		}

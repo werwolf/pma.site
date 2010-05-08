@@ -7,11 +7,11 @@ $View->subjects = $user->getProfessorSubjects();
 
 <div id="profile">
 
-    <h3 align="center">Create rating table</h3>
+    <h3 align="center"><?=$labels['rating']['create_table'];?></h3>
 
     <div style="padding: 5px; background-color: silver; margin-top: 5px; margin-left: 140px; margin-right: 140px;">
         <div>
-            <div class="label">Предмет</div>
+            <div class="label"><?=$labels['fileshare']['subject'];?></div>
 
             <select name="subject" id="subject" class="m_select">
                 <option>...</option>
@@ -22,22 +22,18 @@ $View->subjects = $user->getProfessorSubjects();
         </div>
 
         <div id="groups" style="clear: left;">
-            <div class="label">Группа</div>
+            <div class="label"><?=$labels['profile']['group'];?></div>
 
-            <select name="groups" class="m_select">
-                <!--<?//for($i=1; $i<13; $i++):?>
-                    </option>KM-<?//=$i;?></option>
-                <?//endfor;?>-->
-            </select>
+            <select name="groups" id="group" class="m_select"></select>
         </div>
 
         <div style="clear: left;" id="max_bal">
-            <div class="label">Максимальный бал</div>
-            <input type="text" name="bal" size="15" maxlength="5" value="" id="bal"/>
+            <div class="label"><?=$labels['rating']['create_max'];?></div>
+            <input type="text" size="15" maxlength="5" value="" id="bal"/>
         </div>
 
         <div style="clear: left;">
-            <input type="submit" name="createTable" id="createTable" value="Создать таблицу" class="button"/>
+            <input type="submit" name="createTable" id="createTable" value=" <?$t=explode(' ',$labels['rating']['create_table']);echo $t[0];?> " class="button"/>
         </div>
 
         <div style="clear: left; height: 0;"></div>
@@ -51,11 +47,11 @@ $View->subjects = $user->getProfessorSubjects();
                 if($("#groups > select").val() == '...') {
                     $("#max_bal").hide(); $("#createTable").hide();
                 } else {
-                    $("#max_bal").show("slow"); $("#createTable").show("slow");
+                    $("#max_bal").show("slow"); $("#createTable").show("slow"); $('#bal').focus();
                 }
             });
 
-            $('#max_bal > input[type="text"]').keypress(function (e) {
+            $('#bal').keypress(function (e) {
                 if( e.which!=8 && e.which!=13 && e.which!=0 && (e.which<48 || e.which>57)) {
                     $(this).addClass("focus");
                     return false;
@@ -75,17 +71,13 @@ $View->subjects = $user->getProfessorSubjects();
                         type:"POST",
                         url:'http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/ajax/create_table/',
                         cache:false,
-                        data:"subject="+$("#subject").val(),
+                        data:"do=get_groups",//&subject="+$("#subject").val(),
                         success:function(data)
                         {
                             var groups = eval("(" + data + ")");
-
                             var html='<option>...<\/option>';
-                            var i = 0, key;
-
-                            for (key in groups) {
-                                if (groups.hasOwnProperty(key)) 
-                                    html += '<option>KM-'+groups[i++]+'<\/option>';
+                            for (var i=0;i<groups.length;i++) {
+                                html += '<option value='+groups[i]["ID"]+'>'+groups[i]["Title"]+'<\/option>';
                             }
                             $("#groups > select").html(html);
                             $("#groups").show("slow");
@@ -93,6 +85,38 @@ $View->subjects = $user->getProfessorSubjects();
                     });
                 }
             });
+
+            $("#createTable").click(function(){
+            if ($('#bal').val()=="") {
+            	$('#bal').focus();
+            	$('#bal').addClass("focus");
+            } else {
+                $.ajax({
+                    type:"POST",
+                    url:'http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/ajax/create_table/',
+                    cache:false,
+//professor_id=1 — где его брать??
+                    data:"do=create_table&professor_id=1&group_id="+$("#group").val()+"&subject_id="+$("#subject").val()+"&max_rating="+$('#bal').val(),
+                    success:function(data)
+                    {
+                        var result = eval("(" + data + ")");
+                        if (result==-1) {
+                            alert("Таблица уже существует!");
+                            return;
+                        }
+                        if (!result) {
+                            alert("Ошибка базы данных при создании таблицы!");
+                        } else {
+                            alert("Таблица успешно создана!");
+                            $("#groups").hide();$("#max_bal").hide(); $("#createTable").hide();
+                            $('#subject option:first').attr('selected', 'yes');
+                            $('#bal').val("");
+                        }
+                    }
+                });
+            }
+
+        });
         });
     </script>
 

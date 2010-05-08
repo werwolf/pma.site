@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Хост: localhost
--- Время создания: Май 03 2010 г., 16:27
+-- Время создания: Май 09 2010 г., 01:18
 -- Версия сервера: 5.0.51
 -- Версия PHP: 5.2.6
 
@@ -99,12 +99,14 @@ CREATE TABLE `groups` (
   `Sheduler_Path` varchar(30) NOT NULL,
   `Extranumeral` tinyint(1) NOT NULL,
   PRIMARY KEY  (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- 
 -- Дамп данных таблицы `groups`
 -- 
 
+INSERT INTO `groups` VALUES (1, 'KM-71', '0000-00-00', 'km-71.xml', 0);
+INSERT INTO `groups` VALUES (2, 'KM-72', '2007-09-01', 'km-72.xml', 0);
 
 -- --------------------------------------------------------
 
@@ -331,12 +333,73 @@ CREATE TABLE `ratings` (
   `Col_Caption` varchar(60) NOT NULL,
   PRIMARY KEY  (`ID`),
   KEY `Professor_ID` (`Professor_ID`,`Group_ID`,`SubProf_ID`,`Subject_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
 
 -- 
 -- Дамп данных таблицы `ratings`
 -- 
 
+INSERT INTO `ratings` VALUES (24, 'rating_2_3_1', '2010-05-09', 1, 2, 0, 3, 100, 'col1');
+INSERT INTO `ratings` VALUES (23, 'rating_1_1_1', '2010-05-09', 1, 1, 0, 1, 111, 'col1');
+INSERT INTO `ratings` VALUES (27, 'rating_1_2_1', '2010-05-09', 1, 1, 0, 2, 777, 'col1');
+
+-- --------------------------------------------------------
+
+-- 
+-- Структура таблицы `rating_1_1_1`
+-- 
+
+DROP TABLE IF EXISTS `rating_1_1_1`;
+CREATE TABLE `rating_1_1_1` (
+  `stud_name` varchar(60) NOT NULL,
+  `col1` int(6) NOT NULL default '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- Дамп данных таблицы `rating_1_1_1`
+-- 
+
+INSERT INTO `rating_1_1_1` VALUES ('26', 0);
+INSERT INTO `rating_1_1_1` VALUES ('Max_rating', 0);
+
+-- --------------------------------------------------------
+
+-- 
+-- Структура таблицы `rating_1_2_1`
+-- 
+
+DROP TABLE IF EXISTS `rating_1_2_1`;
+CREATE TABLE `rating_1_2_1` (
+  `stud_name` varchar(60) NOT NULL,
+  `col1` int(6) NOT NULL default '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- Дамп данных таблицы `rating_1_2_1`
+-- 
+
+INSERT INTO `rating_1_2_1` VALUES ('26', 0);
+INSERT INTO `rating_1_2_1` VALUES ('Max_rating', 0);
+
+-- --------------------------------------------------------
+
+-- 
+-- Структура таблицы `rating_2_3_1`
+-- 
+
+DROP TABLE IF EXISTS `rating_2_3_1`;
+CREATE TABLE `rating_2_3_1` (
+  `stud_name` varchar(60) NOT NULL,
+  `col1` int(6) NOT NULL default '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- Дамп данных таблицы `rating_2_3_1`
+-- 
+
+INSERT INTO `rating_2_3_1` VALUES ('1', 0);
+INSERT INTO `rating_2_3_1` VALUES ('13', 0);
+INSERT INTO `rating_2_3_1` VALUES ('Max_rating', 0);
 
 -- --------------------------------------------------------
 
@@ -352,12 +415,15 @@ CREATE TABLE `students` (
   `Rank` enum('student','praepostor','trade-union') NOT NULL default 'student',
   PRIMARY KEY  (`ID`),
   KEY `User_ID` (`User_ID`,`Group_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- 
 -- Дамп данных таблицы `students`
 -- 
 
+INSERT INTO `students` VALUES (1, 1, 2, 'student');
+INSERT INTO `students` VALUES (2, 13, 2, 'student');
+INSERT INTO `students` VALUES (3, 26, 1, 'student');
 
 -- --------------------------------------------------------
 
@@ -381,38 +447,3 @@ CREATE TABLE `subjects` (
 INSERT INTO `subjects` VALUES (1, 'Физика', '');
 INSERT INTO `subjects` VALUES (2, 'Математический анализ', '');
 INSERT INTO `subjects` VALUES (3, 'Линейная алгебра', '');
-
--- --------------------------------------------------------
-
--- 
--- Структура таблицы `users`
--- 
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `ID` int(11) unsigned NOT NULL auto_increment,
-  `Name` varchar(20) NOT NULL,
-  `Surname` varchar(20) NOT NULL,
-  `Patronymic` varchar(20) NOT NULL,
-  `Login` varchar(20) NOT NULL,
-  `Password` varchar(60) NOT NULL,
-  `Email` varchar(30) NOT NULL,
-  `Sex` enum('M','F') NOT NULL,
-  `Birthday` date NOT NULL,
-  `Contact` text NOT NULL,
-  `Phone` int(20) unsigned NOT NULL,
-  `Photo` varchar(40) NOT NULL,
-  `State` enum('P','S') NOT NULL default 'S',
-  `Description` text NOT NULL,
-  `Language` enum('ua','en','ru') NOT NULL default 'ua',
-  `Session` char(150) NOT NULL,
-  `IP_Login` varchar(25) NOT NULL,
-  PRIMARY KEY  (`ID`),
-  UNIQUE KEY `Email` (`Email`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
--- 
--- Дамп данных таблицы `users`
--- 
-
-INSERT INTO `users` VALUES (1, 'toxa', 'chernyavskiy', 'sergeevich', 'splinter', '1f74df58d1c0f7b55b5caa01e6c7f806', 'i.splinter@i.ua', 'M', '1989-12-21', '', 123456789, 'rock_tux.png', 'P', '', 'ua', 'c8835a87f70f431a851b28cb00b432fb', '10.0.165.19');

@@ -63,6 +63,7 @@ $labels = array(
                       'bc_title' => 'Ratings',
                       'rating' => 'Ratings',
                       'create_table' => 'Create table',
+                      'create_max' => 'Max. rating',
                       'view_table' => 'View tables',
                       'edit_table' => 'Edit table',
                       /* rating_table_edit*/

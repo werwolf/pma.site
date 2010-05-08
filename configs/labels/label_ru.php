@@ -63,6 +63,7 @@ $labels = array(
                       'bc_title' => 'Рейтинг студентов',
                       'rating' => 'Рейтинг',
                       'create_table' => 'Создать таблицу',
+                      'create_max' => 'Максимальный балл',
                       'view_table' => 'Просмотр таблиц',
                       'edit_table' => 'Редактировать таблицу',
                       /* rating_table_edit*/
