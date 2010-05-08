@@ -698,3 +698,18 @@ input {vertical-align: middle}
     overflow:hidden;
     cursor:pointer;
 }
+#login_block_lg{
+    margin:10px;
+    padding:10px;
+    border:1px solid #BCBECB;
+}
+#login_block_lg h2{
+    margin-bottom:15px;
+}
+.block_error{
+    color:red;
+    font-size:18px;
+}
+#login_block_lg table td{
+    padding:5px;
+}

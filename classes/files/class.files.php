@@ -108,9 +108,9 @@ class files
             return false;
     }
     public static function uploadFile($file,$newFileName)
-    {
-        if(!copy($file,self::$uploaded_dir.$newFileName)){
-            return false;}
+    {        
+        if(!copy($file,self::$uploaded_dir.$newFileName))
+            return false;
         else
             return true;
     }
@@ -149,7 +149,8 @@ class files
     }
     public static function deleteFile($file)
     {
-        unlink(self::$uploaded_dir.$file);
+        if(file_exists(self::$uploaded_dir.$file))
+           unlink(self::$uploaded_dir.$file);
     }
     public static function getUserPhoto($file)
     {

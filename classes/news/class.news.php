@@ -76,7 +76,7 @@ class news
     public static function getNewsPage($page,$count)
     {
         $sql = "select `id`,`comments`,`comments_count`,`title_".self::$language."` as `title`,`text_".self::$language."` as `text`,".
-               " `date` from `obj_news` where `active` = 'y' ";
+               " `date`,`title_en` as `link` from `obj_news` where `active` = 'y' ";
         
         if(self::$internal == 'n')
             $sql .= " and `internal` = '".self::$internal."' ";

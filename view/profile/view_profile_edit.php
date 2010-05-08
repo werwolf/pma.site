@@ -29,7 +29,7 @@
     <b style="color:red;font-size:20px;"><?=$View->error;?></b><br/>
     <?endif;?>
     <form action="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/profile/edit" enctype="multipart/form-data" method="post">
-    <input type="hidden" name="MAX_FILE_SIZE"  value="<?=MAX_PHOTO_SIZE;?>"/>
+    <input type="hidden" name="MAX_FILE_SIZE"  value="<?=MAX_PHOTO_SIZE;?>0"/>
     <input type="hidden" name="param_edit" value="edit"/>
     <input type="hidden" name="secret" value="<?=$user->getUserSecret();?>"/>
     <h2><?=$labels['profile']['user_profile'];?></h2>
@@ -37,7 +37,7 @@
         <tr>
             <td colspan="2" valign="top">
                 <img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/uploaded/user_photo/<?=$user->getUserPhoto();?>" style="margin-bottom:20px"/><br/>
-                <b style='font-weight:normal;float:left'><?=$labels['profile']['change'];?>:</b>&nbsp;
+                <b style='font-weight:normal;float:left'><?=$labels['profile']['change_photo'];?>:</b>&nbsp;
                 <input type="text" id="temp_cover" readonly style="width:200px;float:left"/>
                 <a class="button_download_1"><input class="hidden_input"  type="file" name="cover" id="cover" onchange="checkCover('http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/ajax/check_file')"/></a>
                 <b id="cover_accept"></b>
@@ -75,11 +75,18 @@
             <td><?=$labels['profile']['status'];?></td>
             <td><input type="text" style="width:200px" name="status" value="<? if($user->getUserState() == "S"): ?><?=$labels['profile']['student'];?><? else:?><?=$labels['profile']['teacher'];?><?endif;?>" readonly/></td>
         </tr>        
+        <tr>
+            <td><?=$labels['profile']['email'];?></td>
+            <td><input type="text" style="width:200px" name="email" value="<?=$user->getUserEmail();?>"/></td>
+        </tr>
         
-        <tr><td colspan="2"></td></tr>
         <? if(get_class($user) == "Student"): ?>
-
+            <tr>
+                    <td><?=$labels['profile']['phone'];?></td>
+                    <td><input type="text" style="width:200px" name="phone" value="<?=$user->getUserPhone();?>"/></td>
+            </tr>
         <? endif;?>
+            <tr><td colspan="2"></td></tr>
         <? if(get_class($user) == "Professor"): ?>
             <tr>
                 <td><?=$labels['profile']['university'];?></td>
@@ -121,7 +128,7 @@
             </tr>
         <? endif;?>
         <tr>
-            <td colspan="2"><input type="submit" value="<?=$labels['profile']['save'];?>" class="button_download" style="width:130px;height:25px;font-size:16px"/></td>
+            <td colspan="2"><input type="submit" value="<?=$labels['profile']['save'];?>" class="button_download" style="width:130px;height:25px;font-size:16px;margin-left:0"/></td>
         </tr>
     </table>
   </form>

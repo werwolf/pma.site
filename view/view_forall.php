@@ -11,6 +11,9 @@
 <!-- -->
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/rating.css" />
 
+    <? if($module[3] == "mail"): ?>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/mail.css" />
+    <?endif;?>
     <? if($module[3]=='download'): ?>
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/fileview.css" />
     <? endif;?>
@@ -164,7 +167,7 @@
                 <div id="left_main_menu" class="left_content_menu"><? require_once("view/".$View->left_menu."/view_".$View->left_menu."_template.php"); ?></div>
             <?else:?>
                 <div id="ubuntu_10.4" class="left_content_menu">
-                    <div style="padding-left: 25px;"><script type="text/javascript" src="http://www.ubuntu.com/files/countdown/display2.js"></script></div>
+                    <div style="padding-left: 25px;"></div>
                 </div>
             <?endif;?>
             

@@ -101,15 +101,17 @@ class user
     }
     public function updateUserInformation()
     {
-        $surname = Root::POSTString("surname");
-        $name = Root::POSTString("name");
-        $patronymic = Root::POSTString("patronymik");
-        $sex = Root::POSTString("sex");
-        $birthday = $this->getDateToDB(Root::POSTSTring("birthday"));        
+        $surname = $this->db->escape(Root::POSTString("surname"));
+        $name = $this->db->escape(Root::POSTString("name"));
+        $patronymic = $this->db->escape(Root::POSTString("patronymik"));
+        $sex = $this->db->escape(Root::POSTString("sex"));
+        $birthday = $this->db->escape($this->getDateToDB(Root::POSTSTring("birthday")));
+        $email = $this->db->escape(Root::POSTString("email"));
+        $phone = $this->db->escape(Root::POSTString("phone"));
 
         $sql = "update `Users` set `Name` = '$name',`Surname` = '$surname',".
-               "`Patronymic` = '$patronymic',`Sex` = '$sex',`Birthday` = '$birthday'".
-               " where `ID` = ".$this->getUserId();
+               "`Patronymic` = '$patronymic',`Sex` = '$sex',`Birthday` = '$birthday',".
+               "`Email` = '$email' ,`Phone` = '$phone' where `ID` = ".$this->getUserId();
 
         $this->db->query($sql);
     }
@@ -121,7 +123,7 @@ class user
     {
         return $this->user_info['Surname'];
     }
-    public function getUserPatronymic()
+        public function getUserPatronymic()
     {
         return $this->user_info['Patronymic'];
     }
@@ -190,7 +192,7 @@ class Professor extends user
 
         $subject = $this->getProfessorSubjectsIds();
 
-        $sql = "select `Title` from `Subjects` where ";
+        $sql = "select `Title_".config::getDefaultLanguage()."` as `Title` from `Subjects` where ";
         for($i=0;$i<count($subject);$i++)
         {
             if($i<count($subject)-1)

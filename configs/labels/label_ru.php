@@ -72,7 +72,8 @@ $labels = array(
                         'rank' => 'Звание',
                         'student' =>'Студент',
                         'praepostor'=>'Староста',
-                        'trade-union'=>'Профорг'
+                        'trade-union'=>'Профорг',
+                        'mail'=>'Мои сообщения'
                       ),
     'fileshare' => array(
                         'bc_title' => 'Файловое хранилице',
@@ -92,6 +93,17 @@ $labels = array(
                         'error_cover_to_big'=>'Размер картинки больше максимально допустимого',
                         'uploader' =>'Успешно загружено',
                     	'filesize'=>'Размер файла'
+    ),
+    'mail'=>array(
+                 'input'=>'Входящие',
+                 'output'=>'Исходящие',
+                 'write'=>'Написать сообщение',
+                 'new_message'=>'Новое сообщение',
+                 'from'=>'От',
+                 'to'=>'Кому',
+                 'Subject'=>'Тема',
+                 'message'=>'Сообщение',
+                 'send'=>'Отправить'
     )
 );
 ?>

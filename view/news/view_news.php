@@ -1,7 +1,7 @@
 <? if($View->view_type == 1): ?>
 <div  id="news_news">
     <? foreach($View->news_page as $new): ?>
-    <div class="links"><a href="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/news/<?=$new['id'];?>/<?=urlencode($new['title']);?>.html"><?=$new['title'];?></a></div>
+    <div class="links"><a href="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/news/<?=$new['id'];?>/<?=str_replace(" ","_",$new['link']);?>.html"><?=$new['title'];?></a></div>
     <div class="message"><?=pages::unhtmlentities($new['text']);?></div>
     <div class="date_comment"><?=news::getDate($new['date']);?>&nbsp;<? if($new['comments'] == 'y'): ?>,&nbsp;<?=$labels['news']['comments'];?>:&nbsp;<?=$new['comments_count'];?><?endif;?></div>
     <? endforeach; ?>

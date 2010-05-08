@@ -61,6 +61,8 @@ switch($module[3])
     break;
     case 'rating':require_once("controllers/rating/controller_rating.php");
     break;
+    case 'mail':require_once("controllers/mail/controller_mail.php");
+    break;
 }
 
 ?>

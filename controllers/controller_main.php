@@ -25,7 +25,7 @@ switch($module[2])
     break;
     case 'site_map':$View->top_left_menu = "sitemap";
                     $View->top_right_menu = "sitemap";
-    break;
+    break;    
 }
 
 $View->languages = config::getLanguagesFlags($_SERVER["REQUEST_URI"]);

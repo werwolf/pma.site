@@ -71,7 +71,8 @@ $labels = array(
                         'rank' => 'Rank',
                         'student' =>'Student',
                         'praepostor'=>'Praepostor',
-                        'trade-union'=>'Proforg'
+                        'trade-union'=>'Proforg',
+                        'mail'=>'My messages'
                       ),
     'fileshare' => array(
                         'bc_title' => 'Store of files',
@@ -91,6 +92,17 @@ $labels = array(
                         'error_cover_to_big'=>'Picture is too big',
                         'uploader' =>'Uploader',
                     	'filesize'=>'Filesize'
+    ),
+    'mail'=>array(
+                 'input'=>'Received',
+                 'output'=>'Sent',
+                 'write'=>'Start a Message',
+                 'new_message'=>'New Message',
+                 'from'=>'From',
+                 'to'=>'To',
+                 'Subject'=>'Subject',
+                 'message'=>'Message',
+                 'send'=>'Send'
     )
 );
 ?>
