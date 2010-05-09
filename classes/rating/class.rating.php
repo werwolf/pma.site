@@ -24,15 +24,15 @@ class ratings extends Professor
         if($sub_professor_id == 0) $sub_professor_id = $this->id;
 //        $sql="START TRANSACTION";
 //        $this->db->query($sql);
-        $sql="INSERT INTO `".MYSQL_BASE."`.`ratings` (`Tablename`, `Date_create`, `Professor_ID`, `Group_ID`, `SubProf_ID`, `Subject_ID`, `Max_Rating`, `Col_Caption`) ";
+        $sql="INSERT INTO `ratings` (`Tablename`, `Date_create`, `Professor_ID`, `Group_ID`, `SubProf_ID`, `Subject_ID`, `Max_Rating`, `Col_Caption`) ";
         $sql.="VALUES ('$this->tablename', '".date("Y-m-d")."', '$this->professor_id', '$this->group_id', '0', '$this->subject_id', '$this->max_rating', 'col1');";
         $this->db->query($sql);
-        $sql="CREATE TABLE `".MYSQL_BASE."`.`$this->tablename` (";
+        $sql="CREATE TABLE `$this->tablename` (";
         $sql.="`stud_name` varchar(60) CHARSET utf8 COLLATE utf8_general_ci NOT NULL ,";
         $sql.="`col1` int(6) NOT NULL DEFAULT '0' )";
         // COMMIT
         if ($this->db->query($sql)) {
-        	$sql="INSERT INTO `".MYSQL_BASE."`.`$this->tablename` (`stud_name`) VALUES ";
+        	$sql="INSERT INTO `$this->tablename` (`stud_name`) VALUES ";
 	        $IDs = $this->getStudentsIDs($this->group_id);
 	        for($i=0;$i<count($IDs);$i++)
 	        {
@@ -48,7 +48,7 @@ class ratings extends Professor
 
     public function dropTable()
     {
-	    return $this->db->query("DROP TABLE IF EXISTS `".MYSQL_BASE."`.`".$this->tablename."`");
+	    return $this->db->query("DROP TABLE IF EXISTS `$this->tablename`");
     }
 
     public function updateTable()
@@ -59,20 +59,20 @@ class ratings extends Professor
 
     public function seekTable()
     {
-    $this->db->query("SHOW TABLES FROM `".MYSQL_BASE."`");
-    $result = $this->db->assocAll();
-    for ($i=0;$i<count($result);$i++) {
-        if ($this->tablename==$result[$i]["Tables_in_".MYSQL_BASE]) {
-            return true;
-        }
-    }
-    return false;
+	    $this->db->query("SHOW TABLES FROM `".MYSQL_BASE."`");
+	    $result = $this->db->assocAll();
+	    for ($i=0;$i<count($result);$i++) {
+	        if ($this->tablename==$result[$i]["Tables_in_".MYSQL_BASE]) {
+	            return true;
+	        }
+	    }
+	    return false;
     }
 
     public function getStudentsIDs($group_id=null)
     {
     	if (!isset($group_id)) $group_id=$this->group_id;
-        $sql = "SELECT `User_ID` FROM `".MYSQL_BASE."`.`students` WHERE `Group_ID` = '$group_id'";
+        $sql = "SELECT `User_ID` FROM `students` WHERE `Group_ID` = '$group_id'";
         $this->db->query($sql);
         return $this->db->assocAll();
     }
@@ -81,7 +81,7 @@ class ratings extends Professor
     {
     	if (!isset($group_id)) $group_id=$this->group_id;
         $IDs = $this->getStudentsIDs($group_id);
-        $sql = "SELECT `Name`,`Surname`,`Patronymic` FROM `".MYSQL_BASE."`.`users` WHERE ";
+        $sql = "SELECT `Name`,`Surname`,`Patronymic` FROM `users` WHERE ";
         for($i=0;$i<count($IDs);$i++)
         {
             if($i<count($IDs)-1) {
@@ -95,7 +95,7 @@ class ratings extends Professor
     }
 
     public function getAllGroups() {
-    	$sql="SELECT `ID`,`Title` FROM `".MYSQL_BASE."`.`groups`";
+    	$sql="SELECT `ID`,`Title` FROM `groups`";
     	$this->db->query($sql);
     	return $this->db->assocAll();
     }

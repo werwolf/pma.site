@@ -372,13 +372,13 @@
             r_update();
 
             //add to colmod
-            var s='col'+colmod.length;
+            var s="col"+(parseInt(colmod[colmod.length-1].name.substr(3))+1);
             colmod=colmod.concat([{label:newl,name:s,index:s, width:60, align:"right",sorttype:"none", editable:true, editrules:{number:true}}]);
             //add to data
             for (i = 0; i < mydata.length; i++)
                 mydata[i][s]="0";
             //add to foodata
-            foodata["col"+len]=newf;
+            foodata[s]=newf;
 
             document.getElementById(el_id["rest"]).removeAttribute('disabled');
             document.getElementById(el_id["delb"]).removeAttribute('disabled');
@@ -412,6 +412,8 @@
             //del from data
             for (i = 0; i < mydata.length; i++)
                 delete mydata[i][colmod[deli-1].name];
+            //del from foodata
+            delete foodata[colmod[deli-1].name];
             //del from colmod
             colmod.splice(deli-1,1);
 
