@@ -13,10 +13,11 @@ switch($module[2])
 
                  $View->top_menu = pages::getTopMenuView(pages::getMainMenu(),$active_page,$labels);
     break;
-    case 'news':
-                 $View->top_menu = pages::getTopMenuView(pages::getMainMenu(),"news",$labels);
+    case 'news':$View->top_menu = pages::getTopMenuView(pages::getMainMenu(),"news",$labels);
     break;
     case 'profile':$View->top_menu = pages::getTopMenuView(pages::getMainMenu(),"profile", $labels);
+    break;
+    case 'rating':$View->top_menu = pages::getTopMenuView(pages::getMainMenu(),"profile", $labels);
     break;
 }
 

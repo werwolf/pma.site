@@ -136,7 +136,7 @@
 			idName: "id"
 		},
 		view_rating_edit: {
-			editcaption: "Зміна '",
+			editcaption: "Зміна",
 			title: "Тітл",
 			mark: "Бал",
 			et: "Нова назва:",

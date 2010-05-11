@@ -136,7 +136,7 @@
 			idName: "id"
 		},
 		view_rating_edit: {
-			editcaption: "Editing '",
+			editcaption: "Editing",
 			title: "Title",
 			mark: "Max.mark",
 			et: "New label:",
