@@ -448,16 +448,16 @@ function restore() {
     togrid();
 }
 
-function editmaxr(index,newf) {
-    newf=newf.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-    if (new f== "" || !IsNumeric(newf)) {
+function editmaxr(index,newf) {    
+    newf = newf.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    if (newf == "" || !IsNumeric(newf)) {
         newr.focus();
         newr.select();
         return;
     }
-    newf=newf.replace(/^[0]+/g,"");
-    if(newf=="") newf="0";
-    foodata[colmod[index+1].name]=newf;
+    newf = newf.replace(/^[0]+/g,"");
+    if(newf == "") newf = "0";
+    foodata[colmod[index+1].name] = newf;
     jQuery("#"+el_id["desttable"]).jqGrid('footerData',"set",foodata);
     document.getElementById(el_id["rest"]).removeAttribute('disabled');
 }
