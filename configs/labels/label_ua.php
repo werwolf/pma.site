@@ -71,13 +71,13 @@ $labels = array(
 			'add_label'=>'Додати колонку',
 			'del_label'=>'Видалити колонку',
                         'new_bal_label'=>'Змінити бал',
-                        'title'=>'Тітл',
-			'mark'=>'Бал',
 			'addb'=>'додати',
 			'delb'=>'видал.',
                         'editrb'=>'Змінити',
 			'rest'=>'Відновити',
-			'savetable'=>'Зберегти'
+			'savetable'=>'Зберегти',
+
+                        'create_max'=>'Максимальный бал'
                       ),
     'fileshare' => array(
                         'bc_title' => 'Файловe хранилице',

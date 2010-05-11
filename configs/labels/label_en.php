@@ -71,13 +71,13 @@ $labels = array(
 			'add_label'=>'Add column',
 			'del_label'=>'Delete column',
                         'new_bal_label'=>'Change mark',
-                        'title'=>'Title',
-			'mark'=>'Max.mark',
 			'addb'=>'add',
 			'delb'=>'del',
                         'editrb'=>'change',
 			'rest'=>'Restore',
-			'savetable'=>'Save'
+			'savetable'=>'Save',
+
+                        'create_max'=>'Max rating'
                       ),
     'fileshare' => array(
                         'bc_title' => 'Store of files',

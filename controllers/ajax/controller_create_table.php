@@ -1,20 +1,24 @@
 <?php
 if (!defined("entrypoint"))die;
 
-//files::initDB($db);
-//$file_info = files::getFileInformation(Root::POSTInt("file_id"));
-//
-//if($file_info["Cover"] == "static/uploaded/covers/")
-//    $file_info['Cover'] = "";
-//
-//print json_encode($file_info);
+$do = Root::POSTString("do");
 
-$subject = Root::POSTString("subject");
-
-for($i=0; $i<13; $i++) {
-    //$data[$i] = '<option>KM-'.$i.'</option>';
-    $data[$i] = $i;
+switch ($do) {
+    case "get_groups":
+        $rating = new ratings($db,$user);
+        $data = $rating->getAllGroups();
+        break;
+    case "create_table":
+        $subject_id = Root::POSTString("subject_id");
+        $group_id = Root::POSTString("group_id");
+        $max_rating = Root::POSTString("max_rating");
+        $rating = new ratings($db,$user,$group_id,$subject_id,$max_rating);
+        if ($rating->seekTable()) {
+            $data=-1;
+        } else {
+            $data=$rating->createTable();
+        }
+        break;
 }
-
 print json_encode($data);
 ?>

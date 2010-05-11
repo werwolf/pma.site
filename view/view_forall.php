@@ -29,6 +29,7 @@
     <? if($module[3]=='edit'): ?>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/i18n/grid.locale-<?=config::getDefaultLanguage();?>.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/my.jquery.jqGrid.min.js"></script>
+    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/rating_edit.js"></script>
     <? endif;?>
     
     <? if(!user::isLoged()): ?>
