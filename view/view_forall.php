@@ -3,6 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title><?=$View->title;?></title>
+
+    <link rel="icon" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/favicon.ico" type="image/x-icon" />
+
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="НТУУ-КП  И, КПИ, Кафедра прикладной математики" />
     <meta name="description" content="Сайт кафедры прикладной математики ФПМ НТУУ-КПИ" />
@@ -25,6 +29,7 @@
     <? if($module[3]=='edit'): ?>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/i18n/grid.locale-<?=config::getDefaultLanguage();?>.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/my.jquery.jqGrid.min.js"></script>
+    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/rating_edit.js"></script>
     <? endif;?>
     
     <? if(!user::isLoged()): ?>

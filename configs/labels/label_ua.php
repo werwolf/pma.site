@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (!defined("entrypoint"))die;
 $labels = array(
     'common' => array(
@@ -19,7 +19,7 @@ $labels = array(
                       'add_comment' => 'Коментувати',
                       'comment' => 'Коментарі',
                       'page' => 'Сторінки',
-                      'back' => 'Назад'
+                      'back'=>'Назад'
                      ),
 
     'login' =>  array(
@@ -31,72 +31,72 @@ $labels = array(
                       'login_wrd' => 'Логін'
                      ),
    'profile' => array (
-                      'bc_title' => 'Особистий кабінет',
-                      'user_profile' => 'Профіль користувача',
-                      'fio' => 'Им’я',
-                      'birthday' => 'Дата нарождения',
-                      'sex' => 'Стать',
-                      'group' => 'Група',
-                      'email' => 'E-mail',
-                      'change' => 'Змінити',
-                      'change_photo' => 'Змінити фото',
-                      'set_new_photo' => 'Вибрати нове фото',
-                      'user_info' => 'Особиста інформація',
-                      'name' => 'Им’я',
-                      'surname' => 'Прізвище',
-                      'patronymik' => 'Побатькові',
+                        'bc_title' => 'Особистий кабінет',
+                        'user_profile' => 'Профіль користувача',
+                        'fio' => 'Им’я',
+                        'birthday' => 'Дата нарождения',
+                        'sex' => 'Стать',
+                        'group'=>'Група',
+                        'email' => 'E-mail',
+                        'change' => 'Змінити',
+                        'change_photo' => 'Змінити фото',
+                        'set_new_photo' => 'Вибрати нове фото',
+                        'user_info' => 'Особиста інформація',
+                        'name' => 'Им’я',
+                        'surname'=>'Прізвище',
+                        'patronymik' =>'Побатькові',
                       'student' => 'Студент',
-                      'teacher' => 'Викладач',
-                      'status' => 'Статус',
-                      'male' => 'Чоловік',
+                        'teacher' => 'Викладач',
+                        'status' => 'Статус',
+                        'male' => 'Чоловік',
                       'female' => 'Жінка',
-                      'save' => 'Зберегти',
-                      'profile_user' => 'Профіль користувача',
-                      'download' => 'Завантажити файли',
+                        'save'=>'Зберегти',
+                        'profile_user'=>'Профіль користувача',
+                        'download'=>'Завантажити файли',
                       'upgrade' => 'Додати файл',
-                      'rank' => 'Звання',
-                      'student' => 'Студент',
-                      'praepostor' => 'Староста',
-                      'trade-union' => 'Профорг'                      
+                        'rank' => 'Звання',
+                        'student' =>'Студент',
+                        'praepostor'=>'Староста',
+                        'trade-union'=>'Профорг'                        
                       ),
     'rating' => array (
-                      'bc_title' => 'Рейтинг студентів',
-                      'rating' => 'Рейтинг',
-                      'create_table' => 'Створити таблицю',
-                      'create_max' => 'Максимальний бал',
-                      'view_table' => 'Переглянути таблиці',
-                      'edit_table' => 'Редагувати таблицю',
-                      /* rating_table_edit*/
-                      'top_label' => 'Виберіть таблицю',
-                      'add_label' => 'Додати колонку',
-                      'del_label' => 'Видалити колонку',
-                      'editb' => 'Редагувати колонки',
-                      'addb' => 'додати',
-                      'editrb' => 'змінити',
-                      'delb' => 'видал.',
-                      'rest' => 'відновити',
-                      'savetable' => 'зберегти',
-                      'title' => 'Тітл',
-                      'mark' => 'Бал'
+                        'bc_title' => 'Рейтинг студентів',
+                        'rating'=>'Рейтинг',
+                        'create_table'=>'Створити таблицю',
+                        'view_table'=>'Просмотр таблиці',
+                        'edit_table'=>'Редагувати таблицю',
+                        /* rating_table_edit*/
+                        'top_label'=>'Виберіть таблицю',
+			'editb'=>'Редагувати колонки',
+			'add_label'=>'Додати колонку',
+			'del_label'=>'Видалити колонку',
+                        'new_bal_label'=>'Змінити бал',
+			'addb'=>'додати',
+			'delb'=>'видал.',
+                        'editrb'=>'Змінити',
+			'rest'=>'Відновити',
+			'savetable'=>'Зберегти',
+
+                        'create_max'=>'Максимальный бал'
                       ),
     'fileshare' => array(
-                      'bc_title' => 'Файловe хранилице',
+                        'bc_title' => 'Файловe хранилице',
                       'picture' => 'Зображення',
-                      'description' => 'Опис',
-                      'file' => 'Файл',
-                      'subject' => 'Предмет',
-                      'semest' => 'Семестр',
+                        'description' =>'Опис',
+                        'file'=>'Файл',
+                        'subject'=>'Предмет',
+                        'semest'=>'Семестр',
                       'upload' => 'Закачати',
-                      'title' => 'Назва',
-                      'download' => 'Завантажити',
-                      'upload_success' => 'Файл успішно закачано',
-                      'error_permition' => 'Недостатньо прав',
-                      'error_upload_file' => 'Не можу завантажити файл',
+                        'title'=>'Назва',
+                        'download'=>'Завантажити',
+                        'upload_success'=>'Файл успішно закачано',
+                        'error_permition'=>'Недостатньо прав',
+                        'error_upload_file' =>'Не можу завантажити файл',
                       'error_file_to_big' => 'Розмір файлу більше максимально допустимого',
-                      'error_upload_cover' => 'Не можу завантажити зображення',
-                      'error_cover_to_big' => 'Розмір зображення більше максимально допустимого',
-                      'uploader' => 'Завантажив',
-                      'filesize' => 'Розмір файлу'
+                        'error_upload_cover'=>'Не можу завантажити зображення',
+                        'error_cover_to_big'=>'Розмір зображення більше максимально допустимого',
+                        'uploader' =>'Завантажив',
+                    	'filesize'=>'Розмір файлу'
     )
 );
 ?>

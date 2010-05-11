@@ -136,7 +136,9 @@
 			idName: "id"
 		},
 		view_rating_edit: {
-			editcaption: "Изменение '",
+			editcaption: "Изменение",
+			title: "Титл",
+			mark: "Балл",
 			et: "Новое назв.:",
 			title_0: "ФИО"
 		}

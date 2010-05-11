@@ -137,6 +137,8 @@
 		},
 		view_rating_edit: {
 			editcaption: "Зміна '",
+			title: "Тітл",
+			mark: "Бал",
 			et: "Нова назва:",
 			title_0: "ПІБ"
 		}

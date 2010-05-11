@@ -1,4 +1,4 @@
-<? if (!defined("entrypoint"))die;?>
+﻿<? if (!defined("entrypoint"))die;?>
 
 <?
 $View->subjects_id = $user->getProfessorSubjectsIds();
@@ -47,7 +47,7 @@ $View->subjects = $user->getProfessorSubjects();
                 if($("#groups > select").val() == '...') {
                     $("#max_bal").hide(); $("#createTable").hide();
                 } else {
-                    $("#max_bal").show("slow"); $("#createTable").show("slow"); $('#bal').focus();
+                    $("#max_bal").show("slow"); $("#createTable").show("slow"); //$('#bal').focus();
                 }
             });
 
@@ -58,6 +58,7 @@ $View->subjects = $user->getProfessorSubjects();
                 } else {
                     $(this).removeClass("focus");
                 }
+                return true;
             });
 
             $('#max_bal > input[type="text"]').blur(function() {
@@ -69,12 +70,13 @@ $View->subjects = $user->getProfessorSubjects();
                 if($("#subject").val() != '...') {
                     $.ajax({
                         type:"POST",
-                        url:'http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/ajax/create_table/',
+                        url:'http://'+window.location.hostname+'/en/ajax/create_table/',
                         cache:false,
                         data:"do=get_groups",//&subject="+$("#subject").val(),
                         success:function(data)
                         {
                             var groups = eval("(" + data + ")");
+
                             var html='<option>...<\/option>';
                             for (var i=0;i<groups.length;i++) {
                                 html += '<option value='+groups[i]["ID"]+'>'+groups[i]["Title"]+'<\/option>';
@@ -93,16 +95,15 @@ $View->subjects = $user->getProfessorSubjects();
             } else {
                 $.ajax({
                     type:"POST",
-                    url:'http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/ajax/create_table/',
+                    url:'http://'+window.location.hostname+'/en/ajax/create_table/',
                     cache:false,
-//professor_id=1 — где его брать??
-                    data:"do=create_table&professor_id=1&group_id="+$("#group").val()+"&subject_id="+$("#subject").val()+"&max_rating="+$('#bal').val(),
+                    data:"do=create_table&group_id="+$("#group").val()+"&subject_id="+$("#subject").val()+"&max_rating="+$('#bal').val(),
                     success:function(data)
                     {
                         var result = eval("(" + data + ")");
                         if (result==-1) {
                             alert("Таблица уже существует!");
-                            return;
+                            return true;
                         }
                         if (!result) {
                             alert("Ошибка базы данных при создании таблицы!");
@@ -112,6 +113,7 @@ $View->subjects = $user->getProfessorSubjects();
                             $('#subject option:first').attr('selected', 'yes');
                             $('#bal').val("");
                         }
+                        return true;
                     }
                 });
             }
