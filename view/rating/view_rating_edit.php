@@ -1,4 +1,8 @@
-﻿<? if (!defined("entrypoint"))die;?>
+<? if (!defined("entrypoint"))die;
+require_once("classes/rating/class.rating.php");
+$rating = new Ratings($db,$user);
+?>
+
 <div id="profile">
 
     <!-- - - - - - - - - - - - - -->
@@ -9,14 +13,12 @@
         <div class="top_container_label"><?=$labels['rating']['top_label'];?></div>
         <select name="tablename" id="table_select">
             <option>...</option>
-            <option>OS : KM-71</option>
-            <option>OS : KM-72</option>
-            <option>OS : KM-73</option>
         </select>
         <div id="ajax_loader"><img alt="loading..." src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/basic/ajax_loader_Tedit.gif"/></div>
     </div>
 
     <table id="desttable"></table>
+    <div id="pager"></div>
     <div style="display:none;"><table id="et"></table></div>
 
     <input type="button" id="editb" value="<?=$labels['rating']['editb'];?>"/>
@@ -51,3 +53,8 @@
 <!-- -->
 
 </div>
+<script type="text/javascript">
+    var table_select=[];
+//чтобы не слать ajax при загрузке страницы
+    <? if($table_select=$rating->getMyTables()) {echo "table_select=eval(".json_encode($table_select).");\nupdateSelect(table_select);\n";};?>
+</script>

@@ -65,8 +65,9 @@
             </div><!-- #title -->
 
             <div id="flags">
+                <? $langs_title=array("ua"=>"Українська","ru"=>"Русский","en"=>"English"); ?>
                 <? foreach ($View->languages as $key=>$langs): ?>
-                <a href="<?=$langs['url'];?>"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/lang/<?=$langs['lang'];?>.png" alt="<?=strtoupper($langs);?>" id="flag_<?=($key+1);?>" /></a>
+                <a href="<?=$langs['url'];?>"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/lang/<?=$langs['lang'];?>.png" alt="<?=$langs_title[$langs['lang']];?>" id="flag_<?=($key+1);?>" /></a>
                 <? endforeach; ?>
             </div>	<!-- #flags -->
 
@@ -140,11 +141,7 @@
 
         <div id="container">
                 <div id="content">
-                    <?
-                    require_once("view/".$View->module."/view_".$View->module.".php");
-
-                    if($module[2]=='profile' && $module[3]=='rating') echo("PROFILE &amp;&amp; RATING");
-                    ?>
+                    <? require_once("view/".$View->module."/view_".$View->module.".php");?>
                 </div><!-- #content-->
         </div>
 

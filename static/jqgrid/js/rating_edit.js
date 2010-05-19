@@ -6,6 +6,7 @@
 var el_id = {
     et: "et",
     desttable: "desttable",
+    pager: "pager",
     editb: "editb",
     editbar: "editbar",
     labeledit: "labeledit",
@@ -25,6 +26,7 @@ var el_id = {
 var colmod  = new Array;
 var mydata  = new Array;
 var foodata = new Array;
+var stud_id = new Array; //при сохранении имена переписываются этими ID'ми
 
 var mytable;
 var myselect;
@@ -41,7 +43,7 @@ var i;
 var js_labels = jQuery.jgrid.view_rating_edit;
 
 var opts={
-    height: "100%",
+//    height: "auto",
     autowidth: true,
     cellEdit: true,
     cellsubmit: "clientArray",
@@ -52,6 +54,9 @@ var opts={
     datatype: "local",
     footerrow: true,
     userDataOnFooter: true,
+    pager: el_id["pager"],
+    pgbuttons: false,
+    pginput: false,
 
     onSortCol: function(index, colindex, sortorder) {
         if ($("#"+el_id["desttable"]).jqGrid('getColProp',index).sorttype == "none") {
@@ -104,23 +109,15 @@ jQuery(document).ready(function(){
 
 
     $("#"+el_id["table_select"]).change(function(){
-        if ($("#"+el_id["table_select"]).val() == "...") {
-            jQuery("#"+el_id["desttable"]).jqGrid('GridUnload',"#"+el_id["desttable"]);
-            colmod.splice(0,colmod.length);
-            mydata.splice(0,mydata.length);
-            hide(el_id["editbar"]);
-            hide(el_id["editb"]);
-            setMenuHeight();
-        } else {
-            get_table();
-        }
+    	hideall();
+        if ($("#"+el_id["table_select"]).val() != "...") get_table();
     });
 
 
     $("#"+el_id["editb"]).click(function(){ myswitch(true); });
     $("#"+el_id["addb"]).click(function(){ addCol(newlabel.value, newfoo.value); });
     $("#"+el_id["delb"]).click(function(){
-        if (myselect.options.length) delCol(myselect.options[myselect.selectedIndex].value);
+        if (myselect.options.length>1) delCol(myselect.options[myselect.selectedIndex].value);
     });
     $("#"+el_id["editrb"]).click(function(){
         if (myrselect.options.length) editmaxr(myrselect.selectedIndex, newr.value);
@@ -163,48 +160,55 @@ function get_table(){
         type:"POST",
         url:'http://' + window.location.hostname + '/en/ajax/get_table/',
         cache:false,
-        data:"tablename=" + $('#'+el_id["table_select"]).val(),
+        data:"do=get_data&tablename=" + $('#'+el_id["table_select"]).val(),
         success:function(data)
         {
             var table = eval("(" + data + ")");
-
-            $.extend(opts,{ caption:table["caption"] });
-
-            colmod.splice(0, colmod.length);
-            colmod[0] = {
-                label:js_labels["title_0"],
-                name:"stud_name",
-                index:"stud_name",
-                width:150,
-                sortable:false
-            };
-
-            for(i = 1; i < table["title"].length; i++)
-                colmod[i] = {
-                    label:table["title"][i],
-                    name:"col"+i,
-                    index:"col"+i,
-                    width:60,
-                    align:"right",
-                    sorttype:"none",
-                    editable:true,
-                    editrules:{
-                        number:true
-                    }
+            
+            if (!table){
+            	alert("Таблица пустая!\nПожалуйста, свяжитесь с администратором.");
+            	return true;
+            } else {
+                var c=$('#'+el_id["table_select"]+" :selected").html();
+                var subject=c.substr(0,c.indexOf(" : ",c));
+                var group=c.substr(c.indexOf(" : ",c)+3);
+                $.extend(opts,{ caption:"Оценки группы: "+group+" / "+subject });
+    
+                colmod.splice(0, colmod.length);
+                colmod[0] = {
+                    label:js_labels["title_0"],
+                    name:"stud_name",
+                    index:"stud_name",
+                    width:150,
+                    sortable:false
                 };
-
-        for(i = 0; i < table["data"].length; i++)
-            mydata[i] = clone(table["data"][i]);
-
-        foodata = clone(table["rating"]);
-
-        InitTable();
-    },
-
-    error: function(){ alert('Error!'); },
-
-    beforeSend: function(){ $('#'+el_id["ajax_loader"]+' > img').show(); },
-    complete:   function(){ $('#'+el_id["ajax_loader"]+' > img').hide(); }
+    
+                for(i = 0; i < table["title"].length; i++)
+                    colmod[i+1] = {
+                        label:table["title"][i],
+                        name:"col"+parseInt(i+1),
+                        index:"col"+parseInt(i+1),
+                        width:60,
+                        align:"right",
+                        sorttype:"none",
+                        editable:true,
+                        editrules:{
+                            number:true
+                        }
+                    };
+                for(i = 0; i < table["data"].length-1; i++){
+                    mydata[i] = clone(table["data"][i]);
+                    stud_id[i] = table["data"][i]["stud_id"];
+                }
+                foodata = clone(table["data"][i]);
+                foodata["stud_name"]=js_labels["footer_0"];
+    
+                InitTable();
+            }
+        },
+        error: function(){ alert('Ajax Error!'); },
+        beforeSend: function(){ $('#'+el_id["ajax_loader"]+' > img').show(); },
+        complete:   function(){ $('#'+el_id["ajax_loader"]+' > img').hide(); }
     });
 }
 
@@ -307,8 +311,10 @@ function myswitch(ch) {
 
         show(el_id["editbar"]);
         hide(el_id["editb"]);
+        document.getElementById(el_id["delb"]).removeAttribute('disabled');
         totable();
-        document.getElementById(el_id["editb"]).setAttribute('disabled',"");
+        document.getElementById(el_id["editb"]).disabled="disabled";
+        document.getElementById(el_id["rest"]).disabled="disabled";
     } else {
         hide(el_id["editbar"]);
         show(el_id["editb"]);
@@ -317,7 +323,6 @@ function myswitch(ch) {
         r_mydata  = clone(mydata);
         r_foodata = clone(foodata);
         document.getElementById(el_id["editb"]).removeAttribute('disabled');
-        document.getElementById(el_id["rest"]).setAttribute('disabled',"");
         setMenuHeight();
     }
     
@@ -326,6 +331,14 @@ function myswitch(ch) {
 }
 function r_update() {
     if (myrselect) $('#newrnum').html($('#delnum').html());
+}
+function hideall() {
+    jQuery("#"+el_id["desttable"]).jqGrid('GridUnload',"#"+el_id["desttable"]);
+    colmod.splice(0,colmod.length);
+    mydata.splice(0,mydata.length);
+    hide(el_id["editbar"]);
+    hide(el_id["editb"]);
+    setMenuHeight();
 }
 //--------------------------------------------------END support
 
@@ -395,7 +408,6 @@ function delCol(deli) {
         alert('You can not delete the first column!');
         return;
     }
-//????????????????????????????????????????????????????????????????????????????????????????????????????
     myselect.remove(deli-2);
     //correct indexes
     for (i = deli-2; i < myselect.options.length; i++) {
@@ -426,8 +438,8 @@ function delCol(deli) {
     colmod.splice(deli-1,1);
 
     document.getElementById(el_id["rest"]).removeAttribute('disabled');
-    if (myselect.options.length == 0) {
-        document.getElementById(el_id["delb"]).setAttribute('disabled',"");
+    if (myselect.options.length < 2) {
+        document.getElementById(el_id["delb"]).disabled="disabled";
     }
     togrid();
 }
@@ -469,10 +481,98 @@ function togrid() {
 
     jQuery("#"+el_id["desttable"]).jqGrid($.extend(opts,{
         colModel:colmod
-    }));
+    })).navGrid("#"+el_id["pager"],
+        {
+    	    position: "right",
+            edit: false,
+            add: false,
+            del: false,
+            search: false,
+            refresh: false
+        }
+    ).navButtonAdd("#"+el_id["pager"], {
+        caption: js_labels["pager_save"]+"&nbsp;",
+        buttonicon:"ui-icon-disk",
+        onClickButton: function () {
+        if (document.getElementById(el_id["editb"]).style.display == 'block' && !editing) {
+        	var data = new Array;
+        	var title = new Array;
+
+            for(i = 0; i < mydata.length; i++){
+            	data[i] = clone(mydata[i]);
+            	if (opts.rownumbers) delete data[i]["rn"];
+            }
+            data[i] = clone(foodata);
+
+            for(i in data) data[i]["stud_name"]=stud_id[i];
+            data[i]["stud_name"]="max_rating";
+            delete data[data.length-1]["stud_id"];
+
+            for(i = 0; i < colmod.length; i++)
+            	if(colmod[i]["name"]!="stud_name"){
+            		title[title.length]=new Object();
+            		title[title.length-1]["name"]=colmod[i]["name"];
+            		title[title.length-1]["label"]=colmod[i]["label"];
+            	}
+
+            $.ajax({
+                type:"POST",
+                url:'http://'+window.location.hostname+'/en/ajax/get_table/',
+                cache:false,
+                data:"do=save_data&tablename="+$("#"+el_id["table_select"]).val()+"&data="+encodeURIComponent(array2json(data))+"&title="+encodeURIComponent(array2json(title)),
+                success:function(data)
+                {
+            	    var result = eval("(" + data + ")");
+                    if (result){
+                        r_colmod  = clone(colmod);
+                        r_mydata  = clone(mydata);
+                        r_foodata = clone(foodata);
+                        alert(js_labels["pager_saved"]);
+                    }
+                    return true;
+                }
+            });
+        } else {
+            alert(js_labels["pager_editing"]);
+        }
+    }
+   }).navSeparatorAdd("#"+el_id["pager"],{
+    	sepcontent:''
+    }).navButtonAdd("#"+el_id["pager"], {
+        caption: js_labels["pager_delete"]+"&nbsp;",
+        buttonicon:"ui-icon-trash",
+        onClickButton: function () {
+            if (document.getElementById(el_id["editb"]).style.display == 'block' && !editing) {
+                if (confirm(js_labels["pager_delete_confirm"])) {
+                    $.ajax({
+                        type:"POST",
+                        url:'http://'+window.location.hostname+'/en/ajax/get_table/',
+                        cache:false,
+                        data:"do=drop_table&tablename="+$("#"+el_id["table_select"]).val(),
+                        success:function(data)
+                        {
+            	          var result = eval("(" + data + ")");
+                            if (result){
+                                hideall();
+                                updateTables();
+                                alert(js_labels["pager_dropped"]);
+                            }
+                            return true;
+                        }
+                    });
+                }
+            } else {
+                alert(js_labels["pager_editing"]);
+            }
+        }
+    }).navSeparatorAdd("#"+el_id["pager"],{
+    	sepcontent:''
+    });
+
     for (i = 0; i < mydata.length; i++)
         jQuery("#"+el_id["desttable"]).jqGrid('addRowData',i+1,mydata[i]);
     jQuery("#"+el_id["desttable"]).jqGrid('footerData',"set",foodata);
+    jQuery("#"+el_id["desttable"]).jqGrid('setGridHeight',"auto");
     totable();
 }
 
@@ -482,13 +582,77 @@ function totable() {
     mydata=jQuery("#"+el_id["desttable"]).jqGrid('getRowData');
 
     var html;
-//???????????????????????????????????????????????????????????????????????????????????????????????????
     for(i = 1; i < colmod.length; ++i) {
         html += '<option value ='+(i+1)+'>'+i+': '+colmod[i].label+'<\/option>';
     }
     $("#delnum").html(html);
+    if (myselect.options.length < 2) {
+        document.getElementById(el_id["delb"]).disabled="disabled";
+    }
 
     r_update();
     if (!r_select) r_select=myselect.cloneNode(true);
+}
+
+function updateTables() {
+    $.ajax({
+        type:"POST",
+        url:'http://'+window.location.hostname+'/en/ajax/get_table/',
+        cache:false,
+        data:"do=get_tables",
+        success:function(data)
+        {
+            var table_select = eval("(" + data + ")");
+            updateSelect(table_select);
+            return true;
+        }
+    });
+}
+
+function updateSelect(table_select){
+    var html='<option>...<\/option>';
+    if (table_select) {
+        for (var i in table_select) {
+            html += '<option value='+table_select[i]["tablename"]+'>'+table_select[i]["subject"]+" : "+table_select[i]["group"]+'<\/option>';
+        }
+    }
+    $("#table_select").html(html);
+    return true;
+}
+
+/**
+ * Converts the given data structure to a JSON string.
+ * Argument: arr - The data structure that must be converted to JSON
+ * Example: var json_string = array2json(['e', {pluribus: 'unum'}]);
+ * 			var json = array2json({"success":"Sweet","failure":false,"empty_array":[],"numbers":[1,2,3],"info":{"name":"Binny","site":"http:\/\/www.openjs.com\/"}});
+ * http://www.openjs.com/scripts/data/json_encode.php
+ */
+function array2json(arr) {
+    var parts = [];
+    var is_list = (Object.prototype.toString.apply(arr) === '[object Array]');
+
+    for(var key in arr) {
+    	var value = arr[key];
+        if(typeof value == "object") { //Custom handling for arrays
+            if(is_list) parts.push(array2json(value)); /* :RECURSION: */
+            else parts[key] = array2json(value); /* :RECURSION: */
+        } else {
+            var str = "";
+            if(!is_list) str = '"' + key + '":';
+
+            //Custom handling for multiple data types
+            if(typeof value == "number") str += value; //Numbers
+            else if(value === false) str += 'false'; //The booleans
+            else if(value === true) str += 'true';
+            else str += '"' + value + '"'; //All other things
+            // :TODO: Is there any more datatype we should be in the lookout for? (Functions?)
+
+            parts.push(str);
+        }
+    }
+    var json = parts.join(",");
+    
+    if(is_list) return '[' + json + ']';//Return numerical JSON
+    return '{' + json + '}';//Return associative JSON
 }
 //--------------------------------------------------END convert
