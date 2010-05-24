@@ -17,10 +17,14 @@
     </div>
 
     <table id="desttable"></table>
+    <!--<div id="pager"></div>-->
     <div style="display:none;"><table id="et"></table></div>
 
-    <input type="button" id="editb" value="<?=$labels['rating']['editb'];?>"/>
-
+    <div>
+        <input type="button" id="editb" value="<?=$labels['rating']['editb'];?>"/>
+        <input type="button" id="savetb" value="SAVE TABLE"/>
+        <input type="button" id="droptb" value="DROP TABLE"/>
+    </div>
     <!-- -->
     <div id="editbar">
         <div>

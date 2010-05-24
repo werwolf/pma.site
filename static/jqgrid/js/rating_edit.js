@@ -52,6 +52,7 @@ var opts={
     datatype: "local",
     footerrow: true,
     userDataOnFooter: true,
+//    pager: $('#pager'),
 
     onSortCol: function(index, colindex, sortorder) {
         if ($("#"+el_id["desttable"]).jqGrid('getColProp',index).sorttype == "none") {
@@ -140,6 +141,27 @@ jQuery(document).ready(function(){
 
     $("#"+el_id["editr"]).blur( function(){ inp_def_val(this,js_labels["mark"],'blur');  });
     $("#"+el_id["editr"]).focus(function(){ inp_def_val(this,js_labels["mark"],'click'); });
+
+
+//    jQuery("#et")
+//        .navGrid('#pager',{edit:false,add:false,del:false,search:false})
+//        .navButtonAdd('#pager',{
+//           caption:"Add",
+//           buttonicon:"ui-icon-add",
+//           onClickButton: function(){
+//             alert("Adding Row");
+//           },
+//           position:"last"
+//        })
+//        .navButtonAdd('#pager',{
+//           caption:"Del",
+//           buttonicon:"ui-icon-del",
+//           onClickButton: function(){
+//              alert("Deleting Row");
+//           },
+//           position:"last"
+//        });
+
 });
 
 
@@ -161,9 +183,9 @@ function inp_def_val(inp, def_val, mode) {
 function get_table(){
     $.ajax({
         type:"POST",
-        url:'http://' + window.location.hostname + '/en/ajax/get_table/',
+        url:'http://' + window.location.hostname + '/en/ajax/edit_table/',
         cache:false,
-        data:"tablename=" + $('#'+el_id["table_select"]).val(),
+        data:"do=get_table&tablename=" + $('#'+el_id["table_select"]).val(),
         success:function(data)
         {
             var table = eval("(" + data + ")");
@@ -193,20 +215,51 @@ function get_table(){
                     }
                 };
 
-        for(i = 0; i < table["data"].length; i++)
-            mydata[i] = clone(table["data"][i]);
+            for(i = 0; i < table["data"].length; i++)
+                mydata[i] = clone(table["data"][i]);
 
-        foodata = clone(table["rating"]);
+            foodata = clone(table["rating"]);
 
-        InitTable();
-    },
+            InitTable();
+        },
 
-    error: function(){ alert('Error!'); },
+        error: function(){ alert('Error!'); },
 
-    beforeSend: function(){ $('#'+el_id["ajax_loader"]+' > img').show(); },
-    complete:   function(){ $('#'+el_id["ajax_loader"]+' > img').hide(); }
+        beforeSend: function(){ $('#'+el_id["ajax_loader"]+' > img').show(); },
+        complete:   function(){ $('#'+el_id["ajax_loader"]+' > img').hide(); }
     });
 }
+
+function save_table(){
+    $.ajax({
+        type:"POST",
+        url:'http://' + window.location.hostname + '/en/ajax/edit_table/',
+        cache:false,
+        data:"do=save_table",
+        success:function(data)
+        {
+            var table = eval("(" + data + ")");
+
+            
+        }
+    });
+}
+
+function drop_table(){
+    $.ajax({
+        type:"POST",
+        url:'http://' + window.location.hostname + '/en/ajax/edit_table/',
+        cache:false,
+        data:"do=drop_table",
+        success:function(data)
+        {
+            var table = eval("(" + data + ")");
+
+
+        }
+    });
+}
+//------------------------------------------------------------------------------------------
 
 function InitTable(){
     myswitch(false);

@@ -1,14 +1,24 @@
 <?php
+
+/**
+ * Description of class.rating
+ *
+ * @author Golphamid N.N. , Chernyavskiy A.S.
+ */
 class ratings //extends Professor
 {
     private $tablename;
     //private $date_create;
     private $max_rating;
     //private $sub_professor_id;
-    private $table = array();
+    //private $table = array();
     //private $names;
+    private $db;
+    private $professor_id;
+    private $group_id;
+    private $subject_id;
 
-    public function  __construct($db,$user,$group_id=null,$subject_id=null,$max_rating=0)
+    public function  __construct($db, $user, $group_id=null, $subject_id=null, $max_rating=0)
     {
         $this->db = $db;
         //$this->id = $id;
@@ -19,6 +29,12 @@ class ratings //extends Professor
         $this->max_rating = $max_rating;
     }
 
+    /**
+     * Функция, занимающаяся созданием таблици.
+     * bla-bla-bla
+     *
+     * @param int $sub_professor_id
+     */
     public function createTable($sub_professor_id=0)
     {
         if($sub_professor_id == 0) $sub_professor_id = $this->id;
@@ -32,17 +48,20 @@ class ratings //extends Professor
         $sql.="`col1` int(6) NOT NULL DEFAULT '0' )";
         // COMMIT
         if ($this->db->query($sql)) {
-        	$sql="INSERT INTO `$this->tablename` (`stud_name`) VALUES ";
-	        $IDs = $this->getStudentsIDs($this->group_id);
-	        for($i=0;$i<count($IDs);$i++)
-	        	$sql.=$i<count($IDs)-1 ? "('".$IDs[$i]["User_ID"]."')," : "('".$IDs[$i]["User_ID"]."'),('max_rating')";
-	        return $this->db->query($sql);
+            $sql="INSERT INTO `$this->tablename` (`stud_name`) VALUES ";
+            $IDs = $this->getStudentsIDs($this->group_id);
+            for($i=0;$i<count($IDs);$i++)
+                $sql.=$i<count($IDs)-1 ? "('".$IDs[$i]["User_ID"]."')," : "('".$IDs[$i]["User_ID"]."'),('max_rating')";
+            return $this->db->query($sql);
         } else return 0;
     }
 
+    /**
+     * @
+     */
     public function dropTable()
     {
-	    return $this->db->query("DROP TABLE IF EXISTS `$this->tablename`");
+        return $this->db->query("DROP TABLE IF EXISTS `$this->tablename`");
     }
 
     public function updateTable()
@@ -53,14 +72,14 @@ class ratings //extends Professor
 
     public function seekTable()
     {
-	    $this->db->query("SHOW TABLES FROM `".MYSQL_BASE."`");
-	    $result = $this->db->assocAll();
-	    for ($i=0;$i<count($result);$i++) {
-	        if ($this->tablename==$result[$i]["Tables_in_".MYSQL_BASE]) {
-	            return true;
-	        }
-	    }
-	    return false;
+        $this->db->query("SHOW TABLES FROM `".MYSQL_BASE."`");
+        $result = $this->db->assocAll();
+        for ($i=0;$i<count($result);$i++) {
+            if ($this->tablename==$result[$i]["Tables_in_".MYSQL_BASE]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function getStudentsIDs($group_id=null)
@@ -135,7 +154,6 @@ class ratings //extends Professor
     }
 }
 
-//
 //class Professor extends user
 //{
 //    private $subjects;
