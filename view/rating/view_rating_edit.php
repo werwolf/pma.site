@@ -1,7 +1,4 @@
-<? if (!defined("entrypoint"))die;
-require_once("classes/rating/class.rating.php");
-$rating = new Ratings($db,$user);
-?>
+<? if (!defined("entrypoint"))die;?>
 
 <div id="profile">
 
@@ -53,8 +50,3 @@ $rating = new Ratings($db,$user);
 <!-- -->
 
 </div>
-<script type="text/javascript">
-    var table_select=[];
-//чтобы не слать ajax при загрузке страницы
-    <? if($table_select=$rating->getMyTables()) {echo "table_select=eval(".json_encode($table_select).");\nupdateSelect(table_select);\n";};?>
-</script>

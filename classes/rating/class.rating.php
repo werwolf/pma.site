@@ -50,7 +50,7 @@ class ratings
     }
 
     public function saveTable($data,$title)
-    {// :TODO: fix title bug
+    {
         $data = $this->object_to_array($data);
         $title = $this->object_to_array($title);
         $sql="SELECT `Max_Rating` FROM `Ratings` WHERE `Tablename`='$this->tablename'";

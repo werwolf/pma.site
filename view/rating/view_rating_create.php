@@ -1,7 +1,4 @@
-<? if (!defined("entrypoint"))die;
-require_once("classes/rating/class.rating.php");
-$rating = new Ratings($db,$user);
-?>
+<? if (!defined("entrypoint"))die;?>
 
 <div id="profile">
 
@@ -41,8 +38,8 @@ $rating = new Ratings($db,$user);
             if (navigator.appVersion.indexOf("Win")!=-1) navigator.appName=="Netscape"?$("#bal").width(148):$("#bal").width(146);
 //
             var magic=[];
-//чтобы не слать ajax при загрузке страницы
-            <? if($magic=$rating->getMagic()) {echo "magic=eval(".json_encode($magic).");\nupdateSelect(magic);\n";};?>
+            updateSubjects();
+
             $("#groups").hide(); $("#max_bal").hide(); $("#createTable").hide();
 
             $("#subject").change(function(){

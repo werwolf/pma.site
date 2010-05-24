@@ -100,6 +100,7 @@ var opts={
 
 jQuery(document).ready(function(){
 
+    updateTables();
     mytable = document.getElementById(el_id["desttable"]);
     myselect = document.getElementById(el_id["delnum"]);
     myrselect = document.getElementById(el_id["newrnum"]);
@@ -215,6 +216,7 @@ function get_table(){
 function InitTable(){
     myswitch(false);
 
+    jQuery("#"+el_id["et"]).jqGrid('GridUnload',"#"+el_id["et"]);
     //grid for input
     jQuery("#"+el_id["et"]).jqGrid({
         datatype: "local",
