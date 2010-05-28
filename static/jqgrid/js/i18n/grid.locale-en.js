@@ -136,6 +136,7 @@
 			idName: "id"
 		},
 		view_rating_edit: {
+		      editb: "Edit columns",
 			editcaption: "Editing",
 			title: "Title",
 			mark: "Max.mark",

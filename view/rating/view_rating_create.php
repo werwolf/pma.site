@@ -4,7 +4,7 @@
 
     <h3 align="center"><?=$labels['rating']['create_table'];?></h3>
 
-    <div style="padding: 5px; background-color: silver; margin-top: 8px; margin-left: 140px; margin-right: 140px;">
+    <div style="padding: 5px; background-color: #70AAD0; margin-top: 8px; margin-left: 140px; margin-right: 140px;">
         <div>
             <div class="label"><?=$labels['fileshare']['subject'];?></div>
 

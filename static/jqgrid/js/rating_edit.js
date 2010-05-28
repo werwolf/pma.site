@@ -58,48 +58,37 @@ var opts={
     pgbuttons: false,
     pginput: false,
 
-    onSortCol: function(index, colindex, sortorder) {
-        if ($("#"+el_id["desttable"]).jqGrid('getColProp',index).sorttype == "none") {
-            $("#"+el_id["et"]).jqGrid('setCell',1,'ec',undefined);
-            $("#"+el_id["et"]).jqGrid('editGridRow',1,{
-                reloadAfterSubmit: false,
-                left: getDeadCenter(250,100)[0],
-                top:  getDeadCenter(250,100)[1],
-                width: 240,
-                modal: true,
-                resize: false,
-                url: window.location,
-                savekey: [true,13],
-                closeOnEscape: true,
-                closeAfterEdit: true,
-                viewPagerButtons: false,
-                afterComplete: function(response, postdata, formid) {
-                    newstr=jQuery("#"+el_id["et"]).jqGrid('getCell',1,'ec');
-                    newstr=newstr.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-                    if (newstr!="") {
-                        document.getElementById("jqgh_"+index).setAttribute("title",newstr);
-                        $("#"+el_id["desttable"]).jqGrid('setLabel',$("#"+el_id["desttable"]).jqGrid('getColProp',index).name,newstr);
-                        colmod[colindex-1].label = newstr;
-                        totable();
-                        document.getElementById(el_id["rest"]).removeAttribute('disabled');
-                    }
-                },
-                editCaption: js_labels["editcaption"]+" '"+$("#"+el_id["desttable"]).jqGrid('getColProp',index).label+"'"
-            });
-        }
+    onSortCol: function(index, colindex, sortorder) { sort_col(index, colindex, sortorder); },
+    beforeEditCell: function(rowid,celname,value,iRow,iCol) {
+    	hide(el_id["editb"]);
+    	editing = true;
+    	$(".ui-separator:first").hide();
     },
-    beforeEditCell: function(rowid,celname,value,iRow,iCol) { hide(el_id["editb"]); },
-    beforeSaveCell: function(rowid,celname,value,iRow,iCol) { if (!editing) show(el_id["editb"]); },
+    beforeSaveCell: function(rowid,celname,value,iRow,iCol) {
+    	if (!editing) {
+    	    show(el_id["editb"]);
+    	    $(".ui-separator:first").show();
+        }
+        editing = false;
+    },
     afterSaveCell:  function(rowid,celname,value,iRow,iCol) {
         mydata = jQuery("#"+el_id["desttable"]).jqGrid('getRowData');
         totable();
         document.getElementById(el_id["rest"]).removeAttribute('disabled');
     },
-    afterRestoreCell: function(iRow,iCol) { if (!editing) show(el_id["editb"]); }
+    afterRestoreCell: function(iRow,iCol) {
+    	if (!editing) {
+    	    show(el_id["editb"]);
+    	    $(".ui-separator:first").show();
+        }
+    	editing = false;
+    }
 };
 
 jQuery(document).ready(function(){
 
+//	var ie_fixer=($.browser.mozilla)?74:70;
+//	$("#labeledit").css("width",ie_fixer);
     updateTables();
     mytable = document.getElementById(el_id["desttable"]);
     myselect = document.getElementById(el_id["delnum"]);
@@ -115,7 +104,7 @@ jQuery(document).ready(function(){
     });
 
 
-    $("#"+el_id["editb"]).click(function(){ myswitch(true); });
+//    $("#"+el_id["editb"]).click(function(){ myswitch(true); });
     $("#"+el_id["addb"]).click(function(){ addCol(newlabel.value, newfoo.value); });
     $("#"+el_id["delb"]).click(function(){
         if (myselect.options.length>1) delCol(myselect.options[myselect.selectedIndex].value);
@@ -312,19 +301,21 @@ function myswitch(ch) {
         inp_def_val(('#'+el_id["editr"]),js_labels["mark"],'blur');
 
         show(el_id["editbar"]);
-        hide(el_id["editb"]);
+        $("#editb").hide();
+        $(".ui-separator:first").hide();
+
         document.getElementById(el_id["delb"]).removeAttribute('disabled');
         totable();
-        document.getElementById(el_id["editb"]).disabled="disabled";
         document.getElementById(el_id["rest"]).disabled="disabled";
     } else {
         hide(el_id["editbar"]);
-        show(el_id["editb"]);
+        $("#editb").show();
+        $(".ui-separator:first").show();
+
         togrid();
         r_colmod  = clone(colmod);
         r_mydata  = clone(mydata);
         r_foodata = clone(foodata);
-        document.getElementById(el_id["editb"]).removeAttribute('disabled');
         setMenuHeight();
     }
     
@@ -339,7 +330,8 @@ function hideall() {
     colmod.splice(0,colmod.length);
     mydata.splice(0,mydata.length);
     hide(el_id["editbar"]);
-    hide(el_id["editb"]);
+//    hide(el_id["editb"]);
+    $("#editb").hide();
     setMenuHeight();
 }
 //--------------------------------------------------END support
@@ -493,80 +485,24 @@ function togrid() {
             refresh: false
         }
     ).navButtonAdd("#"+el_id["pager"], {
-        caption: js_labels["pager_save"]+"&nbsp;",
+        caption: js_labels["editb"],
+        id: "editb",
+        buttonicon: "ui-icon-pencil",
+        onClickButton: function () { myswitch(true); }
+    }).navSeparatorAdd("#"+el_id["pager"],{
+    	sepcontent:''
+    }).navButtonAdd("#"+el_id["pager"], {
+    	id: "savebb",
+        caption: js_labels["pager_save"],
         buttonicon:"ui-icon-disk",
-        onClickButton: function () {
-        if (document.getElementById(el_id["editb"]).style.display == 'block' && !editing) {
-        	var data = new Array;
-        	var title = new Array;
-
-            for(i = 0; i < mydata.length; i++){
-            	data[i] = clone(mydata[i]);
-            	if (opts.rownumbers) delete data[i]["rn"];
-            }
-            data[i] = clone(foodata);
-
-            for(i in data) data[i]["stud_name"]=stud_id[i];
-            data[i]["stud_name"]="max_rating";
-            delete data[data.length-1]["stud_id"];
-
-            for(i = 0; i < colmod.length; i++)
-            	if(colmod[i]["name"]!="stud_name"){
-            		title[title.length]=new Object();
-            		title[title.length-1]["name"]=colmod[i]["name"];
-            		title[title.length-1]["label"]=colmod[i]["label"];
-            	}
-
-            $.ajax({
-                type:"POST",
-                url:'http://'+window.location.hostname+'/en/ajax/get_table/',
-                cache:false,
-                data:"do=save_data&tablename="+$("#"+el_id["table_select"]).val()+"&data="+encodeURIComponent(array2json(data))+"&title="+encodeURIComponent(array2json(title)),
-                success:function(data)
-                {
-            	    var result = eval("(" + data + ")");
-                    if (result){
-                        r_colmod  = clone(colmod);
-                        r_mydata  = clone(mydata);
-                        r_foodata = clone(foodata);
-                        alert(js_labels["pager_saved"]);
-                    }
-                    return true;
-                }
-            });
-        } else {
-            alert(js_labels["pager_editing"]);
-        }
-    }
+        onClickButton: function () { save_table(); }
    }).navSeparatorAdd("#"+el_id["pager"],{
     	sepcontent:''
     }).navButtonAdd("#"+el_id["pager"], {
-        caption: js_labels["pager_delete"]+"&nbsp;",
+    	id: "delbb",
+        caption: js_labels["pager_delete"],
         buttonicon:"ui-icon-trash",
-        onClickButton: function () {
-            if (document.getElementById(el_id["editb"]).style.display == 'block' && !editing) {
-                if (confirm(js_labels["pager_delete_confirm"])) {
-                    $.ajax({
-                        type:"POST",
-                        url:'http://'+window.location.hostname+'/en/ajax/get_table/',
-                        cache:false,
-                        data:"do=drop_table&tablename="+$("#"+el_id["table_select"]).val(),
-                        success:function(data)
-                        {
-            	          var result = eval("(" + data + ")");
-                            if (result){
-                                hideall();
-                                updateTables();
-                                alert(js_labels["pager_dropped"]);
-                            }
-                            return true;
-                        }
-                    });
-                }
-            } else {
-                alert(js_labels["pager_editing"]);
-            }
-        }
+        onClickButton: function () { drop_table(); }
     }).navSeparatorAdd("#"+el_id["pager"],{
     	sepcontent:''
     });
@@ -622,6 +558,104 @@ function updateSelect(table_select){
     return true;
 }
 
+function sort_col(index, colindex, sortorder) {
+    if ($("#"+el_id["desttable"]).jqGrid('getColProp',index).sorttype == "none") {
+        $("#"+el_id["et"]).jqGrid('setCell',1,'ec',undefined);
+        $("#"+el_id["et"]).jqGrid('editGridRow',1,{
+            reloadAfterSubmit: false,
+            left: getDeadCenter(250,100)[0],
+            top:  getDeadCenter(250,100)[1],
+            width: 240,
+            modal: true,
+            resize: false,
+            url: window.location,
+            savekey: [true,13],
+            closeOnEscape: true,
+            closeAfterEdit: true,
+            viewPagerButtons: false,
+            afterComplete: function(response, postdata, formid) {
+                newstr=jQuery("#"+el_id["et"]).jqGrid('getCell',1,'ec');
+                newstr=newstr.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+                if (newstr!="") {
+                    document.getElementById("jqgh_"+index).setAttribute("title",newstr);
+                    $("#"+el_id["desttable"]).jqGrid('setLabel',$("#"+el_id["desttable"]).jqGrid('getColProp',index).name,newstr);
+                    colmod[colindex-1].label = newstr;
+                    totable();
+                    document.getElementById(el_id["rest"]).removeAttribute('disabled');
+                }
+            },
+            editCaption: js_labels["editcaption"]+" '"+$("#"+el_id["desttable"]).jqGrid('getColProp',index).label+"'"
+        });
+    }
+}
+function save_table() {
+    if (!editing) {
+    	var data = new Array;
+    	var title = new Array;
+
+        for(i = 0; i < mydata.length; i++){
+        	data[i] = clone(mydata[i]);
+        	if (opts.rownumbers) delete data[i]["rn"];
+        }
+        data[i] = clone(foodata);
+
+        for(i in data) data[i]["stud_name"]=stud_id[i];
+        data[i]["stud_name"]="max_rating";
+        delete data[data.length-1]["stud_id"];
+
+        for(i = 0; i < colmod.length; i++)
+        	if(colmod[i]["name"]!="stud_name"){
+        		title[title.length]=new Object();
+        		title[title.length-1]["name"]=colmod[i]["name"];
+        		title[title.length-1]["label"]=colmod[i]["label"];
+        	}
+
+        $.ajax({
+            type:"POST",
+            url:'http://'+window.location.hostname+'/en/ajax/get_table/',
+            cache:false,
+            data:"do=save_data&tablename="+$("#"+el_id["table_select"]).val()+"&data="+encodeURIComponent(array2json(data))+"&title="+encodeURIComponent(array2json(title)),
+            success:function(data)
+            {
+        	    var result = eval("(" + data + ")");
+                if (result){
+                    r_colmod  = clone(colmod);
+                    r_mydata  = clone(mydata);
+                    r_foodata = clone(foodata);
+                    alert(js_labels["pager_saved"]);
+                }
+                return true;
+            }
+        });
+    } else {
+        alert(js_labels["pager_editing"]);
+    }
+}
+
+function drop_table() {
+    if (!editing) {
+        if (confirm(js_labels["pager_delete_confirm"])) {
+            $.ajax({
+                type:"POST",
+                url:'http://'+window.location.hostname+'/en/ajax/get_table/',
+                cache:false,
+                data:"do=drop_table&tablename="+$("#"+el_id["table_select"]).val(),
+                success:function(data)
+                {
+    	          var result = eval("(" + data + ")");
+                    if (result){
+                        hideall();
+                        updateTables();
+                        alert(js_labels["pager_dropped"]);
+                    }
+                    return true;
+                }
+            });
+        }
+    } else {
+        alert(js_labels["pager_editing"]);
+    }
+}
 /**
  * Converts the given data structure to a JSON string.
  * Argument: arr - The data structure that must be converted to JSON

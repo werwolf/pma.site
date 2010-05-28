@@ -31,12 +31,16 @@
 /******* view_rating_edit.php *******/
 .top_container {
     width: 100%;
-    background-color: #CFCFCF;
+    background-color: #70AAD0;/*#CFCFCF*/
     padding: 5px 0;
     margin-bottom: 5px;
 }
 .top_container_label {
-    color: blue;
+    color: white;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 14px;
+    font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
     float: left;
     margin-right: 10px;
     margin-left: 5px;
@@ -56,14 +60,38 @@
     top: 10px;
 }
 
+#editb,#savebb,#delbb {
+    display: inline-block;
+    float: right;
+}
 #editb {
-    display:none;
-    margin-top: 5px;
+    width: 145px;
+    /*margin-left: 95px;*/
+}
+#savebb {
+    width: 100px;
+}
+#delbb {
+    width: 70px;
+}
+/*#pager_center {
+    width: 430px;
+}
+#pager_left {
+    width: 312px;
+}*/
+#pager_center,#pager_left {
+    width: 0px;
+}
+@media all and (min-width: 0px) {
+    #editb {
+        margin-left: -123px;
+    }
 }
 
 #editbar{
     width: 420px;
-    background-color: #CFCFCF;
+    background-color: #70AAD0;
     padding: 5px;
     margin-top: 5px;
     display: none;
@@ -74,6 +102,12 @@
     color: gray;
     font-size: 14px;
     font-family: 'Courier New',Courier,monospace;
+}
+
+@-moz-document url-prefix(){
+	#labeledit {
+        width: 74px;
+    }
 }
 
 .editbar_label {
@@ -93,6 +127,16 @@
     float: left;
     margin-right: 5px;
 }
+
+#delb, #addb, #editrb, #savetable, #rest, #createTable {
+    background-color: #9cbdd0;
+    border: 1px solid #5d7b8c;
+}
+
+#delb:hover, #addb:hover, #editrb:hover, #savetable:hover, #rest:hover, #createTable:hover {
+    background-color: #b3d4ff;
+}
+
 #delb, #addb, #editrb {
     width: 80px;
 }

@@ -136,6 +136,7 @@
 			idName: "id"
 		},
 		view_rating_edit: {
+		      editb: "Редагувати колонки",
 			editcaption: "Зміна",
 			title: "Тітл",
 			mark: "Бал",

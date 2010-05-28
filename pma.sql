@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Хост: localhost
--- Время создания: Май 19 2010 г., 22:25
+-- Время создания: Май 28 2010 г., 20:25
 -- Версия сервера: 5.0.51
 -- Версия PHP: 5.2.6
 
@@ -333,14 +333,14 @@ CREATE TABLE `Ratings` (
   `Col_Caption` varchar(60) NOT NULL,
   PRIMARY KEY  (`ID`),
   KEY `Professor_ID` (`Professor_ID`,`Group_ID`,`SubProf_ID`,`Subject_ID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=74 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84 ;
 
 -- 
 -- Дамп данных таблицы `Ratings`
 -- 
 
-INSERT INTO `Ratings` VALUES (1, 'rating_1_1_1', '2010-05-18', 1, 1, 0, 1, 100, 'робота1');
-INSERT INTO `Ratings` VALUES (73, 'rating_2_3_1', '2010-05-19', 1, 2, 0, 3, 100, 'робота1||100');
+INSERT INTO `Ratings` VALUES (76, 'rating_1_1_1', '2010-05-28', 1, 1, 0, 1, 100, 'робота1');
+INSERT INTO `Ratings` VALUES (82, 'rating_2_3_1', '2010-05-28', 1, 2, 0, 3, 100, 'робота1||100||11');
 
 -- --------------------------------------------------------
 
@@ -351,17 +351,16 @@ INSERT INTO `Ratings` VALUES (73, 'rating_2_3_1', '2010-05-19', 1, 2, 0, 3, 100,
 DROP TABLE IF EXISTS `rating_1_1_1`;
 CREATE TABLE `rating_1_1_1` (
   `stud_name` varchar(60) NOT NULL,
-  `col1` int(6) NOT NULL default '0',
-  `col2` int(6) NOT NULL default '0'
+  `col1` int(6) NOT NULL default '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- 
 -- Дамп данных таблицы `rating_1_1_1`
 -- 
 
-INSERT INTO `rating_1_1_1` VALUES ('1', 5, 10);
-INSERT INTO `rating_1_1_1` VALUES ('13', 10, 20);
-INSERT INTO `rating_1_1_1` VALUES ('max_rating', 15, 30);
+INSERT INTO `rating_1_1_1` VALUES ('1', 5);
+INSERT INTO `rating_1_1_1` VALUES ('13', 10);
+INSERT INTO `rating_1_1_1` VALUES ('max_rating', 15);
 
 -- --------------------------------------------------------
 
@@ -373,15 +372,16 @@ DROP TABLE IF EXISTS `rating_2_3_1`;
 CREATE TABLE `rating_2_3_1` (
   `stud_name` varchar(60) NOT NULL,
   `col1` int(6) NOT NULL default '0',
-  `col2` int(6) NOT NULL default '0'
+  `col2` int(6) NOT NULL default '0',
+  `col3` int(6) NOT NULL default '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- 
 -- Дамп данных таблицы `rating_2_3_1`
 -- 
 
-INSERT INTO `rating_2_3_1` VALUES ('14', 1, 2);
-INSERT INTO `rating_2_3_1` VALUES ('max_rating', 7, 8);
+INSERT INTO `rating_2_3_1` VALUES ('14', 15, 0, 0);
+INSERT INTO `rating_2_3_1` VALUES ('max_rating', 4, 1, 10);
 
 -- --------------------------------------------------------
 

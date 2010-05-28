@@ -18,8 +18,6 @@
     <div id="pager"></div>
     <div style="display:none;"><table id="et"></table></div>
 
-    <input type="button" id="editb" value="<?=$labels['rating']['editb'];?>"/>
-
 <!-- -->
     <div id="editbar">
         <div>

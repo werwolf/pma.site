@@ -67,7 +67,7 @@ $labels = array(
                       'edit_table'=>'Edit tables',
                       /* rating_table_edit*/
                       'top_label'=>'Select table',
-                      'editb'=>'Edit columns',
+                      //'editb'=>'Edit columns',
                       'add_label'=>'Add column',
                       'del_label'=>'Delete column',
                       'new_bal_label'=>'Change mark',
