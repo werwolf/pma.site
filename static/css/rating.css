@@ -111,7 +111,11 @@
 }
 
 .editbar_label {
-    color: blue;
+    color: white;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 14px;
+    font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
     float: left;
     margin-right: 10px;
     width: 160px;
@@ -133,7 +137,12 @@
     border: 1px solid #5d7b8c;
 }
 
-#delb:hover, #addb:hover, #editrb:hover, #savetable:hover, #rest:hover, #createTable:hover {
+#delb:hover:enabled, #addb:hover:enabled, #editrb:hover:enabled, #savetable:hover:enabled, #rest:hover:enabled, #createTable:hover:enabled {
+    background-color: #b3d4ff;
+}
+
+/* IE */
+html*#delb:hover, html*#addb:hover, html*#editrb:hover, html*#savetable:hover, html*#rest:hover, html*#createTable:hover {
     background-color: #b3d4ff;
 }
 
