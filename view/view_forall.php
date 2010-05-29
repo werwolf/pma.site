@@ -55,7 +55,7 @@
     <div id="header">
         <div id="header_top">
             <div id="logo">
-                <a href="#"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/tower.png" alt="Сайт кафедры прикладной математики НТУУ-КПИ" /></a>
+                <a href="#"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/tower.jpg" alt="Сайт кафедры прикладной математики НТУУ-КПИ" /></a>
             </div> <!-- #logo -->
 
             <div id="title">
@@ -80,8 +80,8 @@
                 <ul><? print $View->top_menu['left'];?></ul>
             </div> <!-- #left_menu -->
 
-            <div id="header_img_1"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/image1.png" alt="НТУУ-КПИ" /> </div> <!-- #header_img_1 -->
-            <div id="header_img_2"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/hats/<?=$View->hat;?>.png" alt="НТУУ-КПИ" /></div> <!-- #header_img_2 -->
+            <div id="header_img_1"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/image1.jpg" alt="НТУУ-КПИ" /> </div> <!-- #header_img_1 -->
+            <div id="header_img_2"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/hats/<?=$View->hat;?>.jpg" alt="НТУУ-КПИ" /></div> <!-- #header_img_2 -->
         </div> <!-- #header_middle -->
 
         <div id="header_img_3"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/kod.png" alt="НТУУ-КПИ" /></div> <!-- #header_img_3 -->
