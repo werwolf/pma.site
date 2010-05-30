@@ -135,7 +135,8 @@
 			},
 			idName: "id"
 		},
-		view_rating_edit: {
+		view_rating: {
+		      /* edit */
 		      editb: "Редактировать колонки",
 			editcaption: "Изменение",
 			title: "Титл",
@@ -148,7 +149,10 @@
 			pager_editing: "Сначала окончите редактирование!",
 			pager_delete: "Удалить",
 			pager_delete_confirm: "Удалить таблицу?\n\n!!! Это необратимое действие !!!",
-			pager_dropped: "Таблица успешно удалена!"
+			pager_dropped: "Таблица успешно удалена!",
+			/* view */
+			all: "&lt;Все&gt;",
+			ratio: "Рейтинг"
 		}
 	}
 })(jQuery);

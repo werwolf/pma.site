@@ -135,7 +135,8 @@
 			},
 			idName: "id"
 		},
-		view_rating_edit: {
+		view_rating: {
+		      /* edit */
 		      editb: "Редагувати колонки",
 			editcaption: "Зміна",
 			title: "Тітл",
@@ -148,7 +149,10 @@
 			pager_editing: "Спочатку закінчіть редагування!",
 			pager_delete: "Видалити",
 			pager_delete_confirm: "Видалити таблицю?\n\n!!! Це незворотня дія !!!",
-			pager_dropped: "Таблицю успішно видалено!"
+			pager_dropped: "Таблицю успішно видалено!",
+			/* view */
+			all: "&lt;Усі&gt;",
+			ratio: "Рейтинг"
 		}
 	}
 })(jQuery);

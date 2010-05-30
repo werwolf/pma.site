@@ -2,10 +2,6 @@
 
 <div id="profile">
 
-    <!-- - - - - - - - - - - - - -->
-    <!-- remember to sync el_id  -->
-    <!-- - - - - - - - - - - - - -->
-    
     <div class="top_container">
         <div class="top_container_label"><?=$labels['rating']['top_label'];?></div>
         <select name="tablename" id="table_select">

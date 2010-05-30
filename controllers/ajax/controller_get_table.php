@@ -4,9 +4,13 @@ if (!defined("entrypoint"))die;
 $do = Root::POSTString("do");
 
 switch ($do){
-    case "get_tables":
+    case "get_my_tables":
         $rating = new Ratings($db,$user);
         $data = $rating->getMyTables();
+        break;
+    case "get_all_tables":
+        $rating = new Ratings($db,$user);
+        $data = $rating->getAllTables();
         break;
     case "get_data":
         $tablename = Root::POSTString("tablename");

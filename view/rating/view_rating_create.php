@@ -8,9 +8,7 @@
         <div>
             <div class="label"><?=$labels['fileshare']['subject'];?></div>
 
-            <select name="subject" id="subject" class="m_select">
-                <option>...</option>
-            </select>
+            <select name="subject" id="subject" class="m_select"></select>
         </div>
 
         <div id="groups" style="clear: left;">
@@ -35,7 +33,7 @@
         $(document).ready(function(){
 //
             var ie_fixer=(navigator.appName == "Microsoft Internet Explorer")?"":"slow";
-            if (navigator.appVersion.indexOf("Win")!=-1) navigator.appName=="Netscape"?$("#bal").width(148):$("#bal").width(146);
+            if (navigator.appVersion.toLowerCase().indexOf("win")!=-1) navigator.appName=="Netscape"?$("#bal").width(148):$("#bal").width(146);
 //
             var magic=[];
             updateSubjects();

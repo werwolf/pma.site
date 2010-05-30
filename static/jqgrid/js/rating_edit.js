@@ -28,7 +28,6 @@ var mydata  = new Array;
 var foodata = new Array;
 var stud_id = new Array; //при сохранении имена переписываются этими ID'ми
 
-var mytable;
 var myselect;
 var myrselect;
 var newlabel;
@@ -39,7 +38,7 @@ var r_colmod;
 var r_mydata;
 var r_foodata;
 var i;
-var js_labels = jQuery.jgrid.view_rating_edit;
+var js_labels = jQuery.jgrid.view_rating;
 
 var opts={
 //    height: "auto",
@@ -83,8 +82,11 @@ var opts={
 
 jQuery(document).ready(function(){
 
+	// editbar fix
+	if (navigator.appVersion.toLowerCase().indexOf("win")==-1) { $("#labeledit").css("width",70); }
+	if (navigator.appName=="Netscape") navigator.appVersion.toLowerCase().indexOf("win")!=-1?$("#newrnum").css("width",76):$("#newrnum").css("width",74);
+
     updateTables();
-    mytable = document.getElementById(el_id["desttable"]);
     myselect = document.getElementById(el_id["delnum"]);
     myrselect = document.getElementById(el_id["newrnum"]);
     newlabel = document.getElementById(el_id["labeledit"]);
@@ -153,8 +155,8 @@ function get_table(){
             	return true;
             } else {
                 var c=$('#'+el_id["table_select"]+" :selected").html();
-                var subject=c.substr(0,c.indexOf(" : ",c));
-                var group=c.substr(c.indexOf(" : ",c)+3);
+                var subject=c.substr(0,c.indexOf(" : "));
+                var group=c.substr(c.indexOf(" : ")+3);
                 $.extend(opts,{ caption:"Оценки группы: "+group+" / "+subject });
     
                 colmod.splice(0, colmod.length);
@@ -271,7 +273,7 @@ function myswitch(ch) {
         inp_def_val(('#'+el_id["fooedit"]),js_labels["mark"],'blur');
         inp_def_val(('#'+el_id["editr"]),js_labels["mark"],'blur');
 
-        $("#"+el_id["editbar"]).show();
+        $("#"+el_id["editbar"]).show('slow',function(){setHeight();});
         $("#editb").hide();
         $(".ui-separator:first").hide();
 
@@ -506,7 +508,7 @@ function updateTables() {
         type:"POST",
         url:'http://'+window.location.hostname+'/en/ajax/get_table/',
         cache:false,
-        data:"do=get_tables",
+        data:"do=get_my_tables",
         success:function(data)
         {
             var table_select = eval("(" + data + ")");
@@ -532,9 +534,9 @@ function sort_col(index, colindex, sortorder) {
         $("#"+el_id["et"]).jqGrid('setCell',1,'ec',undefined);
         $("#"+el_id["et"]).jqGrid('editGridRow',1,{
             reloadAfterSubmit: false,
-            left: getDeadCenter(250,100)[0],
-            top:  getDeadCenter(250,100)[1],
-            width: 240,
+            left: getDeadCenter(270,100)[0],
+            top:  getDeadCenter(270,100)[1],
+            width: 260,
             modal: true,
             resize: false,
             url: window.location,

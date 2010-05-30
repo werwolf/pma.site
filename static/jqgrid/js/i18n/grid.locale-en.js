@@ -135,7 +135,8 @@
 			},
 			idName: "id"
 		},
-		view_rating_edit: {
+		view_rating: {
+		      /* edit */
 		      editb: "Edit columns",
 			editcaption: "Editing",
 			title: "Title",
@@ -148,7 +149,10 @@
 			pager_editing: "Please finish editing before!",
 			pager_delete: "Delete",
 			pager_delete_confirm: "Are you sure?\n\n!!! This action can't be undone !!!",
-			pager_dropped: "Table successfully deleted!"
+			pager_dropped: "Table successfully deleted!",
+			/* view */
+			all: "&lt;All&gt;",
+			ratio: "Ratio"
 		}
 	}
 })(jQuery);

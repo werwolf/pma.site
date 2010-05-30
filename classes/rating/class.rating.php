@@ -183,7 +183,7 @@ class ratings
         return $res;
     }
 
-    function getMyTables(){
+    public function getMyTables(){
         $sql="SELECT r.`Tablename` AS `tablename`,s.`Title` AS `subject`,g.`Title` AS `group` FROM `Ratings` AS r, `Subjects` AS s, `Groups` AS g WHERE ";
         $sql.="r.`Tablename` LIKE '%_$this->professor_id' AND r.`Group_ID`=g.`ID` AND r.`Subject_ID`=s.`ID` ORDER BY s.`ID`,g.`ID`";
         if(!$this->db->query($sql))return false;
@@ -195,7 +195,27 @@ class ratings
         return $res;
     }
 
-    function getData($tablename=null){
+    public function getAllTables(){
+        $sql="SELECT r.`Tablename` AS `tablename`,s.`Title` AS `subject`,g.`Title` AS `group` FROM `Ratings` AS r, `Subjects` AS s, `Groups` AS g WHERE ";
+        $sql.="r.`Group_ID`=g.`ID` AND r.`Subject_ID`=s.`ID` ORDER BY g.`ID`,s.`ID`";
+        if(!$this->db->query($sql))return false;
+        $res = $this->db->assocAll();
+        foreach($res as $i=>$one){
+            if(!$this->seekTable($one["tablename"])) unset($res[$i]);
+        }
+        if (count($res)==0) return false;
+        return $res;
+    }
+
+    public function cmp($a, $b){
+    	if ($b["stud_name"]=="max_rating") {
+    		return -1;
+    	} elseif ($a["stud_name"]=="max_rating") {
+    		return 1;
+    	} else return strcmp($a["stud_name"], $b["stud_name"]);
+    }
+
+    public function getData($tablename=null){
         if (!isset($tablename)) $tablename=$this->tablename;
         $res=array();
 
@@ -221,6 +241,7 @@ class ratings
             foreach($temp as $two)
                 if($one["stud_id"]==$two["ID"]) $one["stud_name"]=$two["stud_name"];
         }
+        usort($res["data"], array("ratings", "cmp"));
         return $res;
     }
 
@@ -237,6 +258,7 @@ class ratings
         }
         return $data;
     }
+
 // хз че там дальше))
 
 
