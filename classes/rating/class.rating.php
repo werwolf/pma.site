@@ -53,6 +53,16 @@ class ratings
     {
         $data = $this->object_to_array($data);
         $title = $this->object_to_array($title);
+        $rating_data=array();
+        foreach($data as $i=>$one)
+            $rating_data[$i]=0;
+        foreach($data as $i=>$one)
+            foreach($one as $j=>$two)
+                if($j!="stud_name") $rating_data[$i]+=$two;
+        for($i=0;$i<count($rating_data)-1;$i++)
+            if ($rating_data[count($rating_data)-1]!=0)
+                $rating_data[$i]=$rating_data[$i]/$rating_data[count($rating_data)-1];
+
         $sql="SELECT `Max_Rating` FROM `Ratings` WHERE `Tablename`='$this->tablename'";
         if(!$this->db->query($sql))return false;
         $max_rating=$this->db->assocAll();
@@ -65,16 +75,18 @@ class ratings
         for ($i=1;$i<count($title);$i++){
             $sql.=" ADD COLUMN `col".($i+1)."` int(6) DEFAULT '0' NOT NULL after `col".$i."`,";
         }
-        $sql=substr($sql,0,-1);
+        $sql.=" ADD COLUMN `rating` float(6) DEFAULT '0' NOT NULL after `col".$i."`";
+//        $sql=substr($sql,0,-1);
         if(!$this->db->query($sql))return false;
-        foreach($data as $one){
+        foreach($data as $num=>$one){
             $sql="UPDATE `$this->tablename` SET ";
             $i=1;
             foreach($title as $two){
                 $sql.="`col".$i."`='".$one[$two["name"]]."',";
                 $i+=1;
             }
-            $sql=substr($sql,0,-1);
+            $sql.="`rating`='".$rating_data[$num]."'";
+//            $sql=substr($sql,0,-1);
             $sql.=" WHERE `stud_name`='".$one["stud_name"]."'";
             if(!$this->db->query($sql))return false;
         }
@@ -245,6 +257,51 @@ class ratings
         return $res;
     }
 
+    public function getRatingData($group_id){
+        if (!isset($group_id)) $group_id=$this->group_id;
+        $res=array();
+
+        $sql="SELECT r.`Tablename` AS `tablename`,s.`Title` AS `subject`,g.`ID` AS `group` FROM `Ratings` AS r, `Subjects` AS s, `Groups` AS g WHERE ";
+        $sql.="r.`Group_ID`=g.`ID` AND r.`Subject_ID`=s.`ID` ORDER BY g.`ID`,s.`ID`";
+        if(!$this->db->query($sql))return false;
+        $temp = $this->db->assocAll();
+        foreach($temp as $i=>$one){
+            if(!$this->seekTable($one["tablename"]) || $one["group"]!=$group_id) unset($temp[$i]);
+        }
+        if (count($temp)==0) return false;
+
+        $IDs = $this->getStudentsIDs($group_id);
+        foreach($IDs as $i=>$one) $res["data"][$i]["stud_name"]=$one["User_ID"];
+        $i=1;
+        foreach($temp as $one) {
+        	$res["title"][$i-1]=$one["subject"];
+
+            $sql="SELECT `rating` FROM `".$one["tablename"]."`";
+            if(!$this->db->query($sql))return false;
+            $temp=$this->db->assocAll();
+            foreach($temp as $j=>$two) $res["data"][$j]["col".$i]=$two["rating"];
+            if (count($res["data"])==0) return false;
+            $i++;
+        }
+        $res["data"][count($res["data"])-1]["stud_name"]="max_rating";
+
+        $sql = "SELECT `ID`,CONCAT(`Surname`,' ',`Name`) AS `stud_name` FROM `Users` WHERE ";
+        foreach($res["data"] as $one){
+            $sql.="`ID` = '".$one["stud_name"]."' OR ";
+        }
+        $sql=substr($sql,0,-27);
+        
+        if(!$this->db->query($sql))return false;
+        $temp = $this->db->assocAll();
+        foreach($res["data"] as &$one){
+            $one["stud_id"]=$one["stud_name"];
+            foreach($temp as $two)
+                if($one["stud_id"]==$two["ID"]) $one["stud_name"]=$two["stud_name"];
+        }
+        usort($res["data"], array("ratings", "cmp"));
+        return $res;
+    }
+    
     public function object_to_array($data) 
     {
         if(is_array($data) || is_object($data))

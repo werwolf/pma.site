@@ -17,6 +17,7 @@ var foodata = new Array;
 var table_select = new Array;
 var stud_id = new Array; //выделяем студента по его ID
 var js_labels = jQuery.jgrid.view_rating;
+var all;
 
 var opts={
 //    height: "auto",
@@ -52,11 +53,13 @@ jQuery(document).ready(function(){
             for (var i in table_select) {
             	var c=table_select[i]["tablename"];
                 if (c.substr(c.indexOf("_")+1,1)==$("#group").val() && c.substr(c.indexOf("_",c.indexOf("_")+1)+1,1)==$("#subject").val()) {
+                	all=false;
                 	get_table(table_select[i]["tablename"]);
                 }
             }
         } else if (escapeHTML($("#"+el_id["subject"]+" option:selected").text()) == js_labels["all"]) {
-            alert("всех еще нет"); // :TODO: <all>
+        	all=true;
+        	get_table($("#group").val());
         }
     });
 
@@ -68,7 +71,7 @@ function get_table(tablename){
         type:"POST",
         url:'http://' + window.location.hostname + '/en/ajax/get_table/',
         cache:false,
-        data:"do=get_data&tablename=" + tablename,
+        data:(all?"do=get_rating_data&group_id=":"do=get_data&tablename=") + tablename,
         success:function(data)
         {
             var table = eval("(" + data + ")");
@@ -116,10 +119,16 @@ function get_table(tablename){
 
                 for(i = 0; i < table["data"].length-1; i++){
                     mydata[i] = clone(table["data"][i]);
+                	if(all) for(var j=1;j<colmod.length-1;j++) {
+                		if(foodata["col"+j]==0) {
+                			mydata[i]["col"+j]+="/0";
+                		} else mydata[i]["col"+j]=parseFloat(mydata[i]["col"+j]).toFixed(2).replace(/^0+/g,"");
+                	}
+                    
                     stud_id[i] = table["data"][i]["stud_id"];
                 	var sum=0;
                 	for(var j=1;j<colmod.length-1;j++) {
-                	    sum+=parseInt(mydata[i]["col"+j]);
+                	    sum+=all?(parseFloat(mydata[i]["col"+j])*(foodata["col"+j]==0?1:foodata["col"+j])):parseInt(mydata[i]["col"+j]);
                 	}
                     if(foodata["ratio"]!="0"){
                     	mydata[i]["ratio"]=(sum/foodata["ratio"]).toFixed(2).replace(/^0+/g,"");

@@ -84,7 +84,9 @@ jQuery(document).ready(function(){
 
 	// editbar fix
 	if (navigator.appVersion.toLowerCase().indexOf("win")==-1) { $("#labeledit").css("width",70); }
-	if (navigator.appName=="Netscape") navigator.appVersion.toLowerCase().indexOf("win")!=-1?$("#newrnum").css("width",76):$("#newrnum").css("width",74);
+	if (navigator.appName=="Netscape" && navigator.appVersion.toLowerCase().indexOf("win")!=-1) {
+		$("#newrnum").css("width",76)
+	}
 
     updateTables();
     myselect = document.getElementById(el_id["delnum"]);
@@ -573,6 +575,7 @@ function save_table() {
         for(i in data) data[i]["stud_name"]=stud_id[i];
         data[i]["stud_name"]="max_rating";
         delete data[data.length-1]["stud_id"];
+        delete data[data.length-1]["rating"];
 
         for(i = 0; i < colmod.length; i++)
         	if(colmod[i]["name"]!="stud_name"){

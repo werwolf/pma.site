@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Хост: localhost
--- Время создания: Май 28 2010 г., 20:25
+-- Время создания: Июн 03 2010 г., 02:44
 -- Версия сервера: 5.0.51
 -- Версия PHP: 5.2.6
 
@@ -25,12 +25,13 @@ CREATE TABLE `Admins` (
   `User_ID` int(11) unsigned NOT NULL,
   PRIMARY KEY  (`ID`),
   KEY `User_ID` (`User_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- 
 -- Дамп данных таблицы `Admins`
 -- 
 
+INSERT INTO `Admins` VALUES (1, 1);
 
 -- --------------------------------------------------------
 
@@ -333,14 +334,16 @@ CREATE TABLE `Ratings` (
   `Col_Caption` varchar(60) NOT NULL,
   PRIMARY KEY  (`ID`),
   KEY `Professor_ID` (`Professor_ID`,`Group_ID`,`SubProf_ID`,`Subject_ID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=140 ;
 
 -- 
 -- Дамп данных таблицы `Ratings`
 -- 
 
-INSERT INTO `Ratings` VALUES (76, 'rating_1_1_1', '2010-05-28', 1, 1, 0, 1, 100, 'робота1');
-INSERT INTO `Ratings` VALUES (82, 'rating_2_3_1', '2010-05-28', 1, 2, 0, 3, 100, 'робота1||100||11');
+INSERT INTO `Ratings` VALUES (126, 'rating_2_3_1', '2010-06-03', 1, 2, 0, 3, 100, 'робота1||робота2||кр');
+INSERT INTO `Ratings` VALUES (123, 'rating_1_2_1', '2010-06-03', 1, 1, 0, 2, 10, 'робота1||work2');
+INSERT INTO `Ratings` VALUES (139, 'rating_1_3_1', '2010-06-03', 1, 1, 0, 3, 77, 'робота1||smth');
+INSERT INTO `Ratings` VALUES (135, 'rating_1_1_1', '2010-06-03', 1, 1, 0, 1, 100, 'робота1||10');
 
 -- --------------------------------------------------------
 
@@ -351,16 +354,62 @@ INSERT INTO `Ratings` VALUES (82, 'rating_2_3_1', '2010-05-28', 1, 2, 0, 3, 100,
 DROP TABLE IF EXISTS `rating_1_1_1`;
 CREATE TABLE `rating_1_1_1` (
   `stud_name` varchar(60) NOT NULL,
-  `col1` int(6) NOT NULL default '0'
+  `col1` int(6) NOT NULL default '0',
+  `col2` int(6) NOT NULL default '0',
+  `rating` float NOT NULL default '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- 
 -- Дамп данных таблицы `rating_1_1_1`
 -- 
 
-INSERT INTO `rating_1_1_1` VALUES ('1', 5);
-INSERT INTO `rating_1_1_1` VALUES ('13', 10);
-INSERT INTO `rating_1_1_1` VALUES ('max_rating', 15);
+INSERT INTO `rating_1_1_1` VALUES ('1', 2, 4, 6);
+INSERT INTO `rating_1_1_1` VALUES ('13', 1, 3, 4);
+INSERT INTO `rating_1_1_1` VALUES ('max_rating', 0, 0, 0);
+
+-- --------------------------------------------------------
+
+-- 
+-- Структура таблицы `rating_1_2_1`
+-- 
+
+DROP TABLE IF EXISTS `rating_1_2_1`;
+CREATE TABLE `rating_1_2_1` (
+  `stud_name` varchar(60) NOT NULL,
+  `col1` int(6) NOT NULL default '0',
+  `col2` int(6) NOT NULL default '0',
+  `rating` float NOT NULL default '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- Дамп данных таблицы `rating_1_2_1`
+-- 
+
+INSERT INTO `rating_1_2_1` VALUES ('1', 5, 3, 2.66667);
+INSERT INTO `rating_1_2_1` VALUES ('13', 0, 2, 0.666667);
+INSERT INTO `rating_1_2_1` VALUES ('max_rating', 1, 2, 3);
+
+-- --------------------------------------------------------
+
+-- 
+-- Структура таблицы `rating_1_3_1`
+-- 
+
+DROP TABLE IF EXISTS `rating_1_3_1`;
+CREATE TABLE `rating_1_3_1` (
+  `stud_name` varchar(60) NOT NULL,
+  `col1` int(6) NOT NULL default '0',
+  `col2` int(6) NOT NULL default '0',
+  `rating` float NOT NULL default '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- Дамп данных таблицы `rating_1_3_1`
+-- 
+
+INSERT INTO `rating_1_3_1` VALUES ('1', 4, 10, 0.7);
+INSERT INTO `rating_1_3_1` VALUES ('13', 3, 10, 0.65);
+INSERT INTO `rating_1_3_1` VALUES ('max_rating', 5, 15, 20);
 
 -- --------------------------------------------------------
 
@@ -373,15 +422,16 @@ CREATE TABLE `rating_2_3_1` (
   `stud_name` varchar(60) NOT NULL,
   `col1` int(6) NOT NULL default '0',
   `col2` int(6) NOT NULL default '0',
-  `col3` int(6) NOT NULL default '0'
+  `col3` int(6) NOT NULL default '0',
+  `rating` float NOT NULL default '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- 
 -- Дамп данных таблицы `rating_2_3_1`
 -- 
 
-INSERT INTO `rating_2_3_1` VALUES ('14', 15, 0, 0);
-INSERT INTO `rating_2_3_1` VALUES ('max_rating', 4, 1, 10);
+INSERT INTO `rating_2_3_1` VALUES ('14', 15, 1, 2, 1.2);
+INSERT INTO `rating_2_3_1` VALUES ('max_rating', 4, 1, 10, 15);
 
 -- --------------------------------------------------------
 
