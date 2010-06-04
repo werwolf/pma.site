@@ -1,4 +1,4 @@
-<div id="login_block" align="center" >
+<div id="login_block_lg" align="center" >
 <form action="" method="post">
 			<h2><?= $labels['login']['enter_site']; ?></h2>
 			<table cellspacing="0" cellpadding="3" align="center">
@@ -21,13 +21,13 @@
 				<? if ($View->keyExists("error")): ?>
 				<tr>
 					<td colspan="2" align="right">
-						<div class="block_error"><?= $labels['login']['error_login']; ?></div>
+						<div class="block_error"><?=$labels['login']['error_login'];?></div>
 					</td>
 				</tr>
 				<? endif; ?>
 				<tr>
 					<td colspan="2" align="right">
-                                            <input type="image" id="login_button" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/enter/enter_button_<?=config::getDefaultLanguage();?>.png"/>
+                                            <input type="submit" class="button_download" style="width:120px;height:20px;margin-left:0" value="<?=$labels['login']['enter_site'];?>"/>
 					</td>
 				</tr>
 			</table>

@@ -1,0 +1,13 @@
+body {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	width: 100%;
+        background-color: #e2dedf;
+}
+.login{
+    color:#fff;
+    font-size:20px;
+    cursor:pointer;
+}
+.login:hover{
+    color:#6E728E;
+}

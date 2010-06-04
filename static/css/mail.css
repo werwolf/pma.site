@@ -1,0 +1,85 @@
+#mail_line{
+    list-style:none;
+    width:100%;
+    border-bottom:1px solid #BCBECB;    
+    padding:0;
+}
+#mail_line .not_active_menu{
+    height:50px;
+    padding:2px 15px 0px 15px;
+    font-size:16px;
+    text-decoration:none;
+}
+#mail_line .not_active_menu:hover{
+    color:#fff;
+    background-color:#BCBECB;
+}
+#mail_line .active_menu{
+    height:50px;
+    padding:2px 15px 0px 15px;
+    color:#fff;
+    background-color:#BCBECB;
+    font-size:16px;
+    text-decoration:none;
+}
+#send{
+    margin-top:20px;
+    border:1px solid #6E728F;
+    width:100%;
+    height:420px;
+    background-image:url(../img/background/linii_download.png);
+    background-position:100% 100%;
+    background-repeat: no-repeat;
+}
+#send .title{
+    margin:10px 0px 0 10px;
+    font-size:20px;
+    width:635px;
+    border-bottom:1px solid #BCBECB;
+}
+#send .submit{
+    margin-top:10px;
+}
+#send .message{
+    margin-top:20px;
+    margin-left:10px;
+    margin-right:10px;
+    font-size:18px;
+}
+#send .message td{
+    height:30px;
+}
+#send .message td.right{
+    padding-right:20px;
+}
+#send .message td input{
+    width:557px;
+}
+#send .message td textarea{
+    width:630px;
+    height:250px;
+    margin-top:5px;
+}
+#to_whom
+{
+    height:370px;
+    overflow: auto;
+    border:2px solid #6E728E;
+    width:200px;
+    padding:5px;
+    background-color:#fff;
+    color:#000;
+}
+#to_whom a{
+    color:#000;
+    text-decoration: none;
+}
+#results{
+    height:370px;
+    overflow: auto;
+    border:2px solid #6E728E;
+    width:320px;
+    padding:5px;
+    background-color:#fff;
+    color:#000;
+}

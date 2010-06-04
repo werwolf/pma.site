@@ -83,7 +83,8 @@ input {vertical-align: middle}
 	z-index: 1;
 }*/
 
-#left_main_menu {
+/* #left_main_menu class */
+.left_content_menu {
 	position: relative;
 	width: 235px;
 	background: #e2dedf;
@@ -205,8 +206,8 @@ input {vertical-align: middle}
 	color: #ffffff;
 	text-decoration: none;
 	font-weight: bold;
-        /*font-family: sans-serif;*/
-	font-size:16px;
+        font-family: Georgia;
+	font-size:15px;
 	margin-left: 30px;
 }
 
@@ -286,7 +287,8 @@ input {vertical-align: middle}
 #right_menu a {
 	color: #ffffff;
 	text-decoration: none;
-	font-size: 16px;
+        font-family:Georgia;
+	font-size: 15px;
 	font-weight: bold;
 	margin-left: 30px;
 }
@@ -410,7 +412,7 @@ input {vertical-align: middle}
 	/*#left_main_menu ul li { float: left; }
 	#left_main_menu ul li a { height: 1%; }*/
 /* End */
-
+#left_main_menu ul li a { height: 1%; }
 #left_main_menu ul {
 	list-style: none;
 	margin: 0;
@@ -560,10 +562,14 @@ input {vertical-align: middle}
 #profile .user_data td{
     font-size:18px;
     padding-top:10px;
+    text-align:left;
 }
 #profile .user_data img{
     border:1px solid #ccc;
     width:200px;
+}
+#profile .user_data select{
+    text-align:left;
 }
 .save_profile{
     width:120px;
@@ -623,4 +629,125 @@ input {vertical-align: middle}
 	background-image:url(../img/active_menu.png);
 	background-repeat:no-repeat;
 	list-style:none;
+}
+#left_title{
+    width:300px;
+    text-align:left;
+    padding-left:10px;
+    padding-top:20px;
+    float:left;
+    height: 120px;
+    display:inline-table;
+}
+#left_title h2 {
+	font-size: 22px;
+        color:#fff;
+        font-weight: normal;
+}
+#right_title{
+    width:498px;
+    text-align:right;
+    float:left;
+    display:inline-table;
+    position:relative;
+    top:15px;
+    left:70px;
+}
+#right_title .quote{
+    color:#646061;
+    font-weight:normal;    
+}
+#right_title .auther{
+    color:#fff;
+    font-weight:normal;
+    padding-right:5px;
+}
+
+.button_download{
+    position: relative;    
+    margin:0;
+    padding:0;
+    font-size: 12px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color:#6e728e;
+    background-color:#e2dedf;
+    border:1px solid #cdcdcd;
+    
+    margin-left: 10px;
+}
+ .button_download:hover{
+    background-color:#9aa1cb;
+    color:#fff;
+    cursor:pointer;
+}
+.hidden_input{
+      opacity:0;
+      filter:alpha(opacity:0);
+      font-size:199px;
+      cursor:pointer;
+      padding:0px;
+      margin:0px;
+      border:none;
+      margin-left:-450px;
+
+}
+.hidden_div{
+    text-align:center;
+    width:80px;
+    height:20px;
+    overflow:hidden;
+    cursor:pointer;
+}
+#login_block_lg{
+    margin:10px;
+    padding:10px;
+    border:1px solid #BCBECB;
+}
+#login_block_lg h2{
+    margin-bottom:15px;
+}
+.block_error{
+    color:red;
+    font-size:18px;
+}
+#login_block_lg table td{
+    padding:5px;
+}
+#addMessage{
+    width:100%;
+    height:200px;
+}
+#addMessage table
+{
+    width:100%;
+    padding:5px;
+}
+#addMessage table td{
+    font-size:18px;
+    color:#6E728E;
+    padding-bottom:10px;
+}
+.inbox_messages
+{
+    list-style:none;
+    font-size:18px;
+    color:#6E728E;
+    margin-left:10px;
+    margin-right:10px;
+}
+.inbox_messages li{
+    margin-top:10px;
+}
+#inboxMessages{
+    overflow: auto;
+    height:400px;
+}
+.loader{
+    background-image:url(../img/loader.gif);
+    background-repeat:no-repeat;
+    width:100px;
+    height:400px;
+    position:relative;
+    top:160px;
+    left:45%;
 }

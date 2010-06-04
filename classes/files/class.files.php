@@ -46,7 +46,7 @@ class files
     {  
         if(strlen($pict) != 0)
         {
-            $pict_exten = strtolower(self::getExtension($pict));
+            $pict_exten = strtolower(self::getExtension(trim($pict)));
            
             foreach($extens as $ext)
             {
@@ -108,16 +108,16 @@ class files
             return false;
     }
     public static function uploadFile($file,$newFileName)
-    {
-        if(!copy($file,self::$uploaded_dir.$newFileName)){
-            return false;}
+    {        
+        if(!copy($file,self::$uploaded_dir.$newFileName))
+            return false;
         else
             return true;
     }
     public static function getFilesPage($page,$count,$order)
     {
         $sql = "select `Files`.`Title` as `File`,`Files`.`Filepath`,`Files`.`Semester`,`Files`.`Description`,`Files`.`ID`,".
-               "`Subjects`.`Title`  as `Subject` from `Files`,`Subjects` where `Files`.`Subject_ID` = `Subjects`.`ID` ".$order." ".
+               "`Subjects`.`Title_".config::getDefaultLanguage()."`  as `Subject` from `Files`,`Subjects` where `Files`.`Subject_ID` = `Subjects`.`ID` ".$order." ".
                " limit ".($page-1)*$count.",$count";
         
         self::$db->query($sql);
@@ -126,7 +126,7 @@ class files
     }
     public static function getSubjects()
     {
-        $sql = "select `Title`,`ID` from `Subjects` order by `Title`";
+        $sql = "select `Title_".config::getDefaultLanguage()."` as `Title`,`ID` from `Subjects` order by `Title`";
         self::$db->query($sql);
         return self::$db->assocAll();
     }
@@ -140,12 +140,21 @@ class files
     public static function getFileInformation($id)
     {
         $sql = "select `Files`.`Title` as `File`,`Files`.`Filepath`,`Files`.`Semester`,`Files`.`Description`,`Files`.`ID`,".
-               "`Subjects`.`Title`  as `Subject`,`Files`.`Cover`,`Users`.`Name`,`Users`.`Surname`,`Users`.`Patronymic` ".
+               "`Subjects`.`Title_".config::getDefaultLanguage()."`  as `Subject`,`Files`.`Cover`,`Users`.`Name`,`Users`.`Surname`,`Users`.`Patronymic` ".
                "from `Files`,`Subjects`,`Users` where `Files`.`Subject_ID` = `Subjects`.`ID` ".
                " and `Files`.`ID` = $id and `Users`.`ID` = `Files`.`Master`";
 
         self::$db->query($sql);
         return self::$db->assoc();
+    }
+    public static function deleteFile($file)
+    {
+        if(file_exists(self::$uploaded_dir.$file))
+           unlink(self::$uploaded_dir.$file);
+    }
+    public static function getUserPhoto($file)
+    {
+        return end(explode("/",$file));
     }
 }
 ?>

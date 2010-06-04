@@ -1,0 +1,35 @@
+#sitemap  {
+    list-style:none;
+}
+#sitemap li{
+    margin-top:20px;
+}
+#sitemap li a{
+    text-decoration:none;
+    font-size:24px;
+    color:#646061;
+}
+#sitemap a:hover{
+    color:#6e728f;
+    font-weight: bold;
+}
+#sitemap li ul{
+    list-style:disc;
+}
+#sitemap li li ul{
+    list-style:square;
+}
+#sitemap li li{
+    margin-left:100px;
+    margin-top:5px;
+}
+#sitemap li li a{
+    font-size:18px;
+    color: #9394a8;
+    text-decoration:underline;
+}
+#sitemap li li li a{
+    font-size:14px;
+    color:#abacb0;
+    text-decoration:none;
+}

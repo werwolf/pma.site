@@ -13,10 +13,10 @@
  */
 #download{
     width:90%;
-    height:600px;
+    //height:600px;
     border:1px solid #a9abb9;
     margin-bottom:45px;
-    background-image:url(../img/background/linii_download.png);
+/*    background-image:url(../img/background/linii_download.png);*/
     background-repeat:no-repeat;
     background-position:100% 100%;
     overflow:auto;

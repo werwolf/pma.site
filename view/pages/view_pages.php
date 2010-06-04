@@ -1,2 +1,2 @@
 <? if(!defined("entrypoint"))die(); ?>
-<?=$View->page['text'];?>
+<?=pages::unhtmlentities($View->page['text']);?>

@@ -175,7 +175,7 @@ input {vertical-align: middle}
 }
 
 #content ul {
-	margin: 10px 30px 10px 30px;
+
 	list-style-position: outside;
 	list-style-type: square;
 }
@@ -217,4 +217,26 @@ input {vertical-align: middle}
 
 #content p:first-letter {
 	margin-left: 20px;
+}
+a.active_new_page{
+    color:#2c4674;
+    font-weight:bold;
+
+}
+.user_add{
+    width:100%;
+    border-collapse: collapse;
+}
+.user_add td{
+    border-bottom:1px solid #4F6EA1;
+    border-right:1px solid #4F6EA1;
+    padding:4px;
+}
+.user_add td input{
+    width:99%;
+    margin:0;
+    margin-left:2px;
+    padding:0;
+    background-color:#fff;
+    height:20px;
 }

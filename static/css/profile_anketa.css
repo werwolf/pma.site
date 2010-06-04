@@ -1,0 +1,33 @@
+#user_data_anketa{
+    border:2px solid #6e728f;
+    width:100%;
+    background-image:url(../img/background/linii_download.png);
+    background-position:100% 100%;
+    background-repeat:no-repeat;
+}
+#user_data_anketa .user_photo{
+    width:250px;
+    border:1px solid #a9abb8;
+    padding:10px;
+    margin-top:20px;
+    margin-left:20px;
+}
+#user_data_anketa .labels,.labels_right{
+    color:#a9abb8;
+    margin-left:20px;
+    font-size:20px;    
+}
+#user_data_anketa .labels_right{
+    margin-left:0;
+}
+#user_data_anketa .name{
+    font-size:25px;
+    color:#64605f;
+    margin-left:20px;
+}
+#user_data_anketa .other_info{
+    font-size:16px;
+    color:#000003;
+    margin-left:15px;
+    width:200px;
+}

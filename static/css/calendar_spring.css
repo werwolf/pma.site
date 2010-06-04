@@ -1,0 +1,61 @@
+#content{
+    background-image:url(../img/calendar_spring.png);
+    background-repeat:no-repeat;
+    background-position: 100% 0%;
+}
+#calendar{
+    margin-left:3px;    
+    padding-top:50px;
+    width:616px;
+    padding-bottom:4px;
+}
+#calendar table{
+    background-color:#FDFAFA;
+    width:616px;
+    border:1px solid #629950;
+    border-collapse:collapse;
+}
+#calendar th{    
+    background-color:#9cdc8a;
+    color:#fff;
+    width:88px;
+}
+#calendar td{
+    border:1px solid #629950;
+    height:80px;
+}
+#calendar .header_calendar{
+    text-align:center;
+    height:30px;
+    
+    margin-left:200px;
+}
+#calendar .header_calendar span{
+    color:#9cdc8a;
+    font-size:22px;
+    float:left;
+    padding:0 20px 0 20px;
+}
+#calendar a.prev_month{
+    background-image:url(../img/prev_month.png);
+    width:30px;
+    height:23px;
+    display:block;
+    float:left;
+}
+#calendar a.next_month{
+    background-image:url(../img/next_month.png);
+    width:30px;
+    height:23px;
+    display:block;
+    float:left;
+}
+#calendar .date{
+    text-align:left;
+    padding-left:3px;
+    color:#477d36;
+    font-weight:bold;
+}
+#calendar .freeday{
+    background-color:#bcf5ad;
+}

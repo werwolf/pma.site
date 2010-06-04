@@ -1,0 +1,168 @@
+
+.label {
+    float: left;
+    margin-right: 5px;
+    color: white;
+    font-size: 20px;
+    width: 200px;
+}
+
+.m_select {
+    height: 22px;
+    width: 150px;
+    float: right;
+}
+
+#bal {
+    width: 145px;
+    float: right;
+}
+
+.button {
+    margin: 0 auto;
+    display: block;
+}
+
+.focus {
+   border: 2px solid #aa88ff;
+   background-color: #ffeeac;
+}
+
+/******* view_rating_edit.php *******/
+.top_container {
+    width: 100%;
+    background-color: #70AAD0;/*#CFCFCF*/
+    padding: 5px 0;
+    margin-bottom: 5px;
+}
+.top_container_label {
+    color: white;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 14px;
+    font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+    float: left;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+#table_select,#group,#subject{
+    width: 150px;
+}
+
+#ajax_loader img{
+    /*repeat: none;*/
+    clear: left;
+    height: 30px;
+    width: 30px;
+    display: none;
+    position: absolute;
+    left: 330px;
+    top: 10px;
+}
+
+#editb,#savebb,#delbb {
+    display: inline-block;
+    float: right;
+}
+#editb {
+    width: 145px;
+    /*margin-left: 95px;*/
+}
+#savebb {
+    width: 100px;
+}
+#delbb {
+    width: 70px;
+}
+/*#pager_center {
+    width: 430px;
+}
+#pager_left {
+    width: 312px;
+}*/
+#pager_center,#pager_left {
+    width: 0px;
+}
+@media all and (min-width: 0px) {
+    #editb {
+        margin-left: -123px;
+    }
+}
+
+#editbar{
+    width: 420px;
+    background-color: #70AAD0;
+    padding: 5px;
+    margin-top: 5px;
+    display: none;
+    border: 1px double gray;
+}
+
+#labeledit, #fooedit, #editr {
+    color: gray;
+    font-size: 14px;
+    font-family: 'Courier New',Courier,monospace;
+}
+
+@-moz-document url-prefix(){
+	#labeledit {
+        width: 74px;
+    }
+}
+
+.editbar_label {
+    color: white;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 14px;
+    font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+    float: left;
+    margin-right: 10px;
+    width: 160px;
+}
+.editbar_input {
+    width: 70px;
+    float: left;
+    margin-right: 5px;
+}
+
+#delnum {
+    width: 153px;
+    float: left;
+    margin-right: 5px;
+}
+
+#delb, #addb, #editrb, #savetable, #rest, #createTable {
+    background-color: #9cbdd0;
+    border: 1px solid #5d7b8c;
+}
+
+#delb:hover:enabled, #addb:hover:enabled, #editrb:hover:enabled, #savetable:hover:enabled, #rest:hover:enabled, #createTable:hover:enabled {
+    background-color: #b3d4ff;
+}
+
+/* IE */
+html*#delb:hover, html*#addb:hover, html*#editrb:hover, html*#savetable:hover, html*#rest:hover, html*#createTable:hover {
+    background-color: #b3d4ff;
+}
+
+#delb, #addb, #editrb {
+    width: 80px;
+}
+
+#rest {
+    float: left;
+    width: 90px;
+    margin-right: 25px;
+    margin-left: 105px;
+}
+#savetable {
+    width: 90px;
+}
+
+#newrnum {
+    width: 75px;
+    float: left;
+    margin-right: 5px;
+}
+/************************************/

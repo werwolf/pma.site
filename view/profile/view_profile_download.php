@@ -14,7 +14,7 @@
                     <select name="subject" onchange="document.getElementById('params').submit()">
                         <option>...</option>
                         <? for($i=0;$i<count($View->subjects);$i++):?>
-                        <option <? if($View->subjects[$i]['ID'] == Root::POSTInt('subject')): ?>selected<?endif;?> value="<?=$View->subjects[$i]['ID'];?>"><?=$View->subjects[$i]['Title'];?></option>
+                        <option <? if($View->subjects[$i]['ID'] == $View->subject): ?>selected<?endif;?> value="<?=$View->subjects[$i]['ID'];?>"><?=$View->subjects[$i]['Title'];?></option>
                         <? endfor;?>
                     </select>
                 </td>
@@ -25,7 +25,7 @@
                     <select name="semester" onchange="document.getElementById('params').submit()">
                         <option>...</option>
                         <? for($i=1;$i<13;$i++): ?>
-                            <option <? if($i == Root::POSTInt("semester")): ?>selected<?endif;?> value="<?=$i;?>"><?=$i;?></option>
+                            <option <? if($i == $View->semester): ?>selected<?endif;?> value="<?=$i;?>"><?=$i;?></option>
                         <? endfor;?>
                     </select>
                 </td>
@@ -50,7 +50,7 @@
                         <? if($View->files_view != 3 && $View->files_view != 0 && $View->files_view != 1):?>
                             <th style="width:300px"><?=$labels['fileshare']['semest'];?></th>
                         <? endif;?>
-                        <th style="width:300px"><?=$labels['fileshare']['description'];?></th>
+                        <th style="width:300px"><?=$labels['fileshare']['filesize'];?></th>
 			<th><?=$labels['fileshare']['download'];?></th>			
 		</tr>
 	</thead>
@@ -73,7 +73,7 @@
                     <? if($View->files_view != 3 && $View->files_view != 0 && $View->files_view != 1):?>
                             <td valign="top"><?=$View->files[$i]['Semester'];?></td>
                     <? endif;?>
-                    <td valign="top"><?=$View->files[$i]['Description'];?></td>
+                    <td valign="top"><?=$View->files[$i]['Size'];?></td>
                     <td valign="top">
                         <button class="button_download" onclick="document.location.href='http://<?=$_SERVER['HTTP_HOST'];?>/<?=$View->files[$i]['Filepath'];?>'"><?=$labels['fileshare']['download'];?></button>
                     </td>
@@ -95,6 +95,8 @@ $("#example").tablesorter({
 </script>
     </div>
     </div>
+    <div style="margin-bottom:20px"><?=$View->paging;?></div>
+
 </center>
 <div id="basic-modal-content">
     
@@ -104,6 +106,8 @@ $("#example").tablesorter({
 function showFileInfo(url_get,id)
 {
     $('#basic-modal-content').modal();
+    $('#simplemodal-container').css("height","450px");
+    $('#simplemodal-container').css("margin-top","50px");    
     var html = "<table style='width:100%;height:560px'><tr><td align='center' valign=''><div class='loader'></div></td></tr></table>";
     $('#basic-modal-content').html(html);
 
@@ -116,7 +120,7 @@ function showFileInfo(url_get,id)
         {
             var file_info = eval("(" + data + ")");
             
-            var html = "";
+            var html = "<div style='overflow-y:auto;height:450px;width:100%'>";
             if(file_info.Cover != "")
                 html += "<div><img style='border:1px solid #e2dedf' src='http://<?=$_SERVER['HTTP_HOST'];?>/"+file_info.Cover+"'/></div>";
 
@@ -128,7 +132,7 @@ function showFileInfo(url_get,id)
             html += "<tr><td class='title'><?=$labels['fileshare']['uploader'];?></td><td>"+file_info.Surname+"&nbsp;"+file_info.Name+"&nbsp;"+file_info.Patronymic+"</td></tr>";
             html += "<tr><td style='padding:5px'colspan='2'><button class='button_download' onclick='document.location.href=\"http://<?=$_SERVER['HTTP_HOST'];?>/"+file_info.Filepath+"\"'><?=$labels['fileshare']['download'];?></button></td></tr>";
             html += "</table>"
-
+            html += "</div>";
             $('#simplemodal-container').css("background-color","#fdfafa");
             $('#basic-modal-content').html(html);
         }
