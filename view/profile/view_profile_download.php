@@ -106,6 +106,8 @@ $("#example").tablesorter({
 function showFileInfo(url_get,id)
 {
     $('#basic-modal-content').modal();
+    $('#simplemodal-container').css("height","450px");
+    $('#simplemodal-container').css("margin-top","50px");    
     var html = "<table style='width:100%;height:560px'><tr><td align='center' valign=''><div class='loader'></div></td></tr></table>";
     $('#basic-modal-content').html(html);
 
@@ -118,7 +120,7 @@ function showFileInfo(url_get,id)
         {
             var file_info = eval("(" + data + ")");
             
-            var html = "";
+            var html = "<div style='overflow-y:auto;height:450px;width:100%'>";
             if(file_info.Cover != "")
                 html += "<div><img style='border:1px solid #e2dedf' src='http://<?=$_SERVER['HTTP_HOST'];?>/"+file_info.Cover+"'/></div>";
 
@@ -130,7 +132,7 @@ function showFileInfo(url_get,id)
             html += "<tr><td class='title'><?=$labels['fileshare']['uploader'];?></td><td>"+file_info.Surname+"&nbsp;"+file_info.Name+"&nbsp;"+file_info.Patronymic+"</td></tr>";
             html += "<tr><td style='padding:5px'colspan='2'><button class='button_download' onclick='document.location.href=\"http://<?=$_SERVER['HTTP_HOST'];?>/"+file_info.Filepath+"\"'><?=$labels['fileshare']['download'];?></button></td></tr>";
             html += "</table>"
-
+            html += "</div>";
             $('#simplemodal-container').css("background-color","#fdfafa");
             $('#basic-modal-content').html(html);
         }

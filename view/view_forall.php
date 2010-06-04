@@ -19,20 +19,22 @@
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/fileview.css" />
     <? endif;?>
     <? if($module[3]=='upload'):?><base href="http://<?=$_SERVER['HTTP_HOST'];?>/"></base><?endif;?>
-    <? if($module[3]=='edit'): ?>
+
+    <? if($module[4]=='edit' || $module[4]=='view'): ?>
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/css/flick/jquery-ui-1.8.custom.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/css/ui.jqgrid.css" />
     <? endif;?>
 <!-- -->
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/jquery.js"></script>
 
-    <? if($module[3]=='edit'): ?>
+    <? if($module[4]=='edit' || $module[4]=='view'): ?>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/i18n/grid.locale-<?=config::getDefaultLanguage();?>.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/my.jquery.jqGrid.min.js"></script>
-    <!-- 
-    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/jqDnR.js"></script>
-    -->
-    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/rating_edit.js"></script>
+    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/rating_<?=$module[4];?>.js"></script>
+    <? endif;?>
+
+    <? if($module[4]=='create'): ?>
+    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/jqgrid/js/rating_create.js"></script>
     <? endif;?>
     
     <? if(!user::isLoged()): ?>
@@ -41,6 +43,44 @@
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/login.css" />
     <? endif;?>
     
+<!-- new -->
+    <? if($module[2] == "profile"):?>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/profile_anketa.css" />
+    <?endif;?>
+
+    <? if($module[2]=="site_map"):?>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/sitemap.css" />
+    <?endif;?>
+
+    <? if($module[3] == 'calendar'):?>
+    <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/calendar.js"></script>
+    <? $now = getdate();?>  
+    <? if($now['mon'] > 2 && $now['mon'] < 6) :?>
+        <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/calendar_spring.css" />
+    <? endif;?>
+    <? if($now['mon'] > 8 && $now['mon'] < 11) :?>
+        <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/calendar_autumn.css" />
+    <? endif;?>
+    <? if($now['mon'] > 5 && $now['mon'] < 9) :?>
+        <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/calendar_summer.css" />
+    <? endif;?>
+    <? if($now['mon'] ==12  || $now['mon'] == 1 || $now['mon'] == 2) :?>
+        <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/calendar_winter.css" />
+    <? endif;?>
+
+        <?endif;?>
+
+
+    <? if($module[3] == "send_message"):?>
+        <script type='text/javascript' src='http://<?=$_SERVER['HTTP_HOST'];?>/static/js/basic.js'></script>
+        <script type='text/javascript' src='http://<?=$_SERVER['HTTP_HOST'];?>/static/js/jquery.simplemodal.js'></script>
+        <link type='text/css' href='http://<?=$_SERVER['HTTP_HOST'];?>/static/css/basic.css' rel='stylesheet' media='screen' />
+        <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/mail.js"></script>
+        <link rel="stylesheet" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/tablesort.css" type="text/css" media="screen" />
+        <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/static/css/mail.css" />
+    <? endif;?>
+<!-- new -->
+
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/setHeight.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/check_file.js"></script>
     <script type="text/javascript" src="http://<?=$_SERVER['HTTP_HOST'];?>/static/js/datepicker.js"></script>
@@ -54,11 +94,12 @@
 </head>
 
 <body>
+    
 <div id="wrapper">
     <div id="header">
         <div id="header_top">
             <div id="logo">
-                <a href="#"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/tower.png" alt="Сайт кафедры прикладной математики НТУУ-КПИ" /></a>
+                <a href="http://<?=$_SERVER['HTTP_HOST'];?>"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/tower.jpg" alt="Сайт кафедры прикладной математики НТУУ-КПИ" /></a>
             </div> <!-- #logo -->
 
             <div id="title">
@@ -68,8 +109,9 @@
             </div><!-- #title -->
 
             <div id="flags">
+                <? $langs_title=array("ua"=>"Українська","ru"=>"Русский","en"=>"English"); ?>
                 <? foreach ($View->languages as $key=>$langs): ?>
-                <a href="<?=$langs['url'];?>"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/lang/<?=$langs['lang'];?>.png" alt="<?=strtoupper($langs);?>" id="flag_<?=($key+1);?>" /></a>
+                <a href="<?=$langs['url'];?>"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/lang/<?=$langs['lang'];?>.png" alt="<?=$langs_title[$langs['lang']];?>" id="flag_<?=($key+1);?>" /></a>
                 <? endforeach; ?>
             </div>	<!-- #flags -->
 
@@ -79,17 +121,18 @@
 
         <div id="header_middle">
             <div id="left_menu">
-                <ul><? print $View->top_menu['left'];?></ul>
+                <!--<ul><? //print $View->top_menu['left'];?></ul>-->
+                <ul><? require_once("static/templates/top_menu/".$View->top_left_menu."/left_".config::getDefaultLanguage()."_".$View->top_left_menu.".php");?></ul>
             </div> <!-- #left_menu -->
 
-            <div id="header_img_1"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/image1.png" alt="НТУУ-КПИ" /> </div> <!-- #header_img_1 -->
-            <div id="header_img_2"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/hats/<?=$View->hat;?>.png" alt="НТУУ-КПИ" /></div> <!-- #header_img_2 -->
+            <div id="header_img_1"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/image1.jpg" alt="НТУУ-КПИ" /> </div> <!-- #header_img_1 -->
+            <div id="header_img_2"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/hats/<?=$View->hat;?>.jpg" alt="НТУУ-КПИ" /></div> <!-- #header_img_2 -->
         </div> <!-- #header_middle -->
 
         <div id="header_img_3"><img src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/header/kod.png" alt="НТУУ-КПИ" /></div> <!-- #header_img_3 -->
 
         <div id="right_menu">
-            <ul><? print $View->top_menu['right']; ?></ul>
+            <ul><? require_once("static/templates/top_menu/".$View->top_right_menu."/right_".config::getDefaultLanguage()."_".$View->top_right_menu.".php");?></ul>
         </div>	<!-- #right_menu -->
 
         <div id="pic_1"></div>
@@ -143,11 +186,7 @@
 
         <div id="container">
                 <div id="content">
-                    <?
-                    require_once("view/".$View->module."/view_".$View->module.".php");
-
-                    if($module[2]=='profile' && $module[3]=='rating') echo("PROFILE &amp;&amp; RATING");
-                    ?>
+                    <? require_once("view/".$View->module."/view_".$View->module.".php");?>
                 </div><!-- #content-->
         </div>
 

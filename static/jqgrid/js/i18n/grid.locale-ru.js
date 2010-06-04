@@ -1,7 +1,7 @@
 (function (a) {
 	a.jgrid = {
 		defaults: {
-			recordtext: "Просмотр {0} - {1} из {2}",
+			recordtext: "Просмотр {0}–{1} из {2}",
 			emptyrecords: "Нет записей для просмотра",
 			loadtext: "Загрузка...",
 			pgtext: "Стр. {0} из {1}"
@@ -135,22 +135,24 @@
 			},
 			idName: "id"
 		},
-//		my_html: {
-//			top_label: "Выберите таблицу",
-//			editb: "Редактировать колонки",
-//			add_label: "Добавить колонку",
-//			del_label: "Удалить колонку",
-//			addb: "доб.",
-//			delb: "удал.",
-//			rest: "Сброс",
-//			savetable: "Сохранить"
-//		},
-		view_rating_edit: {
+		view_rating: {
+		      /* edit */
+		      editb: "Редактировать колонки",
 			editcaption: "Изменение",
 			title: "Титл",
 			mark: "Балл",
 			et: "Новое назв.:",
-			title_0: "ФИО"
+			title_0: "ФИО",
+			footer_0: "Макс. балл",
+			pager_save: "Сохранить все",
+			pager_saved: "Таблица успешно сохранена!",
+			pager_editing: "Сначала окончите редактирование!",
+			pager_delete: "Удалить",
+			pager_delete_confirm: "Удалить таблицу?\n\n!!! Это необратимое действие !!!",
+			pager_dropped: "Таблица успешно удалена!",
+			/* view */
+			all: "&lt;Все&gt;",
+			ratio: "Рейтинг"
 		}
 	}
 })(jQuery);

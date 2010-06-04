@@ -1,31 +1,22 @@
 <? if (!defined("entrypoint"))die;?>
+
 <div id="profile">
 
-    <!-- - - - - - - - - - - - - -->
-    <!-- remember to sync el_id  -->
-    <!-- - - - - - - - - - - - - -->
+    <div style="clear: left; font-family: Verdana; font-size: 18px; text-align: center;" id="info"></div>
 
     <div class="top_container">
         <div class="top_container_label"><?=$labels['rating']['top_label'];?></div>
         <select name="tablename" id="table_select">
             <option>...</option>
-            <option>OS : KM-71</option>
-            <option>OS : KM-72</option>
-            <option>OS : KM-73</option>
         </select>
         <div id="ajax_loader"><img alt="loading..." src="http://<?=$_SERVER['HTTP_HOST'];?>/static/img/basic/ajax_loader_Tedit.gif"/></div>
     </div>
 
     <table id="desttable"></table>
-    <!--<div id="pager"></div>-->
+    <div id="pager"></div>
     <div style="display:none;"><table id="et"></table></div>
 
-    <div>
-        <input type="button" id="editb" value="<?=$labels['rating']['editb'];?>"/>
-        <input type="button" id="savetb" value="SAVE TABLE"/>
-        <input type="button" id="droptb" value="DROP TABLE"/>
-    </div>
-    <!-- -->
+<!-- -->
     <div id="editbar">
         <div>
             <div class="editbar_label"><?=$labels['rating']['add_label'];?></div>
@@ -52,6 +43,6 @@
             <input id="savetable" type="button" value="<?=$labels['rating']['savetable'];?>" />
         </div>
     </div>
-    <!-- -->
+<!-- -->
 
 </div>

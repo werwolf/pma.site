@@ -1,0 +1,65 @@
+#content{
+    background-image:url(../img/calendar_autumn.png);
+    background-repeat:no-repeat;
+    background-position: 0% 100%;
+}
+#calendar{
+    margin-left:3px;
+    padding-top:10px;
+    padding-left:30px;
+    width:616px;
+    padding-bottom:50px;
+}
+#calendar table{
+    background-color:#FDFAFA;
+    width:616px;
+    border:1px solid #977857;
+    border-collapse:collapse;
+}
+#calendar th{
+    background-color:#d4c484;
+    color:#fff;
+    width:88px;
+}
+#calendar td{
+    border:1px solid #977857;
+    height:80px;
+}
+#calendar .header_calendar{
+    text-align:center;
+    height:30px;
+    margin-left:200px;
+}
+#calendar .header_calendar span{
+    color:#b38b45;
+    font-size:22px;
+    float:left;
+    padding:0 20px 0 20px;
+}
+#calendar a.prev_month{
+    background-image:url(../img/prev_autumn.png);
+    width:28px;
+    height:21px;
+    display:block;
+    float:left;
+    position:relative;
+    top:2px;
+}
+#calendar a.next_month{
+    background-image:url(../img/next_autumn.png);
+    width:28px;
+    height:21px;
+    display:block;
+    float:left;
+    position:relative;
+    top:2px;
+}
+#calendar .date{
+    text-align:left;
+    padding-left:3px;
+    color:#b38b45;
+    font-weight:bold;
+}
+#calendar .freeday{
+    background-color:#f5f9c2;
+}

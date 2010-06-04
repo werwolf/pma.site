@@ -9,7 +9,13 @@ class static_pages
     {
         self::$db = $db;
     }
-
+    public static function unhtmlentities ($str)
+    {
+        $trans_tbl = get_html_translation_table (HTML_ENTITIES);
+        $trans_tbl = array_flip ($trans_tbl);
+        $trans_tbl["\\r\\n"] = "";
+        return strtr ($str, $trans_tbl);
+    }
     public static function getPagesTree($array,$current,$return,$pos)
     {
         if($pos>=count($array))return;
@@ -73,15 +79,48 @@ class static_pages
          $page_data['title_ru'] = htmlspecialchars(Root::POSTString("title_ru"));
          $page_data['title_ua'] = htmlspecialchars(Root::POSTString("title_ua"));
          $page_data['title_en'] = htmlspecialchars(Root::POSTString("title_en"));
-         
-         $page_data['text_ru'] = htmlspecialchars(Root::POSTString("text_ru"));
-         $page_data['text_ua'] = htmlspecialchars(Root::POSTString("text_ua"));
-         $page_data['text_en'] = htmlspecialchars(Root::POSTString("text_en"));
 
+         $page_data['text_ru'] = htmlspecialchars(Root::POSTString("text_ru"),ENT_QUOTES);
+         $page_data['text_ua'] = htmlspecialchars(Root::POSTString("text_ua"),ENT_QUOTES);
+         $page_data['text_en'] = htmlspecialchars(Root::POSTString("text_en"),ENT_QUOTES);
          $page_data['active'] = htmlspecialchars(Root::POSTString("is_show"));
          $page_data['position'] = htmlspecialchars(Root::POSTString("position"));
 
          return $page_data;
     }
+
+    public static function deleteCache($id)
+    {
+        $langs = config::getAvailableLanguages();
+
+        for($i = 0;$i<count($langs);$i++)
+        {
+            unlink("static/templates/left_menu/".md5("left_menu".self::getParent($id).$langs[$i]));
+            unlink("static/templates/maps/map_".$langs[$i]);
+        }
+    }
+
+    public static function getParent($id)
+    {
+        $index = 1;$parents[0] = $id;
+
+        while(true)
+        {
+            $sql = "select `id_parent` from `obj_staticpages` where `id` = ".$id;
+
+            self::$db->query($sql);
+
+            $res = self::$db->assoc();
+            $parents[$index] = $res['id_parent'];
+            $id = $parents[$index];
+
+            if($parents[$index]==0)break;
+            $index++;
+        }
+        $parents = array_reverse($parents);
+
+        return $parents[1];
+    }
+  
 }
 ?>

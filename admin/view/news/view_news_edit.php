@@ -3,6 +3,7 @@
 
 <br/>
 <form action="http://<?=$_SERVER['HTTP_HOST'];?>/admin/news/<?=$module[3];?>" method="post" id="form_static">
+    <input type="hidden" value="<?=$user->getUserSecret()?>" name="secret"/>
 <? if($module[3] == 'add'): ?>
     <input type="hidden" value="new" name="add_new"/>
 <?endif;?>

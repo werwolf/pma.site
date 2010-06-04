@@ -9,5 +9,11 @@ switch($module[2])
     break;
     case 'comments':require_once("admin/controllers/comments/controller_comments.php");
     break;
+    case 'users':require_once("admin/controllers/users/controller_users.php");
+    break;
+    case 'groups':require_once("admin/controllers/groups/controller_groups.php");
+    break;
+    case 'subjects':require_once("admin/controllers/subjects/controller_subjects.php");
+    break;
 }
 ?>

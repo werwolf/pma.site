@@ -16,19 +16,26 @@ switch($module[3])
                 if(Root::POSTExists("ID"))
                 {                    
                     $page_data = static_pages::getParamsAddEdit();
-
-                    if(strlen($page_data['title_ru']) == 0 || strlen($page_data['title_ua']) == 0 || strlen($page_data['title_en']) == 0)
-                        $error = true;
-                   
-                    if((int)$page_data['position'] == 0 && $page_data['position'] != '0')
-                        $error = true;
-
-                    if(!$error)
+                    
+                    try
                     {
-                        $sql = "update `obj_staticpages` set `title_ru` = '".$page_data['title_ru']."',`title_en` = '".$page_data['title_en']."',`title_ua` = '".$page_data['title_ua']."',".
-                           "`text_ua` = '".$page_data['text_ua']."',`text_en` = '".$page_data['text_en']."',`text_ru`='".$page_data['text_ru']."',`active` = '".$page_data['active']."',`position` = ".$page_data['position'].
+                        if(strlen($page_data['title_ru']) == 0 || strlen($page_data['title_ua']) == 0 || strlen($page_data['title_en']) == 0)
+                                throw new Exception();
+
+                        if((int)$page_data['position'] == 0 && $page_data['position'] != '0')
+                                throw new Exception();
+                    
+                        $sql = "update `obj_staticpages` set `title_ru` = '".$db->escape($page_data['title_ru'])."',`title_en` = '".$db->escape($page_data['title_en'])."',`title_ua` = '".$db->escape($page_data['title_ua'])."',".
+                           "`text_ua` = '".$db->escape($page_data['text_ua'])."',`text_en` = '".$db->escape($page_data['text_en'])."',`text_ru`='".$db->escape($page_data['text_ru'])."',`active` = '".$page_data['active']."',`position` = ".$page_data['position'].
                            " where `id` = ".Root::POSTInt("ID");
+
                         $db->query($sql);
+                        static_pages::deleteCache(Root::POSTInt("ID"));
+
+                    }
+                    catch(Exception $e)
+                    {
+                        $error = true;
                     }
                 }
 
@@ -53,33 +60,37 @@ switch($module[3])
     case 'add':$error = false;
                if(Root::POSTExists("ID"))
                {
-                    $page_data = static_pages::getParamsAddEdit();
+                   $page_data = static_pages::getParamsAddEdit();
+                   
+                   try
+                   {
+                        if(strlen($page_data['title_ru']) == 0 || strlen($page_data['title_ua']) == 0 || strlen($page_data['title_en']) == 0)
+                                throw new Exception();
 
-                    if(strlen($page_data['title_ru']) == 0 || strlen($page_data['title_ua']) == 0 || strlen($page_data['title_en']) == 0)
-                        $error = true;
+                        if((int)$page_data['position'] == 0 && $page_data['position'] != '0')
+                                throw new Exception();
+                        
+                        $sql = "select `hat`,`menu` from `obj_staticpages` where `id` = ".Root::POSTInt("ID");
+                        $db->query($sql);$res = $db->assoc();
 
-                    if((int)$page_data['position'] == 0 && $page_data['position'] != '0')
-                        $error = true;
-
-                    if(!$error)
-                    {
                         $sql = "insert into `obj_staticpages` (`title_ru`,`title_ua`,`title_en`,`text_ru`,`text_ua`,`text_en`,`position`,".
-                               "`active`,`id_parent`) values ('".$page_data['title_ru']."','".$page_data['title_ua']."','".$page_data['title_en']."',".
+                               "`active`,`id_parent`,`hat`,`menu`) values ('".$page_data['title_ru']."','".$page_data['title_ua']."','".$page_data['title_en']."',".
                                "'".$page_data['title_ru']."','".$page_data['title_ua']."','".$page_data['title_en']."',".$page_data['position'].",".
-                               "'".$page_data['active']."',".Root::POSTInt("ID").")";
-                               print $sql;
+                               "'".$page_data['active']."',".Root::POSTInt("ID").",'".$res['hat']."','".$res['menu']."')";
+                               
                         $db->query($sql);
 
                         $db->query("select `id` from `obj_staticpages` order by `id` desc limit 0,1");
                         $result = $db->assoc();
-                    
+
+                        static_pages::deleteCache(Root::POSTInt("ID"));
                         Root::Redirect("http://".$_SERVER['HTTP_HOST']."/admin/static_pages/edit/".$result['id']);
-                    }
-                    else
-                    {
+                   }
+                   catch(Exception $e)
+                   {
                         $View->error = true;
                         $View->page_info = $page_data;
-                    }
+                   }
                }
                require_once("admin/static/languages/languages.php");
                $View->sub_module = "edit_page";
@@ -87,6 +98,7 @@ switch($module[3])
     break;
     case 'delete':$page = (int)$module[4];
                   $db->query("delete from `obj_staticpages` where `id` = ".$page." or `id_parent` = ".$page);
+                  static_pages::deleteCache($page);
                   Root::Redirect("http://".$_SERVER['HTTP_HOST']."/admin/static_pages");
     break;
 }

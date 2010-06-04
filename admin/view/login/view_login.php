@@ -12,7 +12,10 @@
     <link rel="stylesheet" type="text/css" media="screen" href="http://<?=$_SERVER['HTTP_HOST'];?>/admin/static/css/login.css" />
 </head>
     <body>
-        <div id="login_label"><a id="login_a" class="login">Вход</a></div>
+        <div id="login_label" style="text-align:center;margin:0;padding:0">
+            <h1>PMA Admin Panel</h1>
+            <a id="login_a" class="login">Вход</a>
+        </div>
         <div id="modal_dialog" style="display:none; cursor: default" class="dialog">
             <div class="dialog_title_bar">
                 <div class="dialog_caption">Вход в админ панель</div>
@@ -22,18 +25,18 @@
             <div class="dialog_pane">
                 <div style="margin-top: 10px;">
                     <form action="http://<?=$_SERVER['HTTP_HOST'];?>/<?=config::getDefaultLanguage();?>/login" method="post">
-                        <div class="text_label">
-                            <div class="dialog_login_label">Логин</div>
+                        <div class="text_lable">
+                            <div class="dialog_login_lable">Логин</div>
                             <input type="text" name="login" size="20" maxlength="200" value="" id="login"/>
                             <input type="hidden" name="admin" value="admin"/>
                         </div>
 
-                        <div class="text_label">
-                            <div class="dialog_login_label">Пароль</div>
+                        <div class="text_lable">
+                            <div class="dialog_login_lable">Пароль</div>
                             <input type="password" name="password" size="20" maxlength="200" value="" id="password"/>
                         </div>
 
-                        <div class="text_label">
+                        <div class="text_lable">
                             <input type="submit" id="yes" value="Вход" class="dialog_button"/>
                         </div>
                     </form>

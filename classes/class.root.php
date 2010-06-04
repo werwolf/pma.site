@@ -28,7 +28,7 @@ class Root{
 	
 	public static function POSTString( $key ){
 		if ( !isset( self::$POST[$key] ) ) return '';
-		return strip_tags( trim(self::$POST[$key]) );
+		return trim(self::$POST[$key]);
 	}
 	
 	public static function POSTHTML( $key ){

@@ -1,5 +1,5 @@
 <?php
-class user
+class user extends B
 {
     protected  $db;
     protected  $user_info;
@@ -7,6 +7,7 @@ class user
     protected  $isAdmin = false;
     protected  static $is_login = false;
     protected  static $secret = "bdbdes1./";
+    protected  $lang = "ua";
     
     public function  __construct($db,$id)
     {
@@ -14,6 +15,10 @@ class user
         $this->id = $id;
     }
 
+    public function setLanguage($lang)
+    {
+        $this->lang = $lang;
+    }
     public function getUserInformation()
     {        
     }
@@ -31,6 +36,11 @@ class user
         self::$is_login = true;
 
         return $res;
+    }
+    public function setNewPass($pass)
+    {
+        $sql = "update `Users` set `Password` = '".md5($pass)."' where `ID` = ".$this->getUserId();
+        $this->db->query($sql);
     }
     public function isAdminCheck()
     {
@@ -65,6 +75,14 @@ class user
 
         return true;
     }
+    public function getDateToDB($date)
+    {
+        $return .= substr($date,6,4)."-";
+        $return .= substr($date,3,2)."-";
+        $return .= substr($date,0,2);
+
+        return $return;
+    }
     public function getDate($date_db)
     {
         $date = substr($date_db,0,10);
@@ -91,6 +109,18 @@ class user
         $this->db->query($sql);
         session_destroy();
     }
+    public function updateUserInformation()
+    {     
+        $sex = $this->db->escape(Root::POSTString("sex"));
+        $birthday = $this->db->escape($this->getDateToDB(Root::POSTSTring("birthday")));
+        $email = $this->db->escape(trim(Root::POSTString("email")));
+        $phone = $this->db->escape(trim(Root::POSTString("phone")));
+
+        $sql = "update `Users` set `Sex` = '$sex',`Birthday` = '$birthday',".
+               "`Email` = '$email' ,`Phone` = '$phone' where `ID` = ".$this->getUserId();
+
+        $this->db->query($sql);
+    }
     public function getUserName()
     {
         return $this->user_info['Name'];
@@ -99,7 +129,7 @@ class user
     {
         return $this->user_info['Surname'];
     }
-    public function getUserPatronymic()
+        public function getUserPatronymic()
     {
         return $this->user_info['Patronymic'];
     }
@@ -147,6 +177,11 @@ class user
     {
         return $this->isAdmin;
     }
+    public function setUserPhoto($photo)
+    {
+        $sql = "update `Users` set `Photo` = '$photo' where `ID` = ".$this->getUserId();        
+        $this->db->query($sql);
+    }
 }
 
 class Professor extends user
@@ -154,36 +189,84 @@ class Professor extends user
     private $subjects;
     public function getUserInformation()
     {
-        $sql = "select `Users`.*,`Professors`.* from `Users`,`Professors`".
+        $sql = "select `Users`.*,`Professors`.*,`Professors`.`ID` as `Prof_ID` from `Users`,`Professors`".
                " where `Users`.`ID` = $this->id and `Professors`.`User_ID` = $this->id";
-
+               
         $this->db->query($sql);
         $this->user_info = $this->db->assoc();
 
         $subject = $this->getProfessorSubjectsIds();
-
-        $sql = "select `Title` from `Subjects` where ";
-        for($i=0;$i<count($subject);$i++)
+        
+        if(!$subject)
+            $this->subjects = "";
+        else
         {
-            if($i<count($subject)-1)
-                $sql.="`ID` = ".$subject[$i]." or ";
-            else
-                $sql.="`ID` = ".$subject[$i];
+            $sql = "select `Title_".config::getDefaultLanguage()."` as `Title` from `Subjects` where ";
+     
+            for($i=0;$i<count($subject);$i++)
+            {
+                if($i<count($subject)-1)
+                    $sql.="`ID` = ".$subject[$i]." or ";
+                else
+                    $sql.="`ID` = ".$subject[$i];
+            }
+            $this->db->query($sql);
+            $this->subjects = $this->db->assocAll();
         }
-        $this->db->query($sql);
-        $this->subjects = $this->db->assocAll();        
+        
     }
 
     public function getProfessorSubjectsIds()
     {
-        return explode("||",$this->user_info['Subjects']);
+        if(strlen($this->user_info['Subjects']) > 0)
+            return explode("||",$this->user_info['Subjects']);
+        else
+            return false;
     }
-
+    public function getUserUniversity()
+    {
+        return $this->user_info['University'];
+    }
+    public function getUserYearFinish()
+    {
+        return $this->user_info['Year_finish'];
+    }
+    public function getUserStepen()
+    {
+        return $this->user_info['stepen'];
+    }
+    public function getUserConsultacii()
+    {
+        return $this->user_info['consultacii'];
+    }
+    public function getUserScienseInterest()
+    {
+        return $this->user_info['sciense_interest'];
+    }
+    public function getUserFamily()
+    {
+        return $this->user_info['family'];
+    }
+    public function getUserWork()
+    {
+        return $this->user_info['work'];
+    }
+    public function getUserHoby()
+    {
+        return $this->user_info['hoby'];
+    }
+    public function getUserAnimal()
+    {
+        return $this->user_info['animal'];
+    }
     public function getProfessorSubjects()
     {
         return $this->subjects;
     }
-    
+    public function getProfessorID()
+    {
+        return $this->user_info['Prof_ID'];
+    }
     public function IsLector()
     {
         if($this->user_info['Lector'] == 0)
@@ -191,14 +274,35 @@ class Professor extends user
         else
                 return true;
     }
+    public function updateUserInformation()
+    {
+        parent::updateUserInformation();
+        
+        $university = Root::POSTString("university");
+        $yearfinish = Root::POSTString("yearfinish");
+        $stepen = Root::POSTString("stepen");
+        $consultacii = Root::POSTString("consultacii");
+        $interests = Root::POSTString("interests");
+        $family = Root::POSTString("family");
+        $work = Root::POSTString("work");
+        $hoby = Root::POSTString("hoby");
+        $animal = Root::POSTString("animal");
+
+        $sql = "update `Professors` set `University` = '$university',".
+               "`Year_finish` = '$yearfinish',`stepen` = '$stepen',`consultacii`='$consultacii',".
+               "`sciense_interest` = '$interests',`family` = '$family',`work` = '$work',".
+               "`hoby` = '$hoby',`animal` = '$animal' where `ID` = ".$this->getProfessorID();
+
+        $this->db->query($sql);
+    }
 }
 class Student extends user
 {
     public function getUserInformation()
     {
         $sql = "select `Students`.`ID` as `Stud_ID`,`Students`.`Rank`,`Groups`.`Title`,`Groups`.`Course`,`Groups`.`Sheduler_Path`,`Groups`.`Extranumeral`,".
-               "`Groups`.`ID` as `GroupID`,`Users`.* from `Users`,`Students`,`Groups` where `Users`.`ID` = $this->id and `Students`.`User_ID` = `Users`.`ID` and".
-               " `Groups`.`ID` = `Students`.`Group_ID`";
+               "`Groups`.`ID` as `GroupeID`,`Users`.* from `Users`,`Students`,`Groups` where `Users`.`ID` = $this->id and `Students`.`User_ID` = `Users`.`ID` and".
+               " `Groups`.`ID` = `Students`.`Groupe_ID`";
              
         $this->db->query($sql);
         $this->user_info = $this->db->assoc();
@@ -208,7 +312,10 @@ class Student extends user
     {
         return $this->user_info['Rank'];
     }
-
+    public function getUserPhone()
+    {
+        return $this->user_info['Phone'];
+    }
     public function getUserGroupName()
     {
         return $this->user_info['Title'];
@@ -229,7 +336,18 @@ class Student extends user
 
     public function getUserGroupId()
     {
-        return $this->user_info['GroupID'];
+        return $this->user_info['GroupeID'];
+    }
+
+    public function updateUserInformation()
+    {
+        parent::updateUserInformation();
+    }
+}
+class B{
+    public function __construct($b=null,$c=null)
+    {
+            
     }
 }
 ?>

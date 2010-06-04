@@ -13,6 +13,7 @@ function check_file()
 
 function checkCover(url_check)
 {
+    $("#temp_cover").val($("#cover").val());
     $.ajax({
         type:"POST",
         url:url_check,
@@ -29,12 +30,13 @@ function checkCover(url_check)
             {
                 $("#cover_accept").html("<img src='static/img/close.png' style='width:20px;height:20px;border:0'/>");
                 cover = false;
-            }
+            }            
         }
     });
 }
 function checkFile(url_check)
 {
+    $("#temp_file").val($("#file").val());
     $.ajax({
         type:"POST",
         url:url_check,
@@ -51,7 +53,7 @@ function checkFile(url_check)
             {
                 $("#file_success").html("<img src='static/img/close.png' style='width:20px;height:20px;border:0'/>");
                 file=false;
-            }
+            }            
         }
     });
 }

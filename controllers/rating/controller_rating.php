@@ -12,7 +12,7 @@ $View->left_menu = "profile";
 $View->hat = "main";
 $View->module = "rating";
 
-switch($module[3])
+switch($module[4])
 {
     case 'create':
             $View->title = $labels['rating']['bc_title']." - ".$labels['common']['bc_title'];

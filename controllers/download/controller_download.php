@@ -1,6 +1,7 @@
 <?php
 if (!defined("entrypoint"))die;
 require_once("classes/news/class.news.php");
+
                     $View->title = $labels['profile']['bc_title']." ".$labels['profile']['upgrade']." - ".$labels['common']['bc_title'];
                     $View->sub_module = 'download';
 
@@ -77,6 +78,7 @@ require_once("classes/news/class.news.php");
 
 
                     require_once("classes/files/class.files.php");
+
                     files::initDB($db);
                     $FILES = files::getFilesPage($page,FILES_PER_PAGE, $params);
                     
@@ -93,7 +95,7 @@ require_once("classes/news/class.news.php");
                         $FILES[$i]['Size'] = round($size,1)." ".$file_sizes[$size_ind];
                     }
                     $View->files = $FILES;
-
+                    
                     $View->subjects = files::getSubjects();
                     $file_count = files::getFilesCount($params_for_count);
                     $View->paging = news::makePaging(FILES_PER_PAGE, $file_count, "http://".$_SERVER['HTTP_HOST']."/".config::getDefaultLanguage()."/profile/download/", $par_5.$par_6, $page);                    

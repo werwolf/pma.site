@@ -15,7 +15,7 @@ class pages
     public static function getStaticPage($page)
     {
          $sql = "select `title_".self::$lang."` as `title`,".
-                "`text_".self::$lang."` as `text`,`hat` from `obj_staticpages`";
+                "`text_".self::$lang."` as `text`,`hat`,`menu` from `obj_staticpages`";
 
          if($page > 0)
                $sql .= " where `id` = $page and `active` = 'y'";
@@ -28,6 +28,13 @@ class pages
                  return -1;
          else
                  return self::$db->assoc();
+    }
+    public static function unhtmlentities ($str)
+    {
+        $trans_tbl = get_html_translation_table (HTML_ENTITIES);
+        $trans_tbl = array_flip ($trans_tbl);
+        $trans_tbl["\\r\\n"] = "";
+        return strtr ($str, $trans_tbl);
     }
     public static function getMainMenu()
     {
@@ -133,7 +140,7 @@ class pages
     }
     public static function getAllPages()
     {
-        self::$db->query("select `title_".self::$lang."` as `title`,`id`,`id_parent`,`module` from `obj_staticpages`
+        self::$db->query("select `title_".self::$lang."` as `title`,`title_en` as `menu`,`id`,`id_parent`,`module` from `obj_staticpages`
                                               order by `id_parent`,`position`");
         $index = 0;
         while($row = self::$db->assoc())
@@ -183,7 +190,7 @@ class pages
                 if($array[$i]['module']!="")
                     $return .= "<li><a href='/".self::$lang."/".$array[$i]['module']."/'>".$array[$i]['title']."</a>";
                 else
-                    $return.="<li><a href='/".self::$lang."/page/".$array[$i]['id']."/".urlencode($array[$i]['title']).".html'>".$array[$i]['title']."</a>";
+                    $return.="<li><a href='/".self::$lang."/page/".$array[$i]['id']."/".str_replace(" ","_",$array[$i]['menu']).".html'>".$array[$i]['title']."</a>";
                         
                 if($flag == 0)
                 {

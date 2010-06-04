@@ -23,4 +23,7 @@ if(Root::POSTExists("login") && Root::POSTExists("password"))
     $View->error = "error";
 }
 require_once("controllers/news/controller_last_news.php");
+$View->top_left_menu = 1;
+$View->top_right_menu = 1;
+
 ?>
